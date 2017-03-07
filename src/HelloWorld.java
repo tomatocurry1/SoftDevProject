@@ -43,12 +43,14 @@ public class HelloWorld {
 		// Configure GLFW
 		glfwDefaultWindowHints(); // optional, the current window hints are already the default
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
 
 		// Create the window
 		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
 		if ( window == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
+		
+		
 
 		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
@@ -56,7 +58,6 @@ public class HelloWorld {
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
 		});
 		
-		System.out.println("yo");
 
 		// Get the thread stack and push a new frame
 		try ( MemoryStack stack = stackPush() ) {
@@ -96,6 +97,7 @@ public class HelloWorld {
 
 		// Set the clear color
 		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, 800, 0, 600, 1, -1);
@@ -117,6 +119,13 @@ public class HelloWorld {
 			GL11.glVertex2f(100+200,100);
 			GL11.glVertex2f(100+200,100+200);
 			GL11.glVertex2f(100,100+200);
+		    GL11.glEnd();
+		    
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(300,300);
+			GL11.glVertex2f(300+200,300);
+			GL11.glVertex2f(300+200,300+200);
+			GL11.glVertex2f(300,300+200);
 		    GL11.glEnd();
 	 
 			
