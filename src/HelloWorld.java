@@ -63,7 +63,9 @@ public class HelloWorld {
 		    public void invoke(long wind, int button, int action, int mods) {
 		    	double posX = getCursorPosX(window);
 		    	double posY = getCursorPosY(window);
-		    	if (posX > 75 && posX < 225 && posY > 75 && posY < 225) {
+		    	System.out.println("clicked: " + posX + ", "+ posY);
+		    	if (posX < 300 && posX > 100 && posY > 420 && posY < 620) {
+		    		
 		    		if (button == GLFW_MOUSE_BUTTON_1)
 		    			glfwSetWindowShouldClose(window, true);
 		    	}
@@ -112,7 +114,7 @@ public class HelloWorld {
 		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 800, 0, 600, 1, -1);
+		GL11.glOrtho(0, 1270, 0, 720, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
 		// Run the rendering loop until the user has attempted to close
