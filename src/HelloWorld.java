@@ -15,6 +15,8 @@ public class HelloWorld {
 
 	// The window handle
 	private long window;
+	
+	GLFWMouseButtonCallback mouseCallback;
 
 	public void run() {
 		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -57,6 +59,18 @@ public class HelloWorld {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
 		});
+		
+		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
+		    @Override
+		    public void invoke(long wind, int button, int action, int mods) {
+		    	double posX = getCursorPosX(window);
+		    	double posY = getCursorPosY(window);
+		    	if (posX > 75 && posX < 225 && posY > 75 && posY < 225) {
+		    		if (button == GLFW_MOUSE_BUTTON_1)
+		    			glfwSetWindowShouldClose(window, true);
+		    	}
+		    }
+		}); 
 		
 
 		// Get the thread stack and push a new frame
@@ -136,6 +150,18 @@ public class HelloWorld {
 			// invoked during this call.
 			glfwPollEvents();
 		}
+	}
+	
+	private static double getCursorPosX(long windowID) {
+		DoubleBuffer posX = BufferUtils.createDoubleBuffer(1);
+	    glfwGetCursorPos(windowID, posX, null);
+	    return posX.get(0);
+	}
+	
+	private static double getCursorPosY(long windowID) {
+		DoubleBuffer posY = BufferUtils.createDoubleBuffer(1);
+	    glfwGetCursorPos(windowID, null, posY);
+	    return posY.get(0);
 	}
 
 	public static void main(String[] args) {
