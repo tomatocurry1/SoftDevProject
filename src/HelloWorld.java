@@ -46,7 +46,7 @@ public class HelloWorld {
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
 		// Create the window
-		window = glfwCreateWindow(300, 300, "Hello World!", NULL, NULL);
+		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
 		if ( window == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
 
@@ -55,6 +55,8 @@ public class HelloWorld {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
 		});
+		
+		System.out.println("yo");
 
 		// Get the thread stack and push a new frame
 		try ( MemoryStack stack = stackPush() ) {
@@ -93,13 +95,32 @@ public class HelloWorld {
 		GL.createCapabilities();
 
 		// Set the clear color
-		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, 800, 0, 600, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
 		// Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
 		while ( !glfwWindowShouldClose(window) ) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-
+			
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);	
+			 
+		    // set the color of the quad (R,G,B,A)
+		    GL11.glColor3f(0.5f,0.5f,1.0f);
+	 
+		    // draw quad
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(100,100);
+			GL11.glVertex2f(100+200,100);
+			GL11.glVertex2f(100+200,100+200);
+			GL11.glVertex2f(100,100+200);
+		    GL11.glEnd();
+	 
+			
+			
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be
