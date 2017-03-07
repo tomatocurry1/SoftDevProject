@@ -6,24 +6,29 @@
 	Unit unit;
 	City building;
 	
-	Resource getResource() {
+	public Tile (Terrain t, Resource r) {  // resource can be either a traditional resource or a building
+		this.setTerrain(t);
+		this.setResource(r);
+	}
+	
+	public Resource getResource() {
 		return resource;
 	}
 	
 	
-	Terrain getTerrain() {
+	public Terrain getTerrain() {
 		return  terrain;
 	}
 	
-	Unit getUnit() {
+	public Unit getUnit() {
 		return unit;
 	}
 	
-	void setUnit(Unit u) {
+	public void setUnit(Unit u) {
 		unit = u;
 	}
 	
-	void setTerrain(Terrain t) {
+	public void setTerrain(Terrain t) {
 		terrain = t;
 	}
 }
