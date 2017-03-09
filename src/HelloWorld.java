@@ -45,7 +45,7 @@ public class HelloWorld {
 		// Configure GLFW
 		glfwDefaultWindowHints(); // optional, the current window hints are already the default
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // the window will be resizable
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
 		// Create the window
 		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
@@ -144,7 +144,32 @@ public class HelloWorld {
 			GL11.glVertex2f(300,300+200);
 		    GL11.glEnd();
 	 
-			
+
+		    
+		    
+		    GL11.glColor3f(0.1f,0.5f,1.0f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(952,0);
+			GL11.glVertex2f(1280,0);
+			GL11.glVertex2f(1280,720);
+			GL11.glVertex2f(952,720);
+		    GL11.glEnd();
+		    
+		    GL11.glColor3f(0.0f,0.5f,0.7f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(0,720-40);
+			GL11.glVertex2f(1280,720-40);
+			GL11.glVertex2f(1280,720);
+			GL11.glVertex2f(0,720);
+		    GL11.glEnd();
+		    
+		    GL11.glColor3f(0.8f,0.0f,0.5f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(0,0);
+			GL11.glVertex2f(68*14,0);
+			GL11.glVertex2f(68*14,720-40);
+			GL11.glVertex2f(0,720-40);
+		    GL11.glEnd();
 			
 			glfwSwapBuffers(window); // swap the color buffers
 
