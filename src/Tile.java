@@ -15,6 +15,10 @@
 		return resource;
 	}
 	
+	public void setResource(Resource r) {
+		resource = r;
+	}
+	
 	
 	public Terrain getTerrain() {
 		return  terrain;
