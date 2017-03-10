@@ -77,27 +77,19 @@ public class HelloWorld {
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
 		    @Override
 		    public void invoke(long wind, int button, int action, int mods) {
-		    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
-			    	posX = getCursorPosX(window);
-			    	posY = getCursorPosY(window);
-			    	xCord = HelloWorld.getXCord(posX);
-		    		yCord = HelloWorld.getYCord(posY);
-			    	if (posY > 40 && posX < 952) {
+		    	posX = getCursorPosX(window);
+		    	posY = getCursorPosY(window);
+		    	xCord = HelloWorld.getXCord(posX);
+	    		yCord = HelloWorld.getYCord(posY);
+		    	if (posY > 40 && posX < 952) {
+			    	
+			    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
 				    	//System.out.println("clicked: " + posX + ", "+ posY);
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
 
 				    	lastTile = justClickedTile;
 				    	justClickedTile = GameInterface.grid[xCord][yCord];
 				    	
-				    	if (justClickedTile.getUnit() == null)
-				    		System.out.println("No unit");
-				    	else
-				    		System.out.println("Yes unit");
-				    	if (justClickedTile.getBuilding() == null)
-				    		System.out.println("No Building");
-				    	else
-				    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
-				    	System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		lastTile = null;
@@ -105,7 +97,19 @@ public class HelloWorld {
 				    	}
 			    	}
 			 
-			    }
+		    	else if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_2) {
+		    		//System.out.println("You just right clicked");
+		    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
+		    		if (justClickedTile.getUnit() == null)
+			    		System.out.println("No unit");
+			    	else
+			    		System.out.println("Yes unit");
+			    	if (justClickedTile.getBuilding() == null)
+			    		System.out.println("No Building");
+			    	else
+			    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
+		    	}
+		    	}
 		    }
 		}); 
 		
@@ -264,10 +268,10 @@ public class HelloWorld {
 		    }
 
 		    if (justClickedTile != null) {
-		    	GL11.glColor3f(1.0f, 0.0f, 0.0f);
 		    	
+		    	GL11.glColor3f(1.0f, 0.0f, 0.0f);
 		    	GL11.glBegin(GL11.GL_LINES);
-		    	GL11.glLineWidth((float)9);
+		    	GL11.glLineWidth((float)2);
 		    	GL11.glVertex2f(68*xCord, 68*yCord);
 		    	GL11.glVertex2f(68*xCord + 68, 68*yCord);
 		    	GL11.glVertex2f(68*xCord, 68*yCord + 68);
