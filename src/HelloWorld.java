@@ -86,12 +86,19 @@ public class HelloWorld {
 
 				    	lastTile = justClickedTile;
 				    	justClickedTile = GameInterface.grid[HelloWorld.getXCord(posX)][HelloWorld.getYCord(posY)];
-
+				    	
+				    	if (justClickedTile.getUnit() == null)
+				    		System.out.println("No unit");
+				    	else
+				    		System.out.println("Yes unit");
+				 
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
+				    		UnitManager.moveUnit(lastTile, justClickedTile);
+				    		lastTile = null;
+				    		justClickedTile = null;
+				    	}
 			    	}
-			    	if (justClickedTile.getUnit() == null)
-			    		System.out.println("No unit");
-			    	else
-			    		System.out.println("Yes unit");
+			 
 			    }
 		    }
 		}); 
@@ -266,13 +273,13 @@ public class HelloWorld {
 	}
 	
 	private static int getXCord(double value) {
-		xCord = (int) ((value / 68) + 1);
-		return (int) ((value / 68) + 1);
+		xCord = (int) ((value / 68));
+		return (int) ((value / 68));
 	}
 	
 	private static int getYCord(double value) {
-		yCord = (int) (11 - ((value - 40) / 68));
-		return (int) (11 - ((value - 40) / 68));
+		yCord = (int) (10 - ((value - 40) / 68));
+		return (int) (10 - ((value - 40) / 68));
 	}
 
 	/*if (grid[xCord][yCord] != null) {
