@@ -278,6 +278,15 @@ public class HelloWorld {
 		    	GL11.glVertex2f(68*xCord + 68, 68*yCord + 68);
 		    	GL11.glEnd();
 		    }
+		    
+			GL11.glColor3f(0.8f,0.2f,0.6f);
+		    
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(68*14+30,68);
+			GL11.glVertex2f(1280-30,68);
+			GL11.glVertex2f(1280-30,200);
+			GL11.glVertex2f(68*14+30,200);
+		    GL11.glEnd();
 
 			glfwSwapBuffers(window); // swap the color buffers
 
