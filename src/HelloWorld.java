@@ -10,7 +10,6 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
-
 public class HelloWorld {
 
 	private Tile lastTile = new Tile();
@@ -19,6 +18,7 @@ public class HelloWorld {
 	private static int yCord;
 	private double posX;
 	private double posY;
+	private Tile[][] grid = GameInterface.grid;
 	
 	// The window handle
 	private long window;
@@ -76,7 +76,7 @@ public class HelloWorld {
 			    	if (posY > 40 && posX < 952) {
 				    	System.out.println("clicked: " + posX + ", "+ posY);
 				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
-				    	justClicked = grid
+				    	//justClicked = grid
 			    	}
 			    }
 		    }
@@ -259,34 +259,27 @@ public class HelloWorld {
 	}
 
 
+//	if (grid[xCord][yCord] != null) {
+//		Unit unitSelected = justClicked.getUnit();
+//		justClicked = grid[xCord][yCord];	
+//		xCord = getXCord(posX);
+//		yCord = getYCord(posY);
+//		
+//		
+//		if (justClicked.getUnit() == null) {
+//			lastTile = justClicked;
+//			justClicked = null;
+//			UnitManager.moveUnit(lastTile, justClicked, unitSelected);
+//		}
+//		
+//	}
 	
-	
-	if (grid[xCord][yCord] != null) {
-		Unit unitSelected = justClicked.getUnit();
-		justClicked = grid[xCord][yCord];	
-		xCord = getXCord(posX);
-		yCord = getYCord(posY);
-		
-		
-		if (justClicked.getUnit() == null) {
-			lastTile = justClicked;
-			justClicked = 
-			UnitManager.moveUnit(lastTile, justClicked, unitSelected);
-		}
-		
-	}
 
-	// putting something together for demoing
-	public static Tile[][] grid = new Tile[14][10];
+
 	
 	public static void main(String[] args) {
-		// This is just to have something to run
-		Player testPlayer = new Player();
-		Unit unit1 = new Unit(testPlayer);
-		grid[7][5].setUnit(unit1);
 		new HelloWorld().run();
 	}
-}
 }
 
 
