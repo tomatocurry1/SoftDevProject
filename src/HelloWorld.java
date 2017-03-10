@@ -19,7 +19,7 @@ public class HelloWorld {
 	private double posX;
 	private double posY;
 
-	private Tile[][] grid = new Tile[14][10];
+	private Tile[][] grid = GameInterface.grid;
 
 	
 	// The window handle
@@ -31,11 +31,10 @@ public class HelloWorld {
 		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 		
 		// This is just to have something to run
-		makeBoard();
-		Player testPlayer = new Player();
+		/*Player testPlayer = new Player();
 		Unit unit1 = new Unit(testPlayer);
 		grid[5][3].setUnit(unit1);
-
+*/
 		init();
 		loop();
 
@@ -85,7 +84,8 @@ public class HelloWorld {
 				    	System.out.println("clicked: " + posX + ", "+ posY);
 				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
 
-				    	//justClicked = grid
+				    	lastTile = justClickedTile;
+				    	justClickedTile = grid[HelloWorld.getXCord(posX)][HelloWorld.getYCord(posY)];
 
 			    	}
 			    	if (justClickedTile.getUnit() == null)
