@@ -215,7 +215,7 @@ public class HelloWorld {
 				    	GL11.glColor3f(0.5f,0.0f,0.8f);
 					    
 					    GL11.glBegin(GL11.GL_TRIANGLES);
-					    GL11.glVertex2f(68*j+30,68*i+30);
+					    GL11.glVertex2f(68*j+30,68*i+38);
 						GL11.glVertex2f(68*j+20,68*i+20);
 						GL11.glVertex2f(68*j+40,68*i+20);
 					    GL11.glEnd();
