@@ -1,7 +1,7 @@
 
 public class TurnManager {
 
-	private int arrayPointer = 0;
+	private static int arrayPointer = 0;
 	private static Player currentPlayer = new Player();
 	public static Player plst[] = new Player[4];
 	
@@ -14,7 +14,7 @@ public class TurnManager {
 		currentPlayer = p;
 	}
 	
-	public void endTurn() {
+	public static void endTurn() {
 		
 		if (arrayPointer == 3) {
 			arrayPointer = 0;
