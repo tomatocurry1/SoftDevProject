@@ -10,7 +10,6 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
-
 public class HelloWorld {
 
 	private Tile lastTile = null;
@@ -19,7 +18,9 @@ public class HelloWorld {
 	private static int yCord;
 	private double posX;
 	private double posY;
+
 	private Tile[][] grid = new Tile[14][10];
+
 	
 	// The window handle
 	private long window;
@@ -83,8 +84,9 @@ public class HelloWorld {
 			    	if (posY > 40 && posX < 952) {
 				    	System.out.println("clicked: " + posX + ", "+ posY);
 				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
-				    	lastTile = justClickedTile;
-				    	justClickedTile = grid[HelloWorld.getXCord(posX)][HelloWorld.getYCord(posY)];
+
+				    	//justClicked = grid
+
 			    	}
 			    	if (justClickedTile.getUnit() == null)
 			    		System.out.println("No unit");
@@ -269,7 +271,7 @@ public class HelloWorld {
 		yCord = (int) (11 - ((value - 40) / 68));
 		return (int) (11 - ((value - 40) / 68));
 	}
-	
+
 	/*if (grid[xCord][yCord] != null) {
 		Unit unitSelected = justClickedTile.getUnit();
 		justClickedTile = grid[xCord][yCord];	
