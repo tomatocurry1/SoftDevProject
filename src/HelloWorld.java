@@ -105,6 +105,9 @@ public class HelloWorld {
 
 		// Make the window visible
 		glfwShowWindow(window);
+		
+		GameInterface.init();
+		
 	}
 
 	private void loop() {
@@ -172,6 +175,35 @@ public class HelloWorld {
 			GL11.glVertex2f(0,720-40);
 		    GL11.glEnd();
 		    
+		    for(int i=0; i<10; i++){
+		    	for(int j = 0; j<14; j++){
+				    //GL11.glColor3f(i*(float)(1./10),0.0f,j*(float)(1./14));
+		    		if(GameInterface.grid[i][j].getTerrain()==Terrain.GRASSLANDS)
+		    			GL11.glColor3f(0.0f,0.8f,0.2f);
+		    		if(GameInterface.grid[i][j].getTerrain()==Terrain.WATER)
+		    			GL11.glColor3f(0.0f,0.2f,0.8f);
+				    
+				    GL11.glBegin(GL11.GL_QUADS);
+				    GL11.glVertex2f(68*j,68*i);
+					GL11.glVertex2f(68*(j+1),68*i);
+					GL11.glVertex2f(68*(j+1),68*(i+1));
+					GL11.glVertex2f(68*j,68*(i+1));
+				    GL11.glEnd();
+				    
+				    if(GameInterface.grid[i][j].getUnit()!=null){
+				    	GL11.glColor3f(0.5f,0.0f,0.8f);
+					    
+					    GL11.glBegin(GL11.GL_TRIANGLES);
+					    GL11.glVertex2f(68*j+30,68*i+30);
+						GL11.glVertex2f(68*j+20,68*i+20);
+						GL11.glVertex2f(68*j+40,68*i+20);
+					    GL11.glEnd();
+				    }
+				    
+		    	}
+		    }
+		    
+		    
 		    for (int i = 1; i < 14; i++) {
 			    GL11.glColor3f(0.0f,0.0f,0.0f);
 			    GL11.glBegin(GL11.GL_LINES);
@@ -189,6 +221,8 @@ public class HelloWorld {
 				GL11.glVertex2f(952,68*i);
 			    GL11.glEnd();
 		    }
+		    
+
 			
 			glfwSwapBuffers(window); // swap the color buffers
 
