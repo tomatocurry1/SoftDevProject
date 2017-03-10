@@ -115,7 +115,7 @@ public class HelloWorld {
 			    	}
 			    	
 			    	
-		    	}
+		    	
 			 
 		    	
 		    	}
@@ -123,6 +123,7 @@ public class HelloWorld {
 		    		System.out.println("End Turn button clicked");
 		    		TurnManager.endTurn();
 		    	}
+		    }
 		    }
 		}); 
 		
