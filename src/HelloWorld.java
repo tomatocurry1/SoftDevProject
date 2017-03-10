@@ -63,14 +63,14 @@ public class HelloWorld {
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
 		    @Override
 		    public void invoke(long wind, int button, int action, int mods) {
-		    	double posX = getCursorPosX(window);
-		    	double posY = getCursorPosY(window);
-		    	System.out.println("clicked: " + posX + ", "+ posY);
-		    	if (posX < 300 && posX > 100 && posY > 420 && posY < 620) {
-		    		
-		    		if (button == GLFW_MOUSE_BUTTON_1)
-		    			glfwSetWindowShouldClose(window, true);
-		    	}
+		    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
+			    	double posX = getCursorPosX(window);
+			    	double posY = getCursorPosY(window);
+			    	if (posY > 40 && posX < 952) {
+				    	System.out.println("clicked: " + posX + ", "+ posY);
+				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
+			    	}
+			    }
 		    }
 		}); 
 		
@@ -143,9 +143,6 @@ public class HelloWorld {
 			GL11.glVertex2f(300+200,300+200);
 			GL11.glVertex2f(300,300+200);
 		    GL11.glEnd();
-	 
-
-		    
 		    
 		    GL11.glColor3f(0.1f,0.5f,1.0f);
 		    GL11.glBegin(GL11.GL_QUADS);
@@ -189,6 +186,14 @@ public class HelloWorld {
 		DoubleBuffer posY = BufferUtils.createDoubleBuffer(1);
 	    glfwGetCursorPos(windowID, null, posY);
 	    return posY.get(0);
+	}
+	
+	private static int getXCord(double value) {
+		return (int) ((value / 68) + 1);
+	}
+	
+	private static int getYCord(double value) {
+		return (int) (11 - ((value - 40) / 68));
 	}
 
 	public static void main(String[] args) {
