@@ -4,7 +4,7 @@
 	Terrain terrain;
 	Resource resource;
 	Unit unit;
-	City building;
+	// City building;
 	
 	public Tile (Terrain t, Resource r) {  // resource can be either a traditional resource or a building
 		this.setTerrain(t);
@@ -30,6 +30,10 @@
 	
 	public void setTerrain(Terrain t) {
 		terrain = t;
+	}
+	
+	public void setResource(Resource r){
+		resource = r;
 	}
 }
 
