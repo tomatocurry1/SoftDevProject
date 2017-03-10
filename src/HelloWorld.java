@@ -98,7 +98,7 @@ public class HelloWorld {
 				    	else
 				    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
 				    	System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
-				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && (lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer())) {
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		lastTile = null;
 				    		justClickedTile = null;

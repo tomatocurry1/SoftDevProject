@@ -36,12 +36,15 @@ public class GameInterface {
 
 
 	public static Tile[][] grid;
-	private static Player plst[] = new Player[4];
+
 	
 	// initializes the game board and players
 	public static void init(){
 		
-		plst[0] = new Player();
+		TurnManager.plst[0] = new Player();
+		TurnManager.plst[1] = new Player();
+		TurnManager.plst[2] = new Player();
+		TurnManager.plst[3] = new Player();
 		
 		grid = new Tile[14][10];
 		
@@ -54,7 +57,7 @@ public class GameInterface {
 
 			}
 		}
-		grid[2][4].setUnit(new Unit(plst[0]));
+		grid[2][4].setUnit(new Unit(TurnManager.plst[0]));
 		
 		grid[0][0].setBuilding(new City(false));
 		grid[13][0].setBuilding(new City(true));
