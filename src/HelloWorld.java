@@ -10,6 +10,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
+
 public class HelloWorld {
 
 	private Tile lastTile = null;
@@ -81,16 +82,29 @@ public class HelloWorld {
 		    	posY = getCursorPosY(window);
 		    	xCord = HelloWorld.getXCord(posX);
 	    		yCord = HelloWorld.getYCord(posY);
+	    		lastTile = justClickedTile;
+		    	justClickedTile = GameInterface.grid[xCord][yCord];
+		    	
 		    	if (posY > 40 && posX < 952) {
 			    	
 			    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
 				    	//System.out.println("clicked: " + posX + ", "+ posY);
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
-
-				    	lastTile = justClickedTile;
-				    	justClickedTile = GameInterface.grid[xCord][yCord];
 				    	
+
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
+
+				    	/*if (justClickedTile.getUnit() == null)
+				    		System.out.println("No unit");
+				    	else
+				    		System.out.println("Yes unit");
+				    	if (justClickedTile.getBuilding() == null)
+				    		System.out.println("No Building");
+				    	else
+				    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
+				    	System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && (lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer())) {
+>>>>>>> branch 'master' of https://github.com/tomatocurry1/SoftDevProject*/
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		lastTile = null;
 				    		justClickedTile = null;
@@ -143,8 +157,9 @@ public class HelloWorld {
 		
 		GameInterface.init();
 		grid = GameInterface.grid;
-		
 	}
+		
+	
 
 	private void loop() {
 		// This line is critical for LWJGL's interoperation with GLFW's
@@ -352,7 +367,9 @@ public class HelloWorld {
 	public static void main(String[] args) {
 		new HelloWorld().run();
 	}
+	
 }
+
 
 
 
