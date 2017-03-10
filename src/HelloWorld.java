@@ -244,8 +244,14 @@ public class HelloWorld {
 				    GL11.glEnd();
 				    
 				    if(GameInterface.grid[j][i].getUnit()!=null){
-				    	GL11.glColor3f(0.5f,0.0f,0.8f);
-					    
+				    	if(TurnManager.arrayPointer==0)
+				    		GL11.glColor3f(0.5f,0.0f,0.8f);
+				    	if(TurnManager.arrayPointer==1)
+				    		GL11.glColor3f(0.5f,0.8f,0.0f);
+				    	if(TurnManager.arrayPointer==2)
+				    		GL11.glColor3f(0.0f,0.5f,0.8f);
+				    	if(TurnManager.arrayPointer==3)
+				    		GL11.glColor3f(0.8f,0.5f,0.8f);
 					    GL11.glBegin(GL11.GL_TRIANGLES);
 					    GL11.glVertex2f(68*j+30,68*i+38);
 						GL11.glVertex2f(68*j+20,68*i+20);
