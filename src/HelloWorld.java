@@ -95,7 +95,7 @@ public class HelloWorld {
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
 				    	
 
-				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && (lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer())) {
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && (lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && justClickedTile.getUnit() == null) {
 				    	
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		lastTile = null;
