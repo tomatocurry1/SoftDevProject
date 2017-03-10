@@ -254,7 +254,21 @@ public class HelloWorld {
 		    }
 		    
 
-			
+		    if (justClickedTile != null) {
+		    	GL11.glColor3f(1.0f, 0.0f, 0.0f);
+		    	
+		    	GL11.glBegin(GL11.GL_LINES);
+		    	GL11.glLineWidth((float)2);
+		    	GL11.glVertex2f(68*xCord, 68*yCord);
+		    	GL11.glVertex2f(68*xCord + 68, 68*yCord);
+		    	GL11.glVertex2f(68*xCord, 68*yCord + 68);
+		    	GL11.glVertex2f(68*xCord + 68, 68*yCord + 68);
+		    	GL11.glVertex2f(68*xCord, 68*yCord);
+		    	GL11.glVertex2f(68*xCord, 68*yCord + 68);
+		    	GL11.glVertex2f(68*xCord + 68, 68*yCord);
+		    	GL11.glVertex2f(68*xCord + 68, 68*yCord + 68);
+		    	GL11.glEnd();
+		    }
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be
