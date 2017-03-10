@@ -19,7 +19,7 @@ public class HelloWorld {
 	private double posX;
 	private double posY;
 
-	private Tile[][] grid = GameInterface.grid;
+	private Tile[][] grid;
 
 	
 	// The window handle
@@ -85,7 +85,7 @@ public class HelloWorld {
 				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
 
 				    	lastTile = justClickedTile;
-				    	justClickedTile = grid[HelloWorld.getXCord(posX)][HelloWorld.getYCord(posY)];
+				    	justClickedTile = GameInterface.grid[HelloWorld.getXCord(posX)][HelloWorld.getYCord(posY)];
 
 			    	}
 			    	if (justClickedTile.getUnit() == null)
@@ -125,6 +125,7 @@ public class HelloWorld {
 		glfwShowWindow(window);
 		
 		GameInterface.init();
+		grid = GameInterface.grid;
 		
 	}
 
@@ -196,9 +197,9 @@ public class HelloWorld {
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
 				    //GL11.glColor3f(i*(float)(1./10),0.0f,j*(float)(1./14));
-		    		if(GameInterface.grid[i][j].getTerrain()==Terrain.GRASSLANDS)
+		    		if(GameInterface.grid[j][i].getTerrain()==Terrain.GRASSLANDS)
 		    			GL11.glColor3f(0.0f,0.8f,0.2f);
-		    		if(GameInterface.grid[i][j].getTerrain()==Terrain.WATER)
+		    		if(GameInterface.grid[j][i].getTerrain()==Terrain.WATER)
 		    			GL11.glColor3f(0.0f,0.2f,0.8f);
 				    
 				    GL11.glBegin(GL11.GL_QUADS);
@@ -208,7 +209,7 @@ public class HelloWorld {
 					GL11.glVertex2f(68*j,68*(i+1));
 				    GL11.glEnd();
 				    
-				    if(GameInterface.grid[i][j].getUnit()!=null){
+				    if(GameInterface.grid[j][i].getUnit()!=null){
 				    	GL11.glColor3f(0.5f,0.0f,0.8f);
 					    
 					    GL11.glBegin(GL11.GL_TRIANGLES);
