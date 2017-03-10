@@ -13,6 +13,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class HelloWorld {
 
+	private Tile lastTile = new Tile();
+	private static int xCord;
+	private static int yCord;
+	
 	// The window handle
 	private long window;
 	
@@ -51,6 +55,8 @@ public class HelloWorld {
 		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
 		if ( window == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
+		
+		
 
 		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
@@ -61,16 +67,17 @@ public class HelloWorld {
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
 		    @Override
 		    public void invoke(long wind, int button, int action, int mods) {
-		    	double posX = getCursorPosX(window);
-		    	double posY = getCursorPosY(window);
-		    	if (posX > 75 && posX < 225 && posY > 75 && posY < 225) {
-		    		if (button == GLFW_MOUSE_BUTTON_1)
-		    			glfwSetWindowShouldClose(window, true);
-		    	}
+		    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
+			    	double posX = getCursorPosX(window);
+			    	double posY = getCursorPosY(window);
+			    	if (posY > 40 && posX < 952) {
+				    	System.out.println("clicked: " + posX + ", "+ posY);
+				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
+			    	}
+			    }
 		    }
 		}); 
 		
-		System.out.println("yo");
 
 		// Get the thread stack and push a new frame
 		try ( MemoryStack stack = stackPush() ) {
@@ -110,9 +117,10 @@ public class HelloWorld {
 
 		// Set the clear color
 		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 800, 0, 600, 1, -1);
+		GL11.glOrtho(0, 1270, 0, 720, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
 		// Run the rendering loop until the user has attempted to close
@@ -132,8 +140,55 @@ public class HelloWorld {
 			GL11.glVertex2f(100+200,100+200);
 			GL11.glVertex2f(100,100+200);
 		    GL11.glEnd();
-	 
-			
+		    
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(300,300);
+			GL11.glVertex2f(300+200,300);
+			GL11.glVertex2f(300+200,300+200);
+			GL11.glVertex2f(300,300+200);
+		    GL11.glEnd();
+		    
+		    GL11.glColor3f(0.1f,0.5f,1.0f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(952,0);
+			GL11.glVertex2f(1280,0);
+			GL11.glVertex2f(1280,720);
+			GL11.glVertex2f(952,720);
+		    GL11.glEnd();
+		    
+		    GL11.glColor3f(0.0f,0.5f,0.7f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(0,720-40);
+			GL11.glVertex2f(1280,720-40);
+			GL11.glVertex2f(1280,720);
+			GL11.glVertex2f(0,720);
+		    GL11.glEnd();
+		    
+		    GL11.glColor3f(0.8f,0.0f,0.5f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(0,0);
+			GL11.glVertex2f(68*14,0);
+			GL11.glVertex2f(68*14,720-40);
+			GL11.glVertex2f(0,720-40);
+		    GL11.glEnd();
+		    
+		    for (int i = 1; i < 14; i++) {
+			    GL11.glColor3f(0.0f,0.0f,0.0f);
+			    GL11.glBegin(GL11.GL_LINES);
+			    GL11.glLineWidth((float)2.5); 
+				GL11.glVertex2f(68*i,680);
+				GL11.glVertex2f(68*i,0);
+			    GL11.glEnd();
+		    }
+		    
+		    for (int i = 1; i < 10; i++) {
+			    GL11.glColor3f(0.0f,0.0f,0.0f);
+			    GL11.glBegin(GL11.GL_LINES);
+			    GL11.glLineWidth((float)2.5); 
+				GL11.glVertex2f(0,68*i);
+				GL11.glVertex2f(952,68*i);
+			    GL11.glEnd();
+		    }
 			
 			glfwSwapBuffers(window); // swap the color buffers
 
@@ -154,9 +209,41 @@ public class HelloWorld {
 	    glfwGetCursorPos(windowID, null, posY);
 	    return posY.get(0);
 	}
-
-	public static void main(String[] args) {
-		new HelloWorld().run();
+	
+	private static int getXCord(double value) {
+		xCord = (int) ((value / 68) + 1);
+		return (int) ((value / 68) + 1);
+	}
+	
+	private static int getYCord(double value) {
+		yCord = (int) (11 - ((value - 40) / 68));
+		return (int) (11 - ((value - 40) / 68));
 	}
 
+	
+	
+	if (grid[getXCord][getYCord].getUnit() != null) {
+		lastTile = grid[xCord][yCord];	
+		xCord = getXCord();
+		yCord = getYCord();
+		
+		
+		if (grid[getXCord][getYCord].getUnit() == null) {
+		UnitManager.moveUnit(lastTile, )
+		
+		
+	}
+
+	// putting something together for demoing
+	public static Tile[][] grid = new Tile[14][10];
+	
+	public static void main(String[] args) {
+		// This is just to have something to run
+		Player testPlayer = new Player();
+		Unit unit1 = new Unit(testPlayer);
+		grid[7][5].setUnit(unit1);
+		new HelloWorld().run();
+	}
 }
+}
+

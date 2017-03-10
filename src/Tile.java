@@ -4,20 +4,16 @@
 	Terrain terrain;
 	Resource resource;
 	Unit unit;
-	// City building;
+	City building;
 	
-	public Tile (Terrain t, Resource r) {  // resource can be either a traditional resource or a building
-		this.setTerrain(t);
-		this.setResource(r);
+	public Tile () {  // resource can be either a traditional resource or a building
+		this.setTerrain(Terrain.GRASSLANDS);
+		this.setResource(null);
+		this.setUnit(null);
 	}
 	
 	public Resource getResource() {
 		return resource;
-	}
-	
-	
-	public Terrain getTerrain() {
-		return  terrain;
 	}
 	
 	public Unit getUnit() {

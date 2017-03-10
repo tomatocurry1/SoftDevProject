@@ -6,4 +6,4 @@ Hello Tom
 4. move a unit (aka a colored tile) to another tile
 5. 
 6.
-7. 
+7.
