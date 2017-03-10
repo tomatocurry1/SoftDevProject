@@ -167,6 +167,24 @@ public class HelloWorld {
 			GL11.glVertex2f(68*14,720-40);
 			GL11.glVertex2f(0,720-40);
 		    GL11.glEnd();
+		    
+		    for (int i = 1; i < 14; i++) {
+			    GL11.glColor3f(0.0f,0.0f,0.0f);
+			    GL11.glBegin(GL11.GL_LINES);
+			    GL11.glLineWidth((float)2.5); 
+				GL11.glVertex2f(68*i,680);
+				GL11.glVertex2f(68*i,0);
+			    GL11.glEnd();
+		    }
+		    
+		    for (int i = 1; i < 10; i++) {
+			    GL11.glColor3f(0.0f,0.0f,0.0f);
+			    GL11.glBegin(GL11.GL_LINES);
+			    GL11.glLineWidth((float)2.5); 
+				GL11.glVertex2f(0,68*i);
+				GL11.glVertex2f(952,68*i);
+			    GL11.glEnd();
+		    }
 			
 			glfwSwapBuffers(window); // swap the color buffers
 
