@@ -93,6 +93,10 @@ public class HelloWorld {
 				    		System.out.println("No unit");
 				    	else
 				    		System.out.println("Yes unit");
+				    	if (justClickedTile.getBuilding() == null)
+				    		System.out.println("No Building");
+				    	else
+				    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
 				    	System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
@@ -229,8 +233,14 @@ public class HelloWorld {
 						GL11.glVertex2f(68*j+40,68*i+20);
 					    GL11.glEnd();
 				    }
+				    
+				    if(GameInterface.grid[j][i].getBuilding() != null) {
+				    	HelloWorld.drawTriangle(j, i, 20);
+				
+				    }
 				   
 		    	}
+		    	
 		    }
 		    
 		    
@@ -253,8 +263,7 @@ public class HelloWorld {
 			    GL11.glEnd();
 		    }
 		    
-
-			
+		   
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be
@@ -306,6 +315,19 @@ public class HelloWorld {
 				grid[i][j] = new Tile();
 			}
 		}
+	}
+	
+	private static void drawTriangle(int xCord, int yCord, int radius){
+		GL11.glColor3f(1.0f, 1.0f, 1.0f);
+	    glBegin(GL_TRIANGLE_FAN);
+		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
+		for(int i = 0; i <= 20;i++) { 
+		GL11.glVertex2f((float)
+		            ((xCord*68+34) + (radius * Math.cos(i *  (2*Math.PI / 20)))), 
+			    (float)((yCord*68+34) + (radius * Math.sin(i * 2*Math.PI / 20)))
+			);
+		}
+		glEnd();
 	}
 	
 	public static void main(String[] args) {

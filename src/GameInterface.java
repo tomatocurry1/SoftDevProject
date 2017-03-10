@@ -56,6 +56,13 @@ public class GameInterface {
 		}
 		grid[2][4].setUnit(new Unit(plst[0]));
 		
+		grid[0][0].setBuilding(new City(false));
+		grid[13][0].setBuilding(new City(true));
+		grid[0][9].setBuilding(new City(true));
+		grid[13][9].setBuilding(new City(false));
+		
+		
+		
 	}
 
 	void loop(){

@@ -40,4 +40,12 @@ public class Tile {
 	public Terrain getTerrain() {
 		return terrain;
 	}
+	
+	public City getBuilding() {
+		return building;
+	}
+	
+	public void setBuilding(City c) {
+		building = c;
+	}
 }
