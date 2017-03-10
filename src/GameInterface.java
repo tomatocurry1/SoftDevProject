@@ -60,6 +60,7 @@ public class GameInterface {
 			}
 		}
 		grid[2][4].setUnit(new Unit(TurnManager.plst[0]));
+		grid[6][8].setUnit(new Unit(TurnManager.plst[1]));
 		
 		grid[0][0].setBuilding(new City(false));
 		grid[13][0].setBuilding(new City(true));
