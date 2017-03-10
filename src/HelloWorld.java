@@ -30,9 +30,10 @@ public class HelloWorld {
 		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 		
 		// This is just to have something to run
+		makeBoard();
 		Player testPlayer = new Player();
 		Unit unit1 = new Unit(testPlayer);
-		grid[7][5].setUnit(unit1);
+		grid[5][3].setUnit(unit1);
 
 		init();
 		loop();
@@ -85,6 +86,10 @@ public class HelloWorld {
 				    	lastTile = justClickedTile;
 				    	justClickedTile = grid[HelloWorld.getXCord(posX)][HelloWorld.getYCord(posY)];
 			    	}
+			    	if (justClickedTile.getUnit() == null)
+			    		System.out.println("No unit");
+			    	else
+			    		System.out.println("Yes unit");
 			    }
 		    }
 		}); 
@@ -280,6 +285,13 @@ public class HelloWorld {
 		
 	}*/
 
+	private void makeBoard() {
+		for (int i = 0; i < 14; i++) {
+			for (int j = 0; j < 10; j++ ) {
+				grid[i][j] = new Tile();
+			}
+		}
+	}
 	
 	public static void main(String[] args) {
 		new HelloWorld().run();
