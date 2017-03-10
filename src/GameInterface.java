@@ -38,6 +38,7 @@ public class GameInterface {
 	public static Tile[][] grid;
 	private static Player plst[] = new Player[4];
 	
+	// initializes the game board and players
 	public static void init(){
 		
 		plst[0] = new Player();

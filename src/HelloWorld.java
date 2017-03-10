@@ -14,8 +14,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class HelloWorld {
 
 	private Tile lastTile = new Tile();
+	private Tile justClicked = new Tile();
 	private static int xCord;
 	private static int yCord;
+	private double posX;
+	private double posY;
 	
 	// The window handle
 	private long window;
@@ -68,11 +71,12 @@ public class HelloWorld {
 		    @Override
 		    public void invoke(long wind, int button, int action, int mods) {
 		    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
-			    	double posX = getCursorPosX(window);
-			    	double posY = getCursorPosY(window);
+			    	posX = getCursorPosX(window);
+			    	posY = getCursorPosY(window);
 			    	if (posY > 40 && posX < 952) {
 				    	System.out.println("clicked: " + posX + ", "+ posY);
 				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
+				    	justClicked = grid
 			    	}
 			    }
 		    }
@@ -254,17 +258,21 @@ public class HelloWorld {
 		return (int) (11 - ((value - 40) / 68));
 	}
 
+
 	
 	
-	if (grid[getXCord][getYCord].getUnit() != null) {
-		lastTile = grid[xCord][yCord];	
-		xCord = getXCord();
-		yCord = getYCord();
+	if (grid[xCord][yCord] != null) {
+		Unit unitSelected = justClicked.getUnit();
+		justClicked = grid[xCord][yCord];	
+		xCord = getXCord(posX);
+		yCord = getYCord(posY);
 		
 		
-		if (grid[getXCord][getYCord].getUnit() == null) {
-		UnitManager.moveUnit(lastTile, )
-		
+		if (justClicked.getUnit() == null) {
+			lastTile = justClicked;
+			justClicked = 
+			UnitManager.moveUnit(lastTile, justClicked, unitSelected);
+		}
 		
 	}
 
@@ -280,4 +288,5 @@ public class HelloWorld {
 	}
 }
 }
+
 
