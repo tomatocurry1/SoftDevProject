@@ -80,18 +80,20 @@ public class HelloWorld {
 		    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
 			    	posX = getCursorPosX(window);
 			    	posY = getCursorPosY(window);
+			    	xCord = HelloWorld.getXCord(posX);
+		    		yCord = HelloWorld.getYCord(posY);
 			    	if (posY > 40 && posX < 952) {
-				    	System.out.println("clicked: " + posX + ", "+ posY);
-				    	System.out.println("xCord: " + HelloWorld.getXCord(posX) + ", yCord: " + HelloWorld.getYCord(posY));
+				    	//System.out.println("clicked: " + posX + ", "+ posY);
+				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
 
 				    	lastTile = justClickedTile;
-				    	justClickedTile = GameInterface.grid[HelloWorld.getXCord(posX)][HelloWorld.getYCord(posY)];
+				    	justClickedTile = GameInterface.grid[xCord][yCord];
 				    	
 				    	if (justClickedTile.getUnit() == null)
 				    		System.out.println("No unit");
 				    	else
 				    		System.out.println("Yes unit");
-				 
+				    	System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		lastTile = null;
@@ -273,12 +275,12 @@ public class HelloWorld {
 	}
 	
 	private static int getXCord(double value) {
-		xCord = (int) ((value / 68));
+		//xCord = (int) ((value / 68));
 		return (int) ((value / 68));
 	}
 	
 	private static int getYCord(double value) {
-		yCord = (int) (10 - ((value - 40) / 68));
+		//yCord = (int) (10 - ((value - 40) / 68));
 		return (int) (10 - ((value - 40) / 68));
 	}
 
