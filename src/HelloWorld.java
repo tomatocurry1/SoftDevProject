@@ -151,7 +151,7 @@ public class HelloWorld {
 		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 1270, 0, 720, 1, -1);
+		GL11.glOrtho(0, 1280, 0, 720, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
 		// Run the rendering loop until the user has attempted to close
@@ -224,14 +224,15 @@ public class HelloWorld {
 				    	GL11.glColor3f(0.5f,0.0f,0.8f);
 					    
 					    GL11.glBegin(GL11.GL_TRIANGLES);
-					    GL11.glVertex2f(68*j+30,68*i+30);
+					    GL11.glVertex2f(68*j+30,68*i+38);
 						GL11.glVertex2f(68*j+20,68*i+20);
 						GL11.glVertex2f(68*j+40,68*i+20);
 					    GL11.glEnd();
 				    }
-				    
+				   
 		    	}
 		    }
+		    
 		    
 		    
 		    for (int i = 1; i < 14; i++) {
