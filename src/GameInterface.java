@@ -6,7 +6,7 @@ import org.lwjgl.BufferUtils;
 
 public class GameInterface {
 	
-<<<<<<< HEAD
+
 	/*
 	// this section gets the coordinates for the point clicked
 	private static double getCursorPosX(long windowID) {
@@ -34,7 +34,7 @@ public class GameInterface {
 
 	
 
-=======
+
 	public static Tile[][] grid;
 	private static Player plst[] = new Player[4];
 	
@@ -56,8 +56,7 @@ public class GameInterface {
 		grid[2][4].setUnit(new Unit(plst[0]));
 		
 	}
->>>>>>> branch 'master' of https://github.com/tomatocurry1/SoftDevProject/
-	
+
 	void loop(){
 		
 		

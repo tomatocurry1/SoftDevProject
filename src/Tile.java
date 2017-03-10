@@ -11,6 +11,12 @@ public class Tile {
 		this.setUnit(null);
 	}
 	
+	public Tile (Terrain t, Resource r) {  // resource can be either a traditional resource or a building
+		this.setTerrain(t);
+		this.setResource(r);
+		this.setUnit(null);
+	}
+	
 	public Resource getResource() {
 		return resource;
 	}
