@@ -112,6 +112,7 @@ public class HelloWorld {
 			    	}
 			    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-68 && posY > 720-200){
 			    		System.out.println("End Turn button clicked");
+			    		TurnManager.endTurn();
 			    	}
 			 
 		    	else if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_2) {
