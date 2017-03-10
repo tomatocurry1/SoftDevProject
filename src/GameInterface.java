@@ -46,6 +46,8 @@ public class GameInterface {
 		TurnManager.plst[2] = new Player();
 		TurnManager.plst[3] = new Player();
 		
+		TurnManager.setCurrentPlayer(TurnManager.plst[0]);
+		
 		grid = new Tile[14][10];
 		
 		for(int i=0; i<14;i++){
