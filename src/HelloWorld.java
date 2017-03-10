@@ -194,6 +194,8 @@ public class HelloWorld {
 			GL11.glVertex2f(0,720-40);
 		    GL11.glEnd();
 		    
+		    
+		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
 				    //GL11.glColor3f(i*(float)(1./10),0.0f,j*(float)(1./14));
