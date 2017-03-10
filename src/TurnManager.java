@@ -14,8 +14,7 @@ public class TurnManager {
 		currentPlayer = p;
 	}
 	
-	public static void endTurn() {
-		
+	public static void cyclePlayers() {
 		if (arrayPointer == 3) {
 			arrayPointer = 0;
 		}
@@ -23,6 +22,11 @@ public class TurnManager {
 			arrayPointer++;
 		currentPlayer = plst[arrayPointer];
 		System.out.println(currentPlayer);
+	}
+	
+	public static void endTurn() {
+		
+		cyclePlayers();
 	}
 }
 
