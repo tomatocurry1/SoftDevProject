@@ -21,8 +21,8 @@ public class TurnManager {
 		}
 		else
 			arrayPointer++;
-		
 		currentPlayer = plst[arrayPointer];
+		System.out.println(currentPlayer);
 	}
 }
 
