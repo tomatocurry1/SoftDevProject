@@ -5,8 +5,13 @@ public class TurnManager {
 	private static Player currentPlayer = new Player();
 	public static Player plst[] = new Player[4];
 	
+	
 	public static Player getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public static void setCurrentPlayer(Player p){
+		currentPlayer = p;
 	}
 	
 	public void endTurn() {
