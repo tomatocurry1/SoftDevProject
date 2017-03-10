@@ -78,6 +78,8 @@ public class HelloWorld {
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
 		    @Override
 		    public void invoke(long wind, int button, int action, int mods) {
+		    	
+		    	if (action == GLFW_RELEASE) {
 		    	posX = getCursorPosX(window);
 		    	posY = getCursorPosY(window);
 		    	
@@ -88,7 +90,7 @@ public class HelloWorld {
 		    		lastTile = justClickedTile;
 			    	justClickedTile = GameInterface.grid[xCord][yCord];
 		    		
-			    	if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_1) {
+			    	if (button == GLFW_MOUSE_BUTTON_1) {
 				    	//System.out.println("clicked: " + posX + ", "+ posY);
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
 				    	
@@ -100,7 +102,7 @@ public class HelloWorld {
 				    		lastTile = null;
 				    		justClickedTile = null;
 				    	}
-			    	}else if (action == GLFW_RELEASE && button == GLFW_MOUSE_BUTTON_2) {
+			    	}else if (button == GLFW_MOUSE_BUTTON_2) {
 			    		//System.out.println("You just right clicked");
 			    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 			    		if (justClickedTile.getUnit() == null)
@@ -114,7 +116,7 @@ public class HelloWorld {
 			    	}
 			    	
 			    	
-
+		    	}
 			 
 		    	
 		    	}
