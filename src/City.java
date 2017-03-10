@@ -20,4 +20,12 @@ public class City {
 	public boolean isCity() {
 		return isCity;
 	}
+	
+	@Override
+	public String toString() {
+		if (isCity)
+			return "City";
+		else
+			return "Base";
+	}
 }
