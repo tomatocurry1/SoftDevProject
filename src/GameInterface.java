@@ -3,6 +3,9 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -38,15 +41,19 @@ public class GameInterface {
 
 			}
 		}
-		grid[2][4].setUnit(new Unit(TurnManager.plst[0]));
-		grid[6][8].setUnit(new Unit(TurnManager.plst[1]));
+		grid[1][1].setUnit(new Unit(TurnManager.plst[0]));
+		grid[1][8].setUnit(new Unit(TurnManager.plst[1]));
+		grid[12][8].setUnit(new Unit(TurnManager.plst[2]));
+		grid[12][1].setUnit(new Unit(TurnManager.plst[3]));
 		
-		grid[0][0].setBuilding(new City(false));
-		grid[13][0].setBuilding(new City(true));
+		grid[0][0].setBuilding(new City(true));
+		grid[0][0].getBuilding().setOwner(TurnManager.plst[0]);
 		grid[0][9].setBuilding(new City(true));
-		grid[13][9].setBuilding(new City(false));
-		
-		
+		grid[0][9].getBuilding().setOwner(TurnManager.plst[1]);
+		grid[13][9].setBuilding(new City(true));
+		grid[13][9].getBuilding().setOwner(TurnManager.plst[2]);
+		grid[13][0].setBuilding(new City(true));
+		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
 		
 	}
 	
@@ -295,8 +302,27 @@ public class GameInterface {
 					    GL11.glEnd();
 				    }
 				    
+				    // This is going to have to change
+				    
 				    if(GameInterface.grid[j][i].getBuilding() != null) {
-				    	drawTriangle(j, i, 20);
+				    	City c = GameInterface.grid[j][i].getBuilding();
+				    	if(TurnManager.plst[0]==c.getOwner()) {
+				    		GL11.glColor3f(0.5f,0.0f,0.8f);
+				    		drawTriangle(j, i, 20, TurnManager.plst[0]);
+				    	}
+				    	if(TurnManager.plst[1]==c.getOwner()){
+				    		GL11.glColor3f(0.8f,0.4f,0.f);
+				    		drawTriangle(j, i, 20, TurnManager.plst[1]);
+				    	}
+				    	if(TurnManager.plst[2]==c.getOwner()){
+				    		GL11.glColor3f(0.0f,0.5f,0.8f);
+				    		drawTriangle(j, i, 20, TurnManager.plst[2]);
+				    	}
+				    	if(TurnManager.plst[3]==c.getOwner()){
+				    		GL11.glColor3f(0.8f,0.5f,0.8f);
+				    		drawTriangle(j, i, 20, TurnManager.plst[3]);
+				    	}
+				    	
 				
 				    }
 				   
@@ -379,21 +405,6 @@ public class GameInterface {
 		return (int) (10 - ((value - 40) / 68));
 	}
 
-	/*if (grid[xCord][yCord] != null) {
-		Unit unitSelected = justClickedTile.getUnit();
-		justClickedTile = grid[xCord][yCord];	
-		xCord = getXCord(posX);
-		yCord = getYCord(posY);
-		
-		
-		if (justClickedTile.getUnit() == null) {
-			lastTile = justClickedTile;
-			justClickedTile = 
-			UnitManager.moveUnit(lastTile, justClickedTile);
-		}
-		
-	}*/
-
 	private void makeBoard() {
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 10; j++ ) {
@@ -411,6 +422,21 @@ public class GameInterface {
 		            ((xCord*68+34) + (radius * Math.cos(i *  (2*Math.PI / 20)))), 
 			    (float)((yCord*68+34) + (radius * Math.sin(i * 2*Math.PI / 20)))
 			);
+		
+		}
+		glEnd();
+	}
+	
+	// overloaded so that it could be used to make each base a different color
+	private static void drawTriangle(int xCord, int yCord, int radius, Player p){
+	    glBegin(GL_TRIANGLE_FAN);
+		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
+		for(int i = 0; i <= 20;i++) { 
+		GL11.glVertex2f((float)
+		            ((xCord*68+34) + (radius * Math.cos(i *  (2*Math.PI / 20)))), 
+			    (float)((yCord*68+34) + (radius * Math.sin(i * 2*Math.PI / 20)))
+			);
+		
 		}
 		glEnd();
 	}
