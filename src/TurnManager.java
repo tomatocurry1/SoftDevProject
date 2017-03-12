@@ -24,8 +24,19 @@ public class TurnManager {
 		System.out.println(currentPlayer);
 	}
 	
+	public static void  resetMovement() {
+		for (int i = 0; i < 14; i++) {
+			for (int j = 0; j < 10; j++) {
+				
+				if (GameInterface.grid[i][j].getUnit() != null) {
+					GameInterface.grid[i][j].getUnit().resetMovePts();
+				}
+			}
+		}
+	}
+	
 	public static void endTurn() {
-		
+		resetMovement();
 		cyclePlayers();
 	}
 }

@@ -34,7 +34,7 @@ public class GameInterface {
 		
 		for(int i=0; i<14;i++){
 			for(int j=0; j<10;j++){
-				grid[i][j] = new Tile(Terrain.GRASSLANDS, null);
+				grid[i][j] = new Tile(Terrain.GRASSLANDS, null,i,j);
 				if((j==5&&i<5)||(j==6&&i>=5)){
 					grid[i][j].setTerrain(Terrain.WATER);
 				}
@@ -138,7 +138,7 @@ public class GameInterface {
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
 				    	
 
-				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && (lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && justClickedTile.getUnit() == null) {
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && (lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && justClickedTile.getUnit() == null && UnitManager.isMoveValid(lastTile, justClickedTile)) {
 				    	
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		lastTile = null;

@@ -4,6 +4,8 @@ public class Tile {
 	Resource resource;
 	Unit unit;
 	City building;
+	int xCord;
+	int yCord;
 	
 	public Tile () {  // resource can be either a traditional resource or a building
 		this.setTerrain(Terrain.GRASSLANDS);
@@ -11,10 +13,20 @@ public class Tile {
 		this.setUnit(null);
 	}
 	
-	public Tile (Terrain t, Resource r) {  // resource can be either a traditional resource or a building
+	public Tile (Terrain t, Resource r, int X, int Y) {  // resource can be either a traditional resource or a building
 		this.setTerrain(t);
 		this.setResource(r);
 		this.setUnit(null);
+		xCord = X;
+		yCord = Y;
+	}
+	
+	public int getX() {
+		return xCord;
+	}
+	
+	public int getY() {
+		return yCord;
 	}
 	
 	public Resource getResource() {

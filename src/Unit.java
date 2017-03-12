@@ -4,7 +4,8 @@ public class Unit {
 	private Player owner;
 	private int health;
 	private int attack;
-	private double movementPts;
+	private double movementPts = 5;
+	private double originalMovement = movementPts;
 	private double tankAMultiplier;
 	private double aircraftAMultiplier;
 	private double cityAMultiplier;
@@ -46,6 +47,11 @@ public class Unit {
 
 	public void setMovementPts(double movementPts) {
 		this.movementPts = movementPts;
+	}
+	
+	
+	public void resetMovePts() {
+		this.setMovementPts(originalMovement);
 	}
 
 	public double getTankAMultiplier() {
