@@ -23,10 +23,10 @@ public class GameInterface {
 	// initializes the game board and players
 	public static void gameInit(){
 		
-		TurnManager.plst[0] = new Player();
-		TurnManager.plst[1] = new Player();
-		TurnManager.plst[2] = new Player();
-		TurnManager.plst[3] = new Player();
+		TurnManager.plst[0] = new Player(0.0f,0.0f,0.0f);
+		TurnManager.plst[1] = new Player(0.8f,0.4f,0.f);
+		TurnManager.plst[2] = new Player(0.0f,0.5f,0.8f);
+		TurnManager.plst[3] = new Player(0.8f,0.5f,0.8f);
 		
 		TurnManager.setCurrentPlayer(TurnManager.plst[0]);
 		
@@ -200,8 +200,6 @@ public class GameInterface {
 		
 		gameInit();
 	}
-		
-	
 
 	private void loop() {
 		// This line is critical for LWJGL's interoperation with GLFW's
@@ -307,19 +305,19 @@ public class GameInterface {
 				    if(GameInterface.grid[j][i].getBuilding() != null) {
 				    	City c = GameInterface.grid[j][i].getBuilding();
 				    	if(TurnManager.plst[0]==c.getOwner()) {
-				    		GL11.glColor3f(0.5f,0.0f,0.8f);
+				    		//GL11.glColor3f(0.5f,0.0f,0.8f);
 				    		drawTriangle(j, i, 20, TurnManager.plst[0]);
 				    	}
 				    	if(TurnManager.plst[1]==c.getOwner()){
-				    		GL11.glColor3f(0.8f,0.4f,0.f);
+				    		//GL11.glColor3f(0.8f,0.4f,0.f);
 				    		drawTriangle(j, i, 20, TurnManager.plst[1]);
 				    	}
 				    	if(TurnManager.plst[2]==c.getOwner()){
-				    		GL11.glColor3f(0.0f,0.5f,0.8f);
+				    		//GL11.glColor3f(0.0f,0.5f,0.8f);
 				    		drawTriangle(j, i, 20, TurnManager.plst[2]);
 				    	}
 				    	if(TurnManager.plst[3]==c.getOwner()){
-				    		GL11.glColor3f(0.8f,0.5f,0.8f);
+				    		//GL11.glColor3f(0.8f,0.5f,0.8f);
 				    		drawTriangle(j, i, 20, TurnManager.plst[3]);
 				    	}
 				    	
@@ -430,6 +428,7 @@ public class GameInterface {
 	// overloaded so that it could be used to make each base a different color
 	private static void drawTriangle(int xCord, int yCord, int radius, Player p){
 	    glBegin(GL_TRIANGLE_FAN);
+	    GL11.glColor3f(p.getRed(),p.getGreen(),p.getBlue());
 		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
 		for(int i = 0; i <= 20;i++) { 
 		GL11.glVertex2f((float)
