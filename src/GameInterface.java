@@ -144,7 +144,8 @@ public class GameInterface {
 				    		lastTile = null;
 				    		justClickedTile = null;
 				    	}
-			    	}else if (button == GLFW_MOUSE_BUTTON_2) {
+			    	}
+			    	else if (button == GLFW_MOUSE_BUTTON_2) {
 			    		//System.out.println("You just right clicked");
 			    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 			    		if (justClickedTile.getUnit() == null)
