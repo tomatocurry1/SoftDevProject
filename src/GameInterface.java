@@ -16,22 +16,24 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class GameInterface {
 	
-
 	public static Tile[][] grid;
 
-	
 	// initializes the game board and players
 	public static void gameInit(){
 		
+		//creates new players and assigns their colors
 		TurnManager.plst[0] = new Player(0.5f,0.0f,0.8f);
 		TurnManager.plst[1] = new Player(0.8f,0.4f,0.f);
 		TurnManager.plst[2] = new Player(0.0f,0.5f,0.8f);
 		TurnManager.plst[3] = new Player(0.8f,0.5f,0.8f);
 		
+		//sets the current player to be the first player
 		TurnManager.setCurrentPlayer(TurnManager.plst[0]);
 		
+		//makes matrix of tiles
 		grid = new Tile[14][10];
 		
+		//places the terrains on the board 
 		for(int i=0; i<14;i++){
 			for(int j=0; j<10;j++){
 				grid[i][j] = new Tile(Terrain.GRASSLANDS, null,i,j);
@@ -41,11 +43,13 @@ public class GameInterface {
 
 			}
 		}
+		//puts units on board for each player
 		grid[1][1].setUnit(new Unit(TurnManager.plst[0]));
 		grid[1][8].setUnit(new Unit(TurnManager.plst[1]));
 		grid[12][8].setUnit(new Unit(TurnManager.plst[2]));
 		grid[12][1].setUnit(new Unit(TurnManager.plst[3]));
 		
+		//puts bases on the board for each player and assigns the owner of the base
 		grid[0][0].setBuilding(new City(true));
 		grid[0][0].getBuilding().setOwner(TurnManager.plst[0]);
 		grid[0][9].setBuilding(new City(true));
@@ -53,10 +57,8 @@ public class GameInterface {
 		grid[13][9].setBuilding(new City(true));
 		grid[13][9].getBuilding().setOwner(TurnManager.plst[2]);
 		grid[13][0].setBuilding(new City(true));
-		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
-		
+		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);	
 	}
-	
 
 	private Tile lastTile = null;
 	private Tile justClickedTile = null;
@@ -126,7 +128,7 @@ public class GameInterface {
 		    	posX = getCursorPosX(window);
 		    	posY = getCursorPosY(window);
 		    	
-		    	if (posY > 40 && posX < 952) {
+		    	if (posY > 40 && posX < 952) { //if mouse clicked on the board
 			    	
 			    	xCord = getXCord(posX);
 		    		yCord = getYCord(posY);
@@ -134,19 +136,24 @@ public class GameInterface {
 			    	justClickedTile = GameInterface.grid[xCord][yCord];
 		    		
 			    	if (button == GLFW_MOUSE_BUTTON_1) {
-				    	//System.out.println("clicked: " + posX + ", "+ posY);
+				    	
+			    		//prints the coordinates of the tile that was clicked
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
 				    	
-
-				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && (lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && justClickedTile.getUnit() == null && UnitManager.isMoveValid(lastTile, justClickedTile)) {
+	  /*************************NEED TO ADD CODE FOR DISPLAYING UNIT INFORMATION************************/
+				    	
+				    	//determines if the current player can move their unit on lastTile to the justClickedTile
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && 
+				    		(lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && 
+				    		justClickedTile.getUnit() == null && UnitManager.isMoveValid(lastTile, justClickedTile)) {
 				    	
 				    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		lastTile = null;
 				    		justClickedTile = null;
 				    	}
 			    	}
+			    	//right clicking displays the terrain, resource, and building????
 			    	else if (button == GLFW_MOUSE_BUTTON_2) {
-			    		//System.out.println("You just right clicked");
 			    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 			    		if (justClickedTile.getUnit() == null)
 				    		System.out.println("No unit");
@@ -156,13 +163,13 @@ public class GameInterface {
 				    		System.out.println("No Building");
 				    	else
 				    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
+			
+			/*******************************NEED TO ADD RESOURCE INFORMATION************************/ 
+			
 			    	}
-			    	
-			    	
-		    	
-			 
 		    	
 		    	}
+		    	//if "end turn" button clicked
 		    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-68 && posY > 720-200){
 		    		System.out.println("End Turn button clicked");
 		    		TurnManager.endTurn();
@@ -170,7 +177,6 @@ public class GameInterface {
 		    }
 		    }
 		}); 
-		
 
 		// Get the thread stack and push a new frame
 		try ( MemoryStack stack = stackPush() ) {
@@ -271,10 +277,10 @@ public class GameInterface {
 		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
-				    //GL11.glColor3f(i*(float)(1./10),0.0f,j*(float)(1./14));
+				    //draws the terrain on the board
 		    		if(GameInterface.grid[j][i].getTerrain()==Terrain.GRASSLANDS)
 		    			GL11.glColor3f(0.0f,0.8f,0.2f);
-		    		if(GameInterface.grid[j][i].getTerrain()==Terrain.WATER)
+		    		else if(GameInterface.grid[j][i].getTerrain()==Terrain.WATER)
 		    			GL11.glColor3f(0.0f,0.2f,0.8f);
 				    
 				    GL11.glBegin(GL11.GL_QUADS);
@@ -284,34 +290,30 @@ public class GameInterface {
 					GL11.glVertex2f(68*j,68*(i+1));
 				    GL11.glEnd();
 				    
+				    //draws the units on the board
 				    if(GameInterface.grid[j][i].getUnit()!=null){
 				    	Unit u = GameInterface.grid[j][i].getUnit();
 				    	Player p = u.getOwner();
 				    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
-				    GL11.glVertex2f(68*j+30,68*i+38);
+				    	GL11.glVertex2f(68*j+30,68*i+38);
 						GL11.glVertex2f(68*j+20,68*i+20);
 						GL11.glVertex2f(68*j+40,68*i+20);
 					    GL11.glEnd();
 				    }
 				    
-				    // This is going to have to change
-				    
+				    //draws the bases based on board
 				    if(GameInterface.grid[j][i].getBuilding() != null) {
 				    	City c = GameInterface.grid[j][i].getBuilding();
 				    	if(TurnManager.plst[0]==c.getOwner()) {
-				    		//GL11.glColor3f(0.5f,0.0f,0.8f);
 				    		drawTriangle(j, i, 20, TurnManager.plst[0]);
 				    	}
-				    	if(TurnManager.plst[1]==c.getOwner()){
-				    		//GL11.glColor3f(0.8f,0.4f,0.f);
+				    	else if(TurnManager.plst[1]==c.getOwner()){
 				    		drawTriangle(j, i, 20, TurnManager.plst[1]);
 				    	}
-				    	if(TurnManager.plst[2]==c.getOwner()){
-				    		//GL11.glColor3f(0.0f,0.5f,0.8f);
+				    	else if(TurnManager.plst[2]==c.getOwner()){
 				    		drawTriangle(j, i, 20, TurnManager.plst[2]);
 				    	}
-				    	if(TurnManager.plst[3]==c.getOwner()){
-				    		//GL11.glColor3f(0.8f,0.5f,0.8f);
+				    	else if(TurnManager.plst[3]==c.getOwner()){
 				    		drawTriangle(j, i, 20, TurnManager.plst[3]);
 				    	}
 				    	
