@@ -144,7 +144,8 @@ public class GameInterface {
 				    		lastTile = null;
 				    		justClickedTile = null;
 				    	}
-			    	}else if (button == GLFW_MOUSE_BUTTON_2) {
+			    	}
+			    	else if (button == GLFW_MOUSE_BUTTON_2) {
 			    		//System.out.println("You just right clicked");
 			    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 			    		if (justClickedTile.getUnit() == null)
@@ -285,16 +286,9 @@ public class GameInterface {
 				    
 				    if(GameInterface.grid[j][i].getUnit()!=null){
 				    	Unit u = GameInterface.grid[j][i].getUnit();
-				    	if(TurnManager.plst[0]==u.getOwner())
-				    		GL11.glColor3f(0.5f,0.0f,0.8f);
-				    	if(TurnManager.plst[1]==u.getOwner())
-				    		GL11.glColor3f(0.8f,0.4f,0.f);
-				    	if(TurnManager.plst[2]==u.getOwner())
-				    		GL11.glColor3f(0.0f,0.5f,0.8f);
-				    	if(TurnManager.plst[3]==u.getOwner())
-				    		GL11.glColor3f(0.8f,0.5f,0.8f);
-					    GL11.glBegin(GL11.GL_TRIANGLES);
-					    GL11.glVertex2f(68*j+30,68*i+38);
+				    	Player p = u.getOwner();
+				    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+				    GL11.glVertex2f(68*j+30,68*i+38);
 						GL11.glVertex2f(68*j+20,68*i+20);
 						GL11.glVertex2f(68*j+40,68*i+20);
 					    GL11.glEnd();
