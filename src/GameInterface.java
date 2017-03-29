@@ -23,7 +23,7 @@ public class GameInterface {
 	// initializes the game board and players
 	public static void gameInit(){
 		
-		TurnManager.plst[0] = new Player(0.0f,0.0f,0.0f);
+		TurnManager.plst[0] = new Player(0.5f,0.0f,0.8f);
 		TurnManager.plst[1] = new Player(0.8f,0.4f,0.f);
 		TurnManager.plst[2] = new Player(0.0f,0.5f,0.8f);
 		TurnManager.plst[3] = new Player(0.8f,0.5f,0.8f);
