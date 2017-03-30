@@ -343,7 +343,7 @@ public class GameInterface {
 		    	GL11.glEnd();
 		    }
 		    
-		    //draws the end turn button?
+		    //draws the end turn button
 			GL11.glColor3f(0.8f,0.2f,0.6f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(68*14+30,68);
@@ -351,6 +351,10 @@ public class GameInterface {
 			GL11.glVertex2f(1280-30,200);
 			GL11.glVertex2f(68*14+30,200);
 		    GL11.glEnd(); 
+		    
+		    Text.drawString("END TURN", 52.5f, 7f, 80f, 5f);
+ 
+		    renderPlayerInfo();
 
 			glfwSwapBuffers(window); // swap the color buffers
 
@@ -475,6 +479,22 @@ public class GameInterface {
 		GL11.glVertex2f((float)(68*(j+0.3)),(float)(68*(i+0.3)));
 		GL11.glVertex2f((float)(68*j),(float)(68*(i+0.3)));
 	    GL11.glEnd();
+	}
+	
+	private static void renderPlayerInfo(){
+	    for(int i = 0; i < TurnManager.plst.length; i++){
+	    	Player player = TurnManager.plst[i];
+		    Text.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), 6f+i*42.5f, 93.5f, 30f, 5f);
+		    
+		    
+			GL11.glColor3f(player.getRed(),player.getGreen(),player.getBlue());
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(10+i*320, 720-10);
+			GL11.glVertex2f(30+i*320,720-10);
+			GL11.glVertex2f(30+i*320,720-30);
+			GL11.glVertex2f(10+i*320,720-30);
+		    GL11.glEnd();
+	    }
 	}
 	
 	public static void main(String[] args) {
