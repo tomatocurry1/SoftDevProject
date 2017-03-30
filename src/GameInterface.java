@@ -159,7 +159,7 @@ public class GameInterface {
 					    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		else {
 				    			UnitManager.attack(lastTile, justClickedTile);
-				    			TurnManager.endTurn();
+				    			justClickedTile.getUnit().setMovementPts(0.0);
 				    		}
 				    		lastTile = null;
 				    		justClickedTile = null;
