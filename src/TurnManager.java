@@ -2,7 +2,7 @@
 public class TurnManager {
 
 	public static int arrayPointer = 0;
-	private static Player currentPlayer = new Player();
+	private static Player currentPlayer;
 	public static Player plst[] = new Player[4];
 	
 	

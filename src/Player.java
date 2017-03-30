@@ -1,6 +1,7 @@
 
 public class Player {
 
+	private int playerNum;
 	private int victoryPoints;
 	private int oil;
 	private int steel;
@@ -9,14 +10,19 @@ public class Player {
 	private float green;
 	private float blue;
 	
-	public Player() {
-		super();
+	public Player(int num) {
+		playerNum = num;
 	}
 	
-	public Player(float r, float g, float b) {
+	public Player(int num, float r, float g, float b) {
+		playerNum = num;
 		red = r;
 		green = g;
 		blue = b;
+	}
+	
+	public int getNum() {
+		return playerNum;
 	}
 	
 	public void setColors(float r, float g, float b) {
