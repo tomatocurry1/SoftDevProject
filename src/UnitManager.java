@@ -40,6 +40,7 @@ public class UnitManager {
 	public static void attack(Tile tile1, Tile tile2) {
 		Unit unit1 = tile1.getUnit();
 		Unit unit2 = tile2.getUnit();
+		isMoveValid(tile1, tile2);
 		unit2.decreaseHealth(unit1.getAttack());
 		if (unit2.getHealth() <= 0) {
 			moveUnit(tile1, tile2);
