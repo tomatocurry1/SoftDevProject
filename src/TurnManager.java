@@ -35,9 +35,70 @@ public class TurnManager {
 		}
 	}
 	
+	public static void changeCapturedOwnership(){
+		for(int i = 0; i < GameInterface.grid.length; i++)
+			for(int j = 0; j < GameInterface.grid[0].length; j++){
+				Tile checkCaptured = GameInterface.grid[i][j];
+				//Building captured?
+				if(checkCaptured.getBuilding()!=null){
+					if(checkCaptured.getUnit()!=null)
+						if(checkCaptured.getBuilding().getOwner() == null ||checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getBuilding().getOwner().getNum()){
+							
+							Player attacker = checkCaptured.getUnit().getOwner();
+							checkCaptured.getBuilding().setOwner(attacker);
+						}
+				}
+				
+				//Resource captured?
+				if(checkCaptured.getResource()!=null){
+					if(checkCaptured.getUnit()!=null)
+						if(checkCaptured.getResource().getOwner() == null || checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getResource().getOwner().getNum()){
+							
+							Player attacker = checkCaptured.getUnit().getOwner();
+							checkCaptured.getResource().setOwner(attacker);
+						}
+				}
+			}
+	}
+	
+	public static void calculateResources(){
+		changeCapturedOwnership();
+		
+		for(int k = 0; k < plst.length; k ++){
+			plst[k].setOil(0);
+			plst[k].setSteel(0);
+		}
+		
+		
+		for(int i = 0; i < GameInterface.grid.length; i++)
+			for(int j = 0; j < GameInterface.grid[0].length; j++){
+				Tile temp = GameInterface.grid[i][j];
+				
+				if(temp.getResource() != null){
+					if(temp.getResource().toString().equals("Steel")){
+						if(temp.getResource().getOwner()!= null)
+							temp.getResource().getOwner().setSteel(temp.getResource().getOwner().getSteel()+1);
+					}else if(temp.getResource().toString().equals("Oil")){
+						if(temp.getResource().getOwner()!= null)
+							temp.getResource().getOwner().setOil(temp.getResource().getOwner().getOil()+1);
+					}
+				}
+				
+				
+				
+				if(temp.getBuilding()!=null){
+					if(temp.getBuilding().getOwner()!=null){
+						temp.getBuilding().getOwner().addCredits(1000);
+					}
+				}
+			}
+	}
+	
 	public static void endTurn() {
 		resetMovement();
+		calculateResources();
 		cyclePlayers();
+		
 	}
 }
 
