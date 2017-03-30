@@ -21,7 +21,7 @@ public class Resource {
 		owner = p;
 	}
 	
-	public Player getPlayer() {
+	public Player getOwner() {
 		return owner;
 	}
 	

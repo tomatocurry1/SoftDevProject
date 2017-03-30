@@ -55,14 +55,16 @@ public class GameInterface {
 		grid[12][1].setUnit(new Unit(TurnManager.plst[3]));
 		
 		//puts bases on the board for each player and assigns the owner of the base
-		grid[0][0].setBuilding(new City(true));
+		grid[0][0].setBuilding(new City(false));
 		grid[0][0].getBuilding().setOwner(TurnManager.plst[0]);
-		grid[0][9].setBuilding(new City(true));
+		grid[0][9].setBuilding(new City(false));
 		grid[0][9].getBuilding().setOwner(TurnManager.plst[1]);
-		grid[13][9].setBuilding(new City(true));
+		grid[13][9].setBuilding(new City(false));
 		grid[13][9].getBuilding().setOwner(TurnManager.plst[2]);
-		grid[13][0].setBuilding(new City(true));
-		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);	
+		grid[13][0].setBuilding(new City(false));
+		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
+		grid[6][5].setBuilding(new City(true));
+		grid[10][4].setBuilding(new City(true));
 	}
 
 	private Tile lastTile = null;
@@ -286,61 +288,22 @@ public class GameInterface {
 		    		
 		    		
 				    //draws the terrain on the board
-		    		if(GameInterface.grid[j][i].getTerrain()==Terrain.GRASSLANDS)
-		    			GL11.glColor3f(0.0f,0.8f,0.2f);
-		    		else if(GameInterface.grid[j][i].getTerrain()==Terrain.WATER)
-		    			GL11.glColor3f(0.0f,0.2f,0.8f);
-				    
-				    GL11.glBegin(GL11.GL_QUADS);
-				    GL11.glVertex2f(68*j,68*i);
-					GL11.glVertex2f(68*(j+1),68*i);
-					GL11.glVertex2f(68*(j+1),68*(i+1));
-					GL11.glVertex2f(68*j,68*(i+1));
-				    GL11.glEnd();
-				    
-				    
+		    		if (GameInterface.grid[j][i].getTerrain() != null)
+		    			drawTerrain(i, j, GameInterface.grid[j][i].getTerrain());
+		
 				    //draws the units on the board
 				    if(GameInterface.grid[j][i].getUnit()!=null){
-				    	Unit u = GameInterface.grid[j][i].getUnit();
-				    	Player p = u.getOwner();
-				    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
-				    	GL11.glBegin(GL11.GL_TRIANGLES);
-				    	GL11.glVertex2f(68*j+30,68*i+38);
-						GL11.glVertex2f(68*j+20,68*i+20);
-						GL11.glVertex2f(68*j+40,68*i+20);
-					    GL11.glEnd();
+				    	drawUnit(i, j, GameInterface.grid[j][i].getUnit());
 				    }
 				    
-				    
-				    //draws the bases based on board
+				    //draws the buildings on board
 				    if(GameInterface.grid[j][i].getBuilding() != null) {
-				    	City c = GameInterface.grid[j][i].getBuilding();
-				    	if(TurnManager.plst[0]==c.getOwner()) {
-				    		drawCircle(j, i, 20, TurnManager.plst[0]);
-				    	}
-				    	else if(TurnManager.plst[1]==c.getOwner()){
-				    		drawCircle(j, i, 20, TurnManager.plst[1]);
-				    	}
-				    	else if(TurnManager.plst[2]==c.getOwner()){
-				    		drawCircle(j, i, 20, TurnManager.plst[2]);
-				    	}
-				    	else if(TurnManager.plst[3]==c.getOwner()){
-				    		drawCircle(j, i, 20, TurnManager.plst[3]);
-				    	}
+				    	drawBuilding(j, i, GameInterface.grid[j][i].getBuilding());
 				    }
 				    
+				    //draws the resource on the board
 				    if (GameInterface.grid[j][i].getResource() != null) {
-				    	if (GameInterface.grid[j][i].getResource().toString() == "Oil")
-				    		GL11.glColor3f(0.0f,0.0f,0.0f);
-			    		else 
-			    			GL11.glColor3f(1.0f,1.0f,1.0f);
-					    
-					    GL11.glBegin(GL11.GL_QUADS);
-					    GL11.glVertex2f(68*j,68*i);
-						GL11.glVertex2f((float)(68*(j+0.25)), (float)(68*i));
-						GL11.glVertex2f((float)(68*(j+0.25)),(float)(68*(i+0.25)));
-						GL11.glVertex2f((float)(68*j),(float)(68*(i+0.25)));
-					    GL11.glEnd();
+				    	drawResource(i, j, GameInterface.grid[j][i].getResource());
 				    }
 		    	}
 		    }
@@ -434,24 +397,24 @@ public class GameInterface {
 		}
 	}
 	
-	/*private static void drawCircle(int xCord, int yCord, int radius){
-		GL11.glColor3f(1.0f, 1.0f, 1.0f);
-	    glBegin(GL_TRIANGLE_FAN);
-		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
-		for(int i = 0; i <= 20;i++) { 
-		GL11.glVertex2f((float)
-		            ((xCord*68+34) + (radius * Math.cos(i *  (2*Math.PI / 20)))), 
-			    (float)((yCord*68+34) + (radius * Math.sin(i * 2*Math.PI / 20)))
-			);
-		
+	private static void drawBuilding(int i, int j, City b) {
+		if (b.getOwner() == null) {
+			drawCircle(i, j, 15, null);
 		}
-		glEnd();
-	}*/
+		if (!b.isCity())
+			drawCircle(i, j, 25, b.getOwner());
+		else
+			drawCircle(i, j, 15, b.getOwner());
+	}
 	
 	// draws a circle on the tile with radius r with player p's color
 	private static void drawCircle(int xCord, int yCord, int radius, Player p){
 	    glBegin(GL_TRIANGLE_FAN);
-	    GL11.glColor3f(p.getRed(),p.getGreen(),p.getBlue());
+	    // if the building doesn't have an owner, make it grey
+	    if (p == null)
+	    	GL11.glColor3f(0.5f, 0.5f, 0.5f);
+	    else
+	    	GL11.glColor3f(p.getRed(),p.getGreen(),p.getBlue());
 		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
 		for(int i = 0; i <= 20;i++) { 
 		GL11.glVertex2f((float)
@@ -463,6 +426,48 @@ public class GameInterface {
 		GL11.glEnd();
 	}
 	
+	//draws the terrain on the board
+	private static void drawTerrain(int i, int j, Terrain t){
+		if(GameInterface.grid[j][i].getTerrain()==Terrain.GRASSLANDS)
+			GL11.glColor3f(0.0f,0.8f,0.2f);
+		else if(GameInterface.grid[j][i].getTerrain()==Terrain.WATER)
+			GL11.glColor3f(0.0f,0.2f,0.8f);
+	    
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(68*j,68*i);
+		GL11.glVertex2f(68*(j+1),68*i);
+		GL11.glVertex2f(68*(j+1),68*(i+1));
+		GL11.glVertex2f(68*j,68*(i+1));
+	    GL11.glEnd();
+	}
+	
+	private static void drawUnit(int i, int j, Unit u) {
+    	Player p = u.getOwner();
+    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+    	GL11.glBegin(GL11.GL_TRIANGLES);
+    	GL11.glVertex2f(68*j+30,68*i+38);
+		GL11.glVertex2f(68*j+20,68*i+20);
+		GL11.glVertex2f(68*j+40,68*i+20);
+	    GL11.glEnd();
+	}
+	
+	private static void drawResource(int i, int j, Resource r) {
+		if (r.getOwner() != null) {
+			Player p = r.getOwner();
+			GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+		}
+		else if (r.toString() == "Oil")
+    		GL11.glColor3f(0.0f,0.0f,0.0f);
+		else 
+			GL11.glColor3f(1.0f,1.0f,1.0f);
+	    
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(68*j,68*i);
+		GL11.glVertex2f((float)(68*(j+0.25)), (float)(68*i));
+		GL11.glVertex2f((float)(68*(j+0.25)),(float)(68*(i+0.25)));
+		GL11.glVertex2f((float)(68*j),(float)(68*(i+0.25)));
+	    GL11.glEnd();
+	}
 	
 	void displayTile(Tile tile, int x, int y){
 		

@@ -17,6 +17,10 @@ public class UnitManager {
 		temp.setMovementPts(temp.getMovementPts() - (Math.abs(tile2.getX() - tile1.getX()) + Math.abs(tile2.getY() - tile1.getY())));
 		tile1.setUnit(null);	
 		tile2.setUnit(temp);
+		if (tile2.getResource() != null) 
+			tile2.getResource().setOwner(tile2.getUnit().getOwner());
+		if (tile2.getBuilding() != null)
+			tile2.getBuilding().setOwner(tile2.getUnit().getOwner());
 	}
 	
 	
