@@ -22,10 +22,10 @@ public class GameInterface {
 	public static void gameInit(){
 		
 		//creates new players and assigns their colors
-		TurnManager.plst[0] = new Player(0.5f,0.0f,0.8f);
-		TurnManager.plst[1] = new Player(0.8f,0.4f,0.f);
-		TurnManager.plst[2] = new Player(0.0f,0.5f,0.8f);
-		TurnManager.plst[3] = new Player(0.8f,0.5f,0.8f);
+		TurnManager.plst[0] = new Player(1, 0.5f,0.0f,0.8f);
+		TurnManager.plst[1] = new Player(2, 0.8f,0.4f,0.f);
+		TurnManager.plst[2] = new Player(3, 0.0f,0.5f,0.8f);
+		TurnManager.plst[3] = new Player(4, 0.8f,0.5f,0.8f);
 		
 		//sets the current player to be the first player
 		TurnManager.setCurrentPlayer(TurnManager.plst[0]);
@@ -143,8 +143,11 @@ public class GameInterface {
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
 				    	
 			
-				    	if (justClickedTile.getUnit() != null) 
+				    	if (justClickedTile.getUnit() != null) {
+				    		System.out.println("Oil: " + justClickedTile.getUnit().getOwner().getOil());
+				    		System.out.println("Steel: " + justClickedTile.getUnit().getOwner().getSteel());
 				    		System.out.println("Has Unit! Attack: " + justClickedTile.getUnit().getAttack());
+				    	}
 				    	else
 				    		System.out.println("No Unit");
 				    	//determines if the current player can move their unit on lastTile to the justClickedTile
@@ -180,6 +183,13 @@ public class GameInterface {
 		    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-68 && posY > 720-200){
 		    		System.out.println("End Turn button clicked");
 		    		TurnManager.endTurn();
+		    	}
+		    	
+		    	if (posX > 952 + 40 && posX < 1280-40 && posY > 720 - 500 && posY < 720 - 400) {
+		    		System.out.println("Trying to buy unit");
+		    		if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer()))
+		    			UnitCreator.createUnit(TurnManager.getCurrentPlayer());
+		    		
 		    	}
 		    }
 		    }
@@ -239,8 +249,7 @@ public class GameInterface {
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);	
 			 
 		    // set the color of the quad (R,G,B)
-		    GL11.glColor3f(0.5f,0.5f,1.0f);
-	 
+		    
 		    GL11.glColor3f(0.1f,0.5f,1.0f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(952,0);
@@ -265,7 +274,13 @@ public class GameInterface {
 			GL11.glVertex2f(0,720-40);
 		    GL11.glEnd();
 		    
-		    
+		    GL11.glColor3f(0.f,0.f,0f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(952 + 40,400);
+			GL11.glVertex2f(1280 - 40,400);
+			GL11.glVertex2f(1280 - 40,500);
+			GL11.glVertex2f(952 + 40,500);
+		    GL11.glEnd();
 		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
@@ -453,15 +468,6 @@ public class GameInterface {
 		GL11.glVertex2f((float)(68*(j+0.25)),(float)(68*(i+0.25)));
 		GL11.glVertex2f((float)(68*j),(float)(68*(i+0.25)));
 	    GL11.glEnd();
-	}
-	
-	void displayTile(Tile tile, int x, int y){
-		
-	}
-	
-	Tile findTile(int x, int y){
-		
-		return null;
 	}
 	
 	public static void main(String[] args) {
