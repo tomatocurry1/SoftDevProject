@@ -24,4 +24,12 @@ public class Resource {
 	public Player getPlayer() {
 		return owner;
 	}
+	
+	@Override
+	public String toString() {
+		if (price == 100)
+			return "Steel";
+		else
+			return "Oil";
+	}
 }

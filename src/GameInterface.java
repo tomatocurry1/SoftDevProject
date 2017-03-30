@@ -33,14 +33,19 @@ public class GameInterface {
 		//makes matrix of tiles
 		grid = new Tile[14][10];
 		
-		//places the terrains on the board 
+		//places the terrain on the board and resources
 		for(int i=0; i<14;i++){
 			for(int j=0; j<10;j++){
 				grid[i][j] = new Tile(Terrain.GRASSLANDS, null,i,j);
 				if((j==5&&i<5)||(j==6&&i>=5)){
 					grid[i][j].setTerrain(Terrain.WATER);
 				}
-
+				if ((j==2 && i == 4) || (j == 7 && i == 6)) {
+					grid[i][j].setResource(new Resource("Steel"));
+				}
+				if ((j==3 && i == 4) || (j == 4 && i == 6)) {
+					grid[i][j].setResource(new Resource("Oil"));
+				}
 			}
 		}
 		//puts units on board for each player
@@ -163,9 +168,10 @@ public class GameInterface {
 				    		System.out.println("No Building");
 				    	else
 				    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
-			
-			/*******************************NEED TO ADD RESOURCE INFORMATION************************/ 
-			
+				    	if (justClickedTile.getResource() == null)
+				    		System.out.println("No Resource");
+				    	else
+				    		System.out.println("Has Resource: " + justClickedTile.getResource().toString());
 			    	}
 		    	
 		    	}
@@ -277,6 +283,8 @@ public class GameInterface {
 		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
+		    		
+		    		
 				    //draws the terrain on the board
 		    		if(GameInterface.grid[j][i].getTerrain()==Terrain.GRASSLANDS)
 		    			GL11.glColor3f(0.0f,0.8f,0.2f);
@@ -290,42 +298,54 @@ public class GameInterface {
 					GL11.glVertex2f(68*j,68*(i+1));
 				    GL11.glEnd();
 				    
+				    
 				    //draws the units on the board
 				    if(GameInterface.grid[j][i].getUnit()!=null){
 				    	Unit u = GameInterface.grid[j][i].getUnit();
 				    	Player p = u.getOwner();
 				    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+				    	GL11.glBegin(GL11.GL_TRIANGLES);
 				    	GL11.glVertex2f(68*j+30,68*i+38);
 						GL11.glVertex2f(68*j+20,68*i+20);
 						GL11.glVertex2f(68*j+40,68*i+20);
 					    GL11.glEnd();
 				    }
 				    
+				    
 				    //draws the bases based on board
 				    if(GameInterface.grid[j][i].getBuilding() != null) {
 				    	City c = GameInterface.grid[j][i].getBuilding();
 				    	if(TurnManager.plst[0]==c.getOwner()) {
-				    		drawTriangle(j, i, 20, TurnManager.plst[0]);
+				    		drawCircle(j, i, 20, TurnManager.plst[0]);
 				    	}
 				    	else if(TurnManager.plst[1]==c.getOwner()){
-				    		drawTriangle(j, i, 20, TurnManager.plst[1]);
+				    		drawCircle(j, i, 20, TurnManager.plst[1]);
 				    	}
 				    	else if(TurnManager.plst[2]==c.getOwner()){
-				    		drawTriangle(j, i, 20, TurnManager.plst[2]);
+				    		drawCircle(j, i, 20, TurnManager.plst[2]);
 				    	}
 				    	else if(TurnManager.plst[3]==c.getOwner()){
-				    		drawTriangle(j, i, 20, TurnManager.plst[3]);
+				    		drawCircle(j, i, 20, TurnManager.plst[3]);
 				    	}
-				    	
-				
 				    }
-				   
+				    
+				    if (GameInterface.grid[j][i].getResource() != null) {
+				    	if (GameInterface.grid[j][i].getResource().toString() == "Oil")
+				    		GL11.glColor3f(0.0f,0.0f,0.0f);
+			    		else 
+			    			GL11.glColor3f(1.0f,1.0f,1.0f);
+					    
+					    GL11.glBegin(GL11.GL_QUADS);
+					    GL11.glVertex2f(68*j,68*i);
+						GL11.glVertex2f((float)(68*(j+0.25)), (float)(68*i));
+						GL11.glVertex2f((float)(68*(j+0.25)),(float)(68*(i+0.25)));
+						GL11.glVertex2f((float)(68*j),(float)(68*(i+0.25)));
+					    GL11.glEnd();
+				    }
 		    	}
-		    	
 		    }
 		    
-		    
-		    
+		    //draws the boarders of the tiles
 		    for (int i = 1; i < 14; i++) {
 			    GL11.glColor3f(0.0f,0.0f,0.0f);
 			    GL11.glBegin(GL11.GL_LINES);
@@ -344,6 +364,7 @@ public class GameInterface {
 			    GL11.glEnd();
 		    }
 
+		    //highlights the tile that is just clicked
 		    if (justClickedTile != null) {
 		    	
 		    	GL11.glColor3f(1.0f, 0.0f, 0.0f);
@@ -360,45 +381,51 @@ public class GameInterface {
 		    	GL11.glEnd();
 		    }
 		    
+		    //draws the end turn button?
 			GL11.glColor3f(0.8f,0.2f,0.6f);
-		    
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(68*14+30,68);
 			GL11.glVertex2f(1280-30,68);
 			GL11.glVertex2f(1280-30,200);
 			GL11.glVertex2f(68*14+30,200);
-		    GL11.glEnd();
+		    GL11.glEnd(); 
 
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be
 			// invoked during this call.
 			glfwPollEvents();
+		    
 		}
 	}
 	
+	//returns the x position (pixel)
 	private static double getCursorPosX(long windowID) {
 		DoubleBuffer posX = BufferUtils.createDoubleBuffer(1);
 	    glfwGetCursorPos(windowID, posX, null);
 	    return posX.get(0);
 	}
 	
+	//returns the y position (pixel)
 	private static double getCursorPosY(long windowID) {
 		DoubleBuffer posY = BufferUtils.createDoubleBuffer(1);
 	    glfwGetCursorPos(windowID, null, posY);
 	    return posY.get(0);
 	}
 	
+	//returns the x coordinate on the board (tile)
 	private static int getXCord(double value) {
 		//xCord = (int) ((value / 68));
 		return (int) ((value / 68));
 	}
 	
+	//returns the y coordinate on the board (tile)
 	private static int getYCord(double value) {
 		//yCord = (int) (10 - ((value - 40) / 68));
 		return (int) (10 - ((value - 40) / 68));
 	}
 
+	//is this necessary?????
 	private void makeBoard() {
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 10; j++ ) {
@@ -407,7 +434,7 @@ public class GameInterface {
 		}
 	}
 	
-	private static void drawTriangle(int xCord, int yCord, int radius){
+	/*private static void drawCircle(int xCord, int yCord, int radius){
 		GL11.glColor3f(1.0f, 1.0f, 1.0f);
 	    glBegin(GL_TRIANGLE_FAN);
 		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
@@ -419,10 +446,10 @@ public class GameInterface {
 		
 		}
 		glEnd();
-	}
+	}*/
 	
-	// overloaded so that it could be used to make each base a different color
-	private static void drawTriangle(int xCord, int yCord, int radius, Player p){
+	// draws a circle on the tile with radius r with player p's color
+	private static void drawCircle(int xCord, int yCord, int radius, Player p){
 	    glBegin(GL_TRIANGLE_FAN);
 	    GL11.glColor3f(p.getRed(),p.getGreen(),p.getBlue());
 		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
@@ -433,7 +460,7 @@ public class GameInterface {
 			);
 		
 		}
-		glEnd();
+		GL11.glEnd();
 	}
 	
 	
