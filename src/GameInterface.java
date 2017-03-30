@@ -386,14 +386,6 @@ public class GameInterface {
 		return (int) (10 - ((value - 40) / 68));
 	}
 
-	//is this necessary?????
-	private void makeBoard() {
-		for (int i = 0; i < 14; i++) {
-			for (int j = 0; j < 10; j++ ) {
-				grid[i][j] = new Tile();
-			}
-		}
-	}
 	
 	private static void drawBuilding(int i, int j, City b) {
 		if (b.getOwner() == null) {
