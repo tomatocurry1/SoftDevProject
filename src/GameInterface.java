@@ -159,7 +159,7 @@ public class GameInterface {
 					    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		else {
 				    			UnitManager.attack(lastTile, justClickedTile);
-				    			TurnManager.endTurn();
+				    			justClickedTile.getUnit().setMovementPts(0.0);
 				    		}
 				    		lastTile = null;
 				    		justClickedTile = null;
@@ -445,20 +445,34 @@ public class GameInterface {
 	}
 	
 	private static void drawResource(int i, int j, Resource r) {
+		drawMainResource(i, j, r);
+		drawOwnedResource(i, j, r);
+	}
+	
+	private static void drawOwnedResource(int i, int j, Resource r) {
 		if (r.getOwner() != null) {
 			Player p = r.getOwner();
 			GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+			GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f((float)(68*(j+.1)),(float)(68*(i +.1)));
+			GL11.glVertex2f((float)(68*(j+0.2)), (float)(68*(i+.1)));
+			GL11.glVertex2f((float)(68*(j+0.2)),(float)(68*(i+0.2)));
+			GL11.glVertex2f((float)(68*(j+.1)),(float)(68*(i+0.2)));
+		    GL11.glEnd();
 		}
-		else if (r.toString() == "Oil")
+	}
+	
+	private static void drawMainResource(int i, int j, Resource r) {
+		if (r.toString() == "Oil")
     		GL11.glColor3f(0.0f,0.0f,0.0f);
 		else 
 			GL11.glColor3f(1.0f,1.0f,1.0f);
-	    
-	    GL11.glBegin(GL11.GL_QUADS);
+		
+		GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(68*j,68*i);
-		GL11.glVertex2f((float)(68*(j+0.25)), (float)(68*i));
-		GL11.glVertex2f((float)(68*(j+0.25)),(float)(68*(i+0.25)));
-		GL11.glVertex2f((float)(68*j),(float)(68*(i+0.25)));
+		GL11.glVertex2f((float)(68*(j+0.3)), (float)(68*i));
+		GL11.glVertex2f((float)(68*(j+0.3)),(float)(68*(i+0.3)));
+		GL11.glVertex2f((float)(68*j),(float)(68*(i+0.3)));
 	    GL11.glEnd();
 	}
 	
