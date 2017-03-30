@@ -67,6 +67,7 @@ public class TurnManager {
 		for(int k = 0; k < plst.length; k ++){
 			plst[k].setOil(0);
 			plst[k].setSteel(0);
+			plst[k].setVictoryPoints(0);
 		}
 		
 		
@@ -88,6 +89,7 @@ public class TurnManager {
 				
 				if(temp.getBuilding()!=null){
 					if(temp.getBuilding().getOwner()!=null){
+						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints());
 						temp.getBuilding().getOwner().addCredits(1000);
 					}
 				}
