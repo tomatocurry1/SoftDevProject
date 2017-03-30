@@ -53,10 +53,10 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
-		grid[1][1].setUnit(new Unit(TurnManager.plst[0]));
-		grid[1][8].setUnit(new Unit(TurnManager.plst[1]));
-		grid[12][8].setUnit(new Unit(TurnManager.plst[2]));
-		grid[12][1].setUnit(new Unit(TurnManager.plst[3]));
+		grid[1][1].setUnit(new Unit(TurnManager.plst[0], 100, 75));
+		grid[1][8].setUnit(new Unit(TurnManager.plst[1], 100, 75));
+		grid[12][8].setUnit(new Unit(TurnManager.plst[2], 100, 75));
+		grid[12][1].setUnit(new Unit(TurnManager.plst[3], 100, 75));
 		
 		//puts bases on the board for each player and assigns the owner of the base
 		grid[0][0].setBuilding(new City(false));
@@ -78,20 +78,13 @@ public class GameInterface {
 	private double posX;
 	private double posY;
 
-	
 	// The window handle
 	private long window;
 	
 	GLFWMouseButtonCallback mouseCallback;
 
 	public void run() {
-		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 		
-		// This is just to have something to run
-		/*Player testPlayer = new Player();
-		Unit unit1 = new Unit(testPlayer);
-		grid[5][3].setUnit(unit1);
-*/
 		init();
 		loop();
 
@@ -122,8 +115,6 @@ public class GameInterface {
 		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
 		if ( window == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
-		
-		
 
 		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
@@ -150,17 +141,21 @@ public class GameInterface {
 				    	
 			    		//prints the coordinates of the tile that was clicked
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
+				    	
 			
 				    	if (justClickedTile.getUnit() != null) 
-				    		System.out.println("Has Unit!");
+				    		System.out.println("Has Unit! Attack: " + justClickedTile.getUnit().getAttack());
 				    	else
 				    		System.out.println("No Unit");
 				    	//determines if the current player can move their unit on lastTile to the justClickedTile
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && 
 				    		(lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && 
-				    		justClickedTile.getUnit() == null && UnitManager.isMoveValid(lastTile, justClickedTile)) {
-				    	
-				    		UnitManager.moveUnit(lastTile, justClickedTile);
+				    		UnitManager.isMoveValid(lastTile, justClickedTile)) {
+				    		
+				    		if (justClickedTile.getUnit() == null) 
+					    		UnitManager.moveUnit(lastTile, justClickedTile);
+				    		else 
+				    			UnitManager.attack(lastTile, justClickedTile);
 				    		lastTile = null;
 				    		justClickedTile = null;
 				    	}
@@ -241,24 +236,9 @@ public class GameInterface {
 			
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);	
 			 
-		    // set the color of the quad (R,G,B,A)
+		    // set the color of the quad (R,G,B)
 		    GL11.glColor3f(0.5f,0.5f,1.0f);
 	 
-		    // draw quad
-		    GL11.glBegin(GL11.GL_QUADS);
-		    GL11.glVertex2f(100,100);
-			GL11.glVertex2f(100+200,100);
-			GL11.glVertex2f(100+200,100+200);
-			GL11.glVertex2f(100,100+200);
-		    GL11.glEnd();
-		    
-		    GL11.glBegin(GL11.GL_QUADS);
-		    GL11.glVertex2f(300,300);
-			GL11.glVertex2f(300+200,300);
-			GL11.glVertex2f(300+200,300+200);
-			GL11.glVertex2f(300,300+200);
-		    GL11.glEnd();
-		    
 		    GL11.glColor3f(0.1f,0.5f,1.0f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(952,0);

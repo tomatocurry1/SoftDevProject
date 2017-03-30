@@ -23,9 +23,13 @@ public class UnitManager {
 			tile2.getBuilding().setOwner(tile2.getUnit().getOwner());
 	}
 	
-	
-	
-	
-	
-
+	public static void attack(Tile tile1, Tile tile2) {
+		Unit unit1 = tile1.getUnit();
+		Unit unit2 = tile2.getUnit();
+		unit2.decreaseHealth(unit1.getAttack());
+		if (unit2.getHealth() <= 0) {
+			moveUnit(tile1, tile2);
+		}
+		System.out.println("Remaining Health: " + unit2.getHealth());
+	}
 }

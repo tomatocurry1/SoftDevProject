@@ -17,6 +17,12 @@ public class Unit {
 		owner = p;
 	}
 	
+	public Unit(Player p, int h, int a) {
+		owner = p;
+		health = h;
+		attack = a;
+	}
+	
 	public Player getOwner() {
 		return owner;
 	}
@@ -142,5 +148,9 @@ public class Unit {
 		}
 		else
 			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
+	}
+	
+	public void decreaseHealth(int value) {
+		health = health - value;
 	}
 }
