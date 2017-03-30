@@ -33,13 +33,17 @@ public class GameInterface {
 		//makes matrix of tiles
 		grid = new Tile[14][10];
 		
-		//places the terrain on the board and resources
+		//places the terrain and resources on the board
 		for(int i=0; i<14;i++){
 			for(int j=0; j<10;j++){
 				grid[i][j] = new Tile(Terrain.GRASSLANDS, null,i,j);
 				if((j==5&&i<5)||(j==6&&i>=5)){
 					grid[i][j].setTerrain(Terrain.WATER);
 				}
+				if (j==0 && i < 10 && i > 3)
+					grid[i][j].setTerrain(Terrain.ROADS);
+				if (i == 8 && j<6 && j >1)
+					grid[i][j].setTerrain(Terrain.MOUNTAINS);
 				if ((j==2 && i == 4) || (j == 7 && i == 6)) {
 					grid[i][j].setResource(new Resource("Steel"));
 				}
@@ -146,9 +150,11 @@ public class GameInterface {
 				    	
 			    		//prints the coordinates of the tile that was clicked
 				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
-				    	
-	  /*************************NEED TO ADD CODE FOR DISPLAYING UNIT INFORMATION************************/
-				    	
+			
+				    	if (justClickedTile.getUnit() != null) 
+				    		System.out.println("Has Unit!");
+				    	else
+				    		System.out.println("No Unit");
 				    	//determines if the current player can move their unit on lastTile to the justClickedTile
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && 
 				    		(lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && 
@@ -162,10 +168,6 @@ public class GameInterface {
 			    	//right clicking displays the terrain, resource, and building????
 			    	else if (button == GLFW_MOUSE_BUTTON_2) {
 			    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
-			    		if (justClickedTile.getUnit() == null)
-				    		System.out.println("No unit");
-				    	else
-				    		System.out.println("Yes unit");
 				    	if (justClickedTile.getBuilding() == null)
 				    		System.out.println("No Building");
 				    	else
@@ -285,8 +287,7 @@ public class GameInterface {
 		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
-		    		
-		    		
+		    	
 				    //draws the terrain on the board
 		    		if (GameInterface.grid[j][i].getTerrain() != null)
 		    			drawTerrain(i, j, GameInterface.grid[j][i].getTerrain());
@@ -428,11 +429,14 @@ public class GameInterface {
 	
 	//draws the terrain on the board
 	private static void drawTerrain(int i, int j, Terrain t){
-		if(GameInterface.grid[j][i].getTerrain()==Terrain.GRASSLANDS)
+		if(t==Terrain.GRASSLANDS)
 			GL11.glColor3f(0.0f,0.8f,0.2f);
-		else if(GameInterface.grid[j][i].getTerrain()==Terrain.WATER)
+		else if(t==Terrain.WATER)
 			GL11.glColor3f(0.0f,0.2f,0.8f);
-	    
+		else if (t == Terrain.MOUNTAINS)
+			GL11.glColor3f(0.2f, 0.2f, 0.2f);
+		else if (t == Terrain.ROADS)
+			GL11.glColor3f(1.0f, 1.0f, 0.2f);
 	    GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(68*j,68*i);
 		GL11.glVertex2f(68*(j+1),68*i);
