@@ -18,6 +18,7 @@ public class GameInterface {
 	
 	public static Tile[][] grid;
 
+	
 	// initializes the game board and players
 	public static void gameInit(){
 		
