@@ -24,6 +24,7 @@ public class UnitManager {
 	}
 	
 	public static boolean isValidMove(Tile tile1, Tile tile2) {
+		setup(tile1.getUnit());
 		if (shortestPath(tile1, tile2) >= 0)
 			return true;
 		return false;
@@ -73,10 +74,10 @@ public class UnitManager {
 		
 		
 		
-		public static void setup() {
+		public static void setup(Unit u) {
 			for (int i = 0; i < 14; i++) {
 				for (int j = 0; j < 10; j++) {
-					terrainMultiplierArray[i][j] = GameInterface.grid[i][j].getTerrain().getModifier();
+					terrainMultiplierArray[i][j] = u.getMultiplier(GameInterface.grid[i][j].getTerrain());
 				}
 			}
 		}

@@ -8,5 +8,12 @@ public class GameInterfaceTest {
 	public void test() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testMovementOptimization() {
+		GameInterface a = new GameInterface();
+		a.run();
+		
+	}
 
 }

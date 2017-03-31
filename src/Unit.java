@@ -12,9 +12,18 @@ public class Unit {
 	private double tankDMultiplier;
 	private double aircraftDMultiplier;
 	private double infantryDMultiplier;
+	private double grasslandMultiplier = 50000;
+	private double hillMultiplier = 50000;
+	private double roadMultiplier = 5000000;
+	private double mountainMultiplier = 500000;
+	private double waterMultiplier = 500000;
 	
 	public Unit(Player p) {
 		owner = p;
+	}
+	
+	public double getMultiplier(Terrain t) {
+		return 100000.0;
 	}
 	
 	public Unit(Player p, int h, int a) {
@@ -106,48 +115,6 @@ public class Unit {
 
 	public void setInfantryDMultiplier(double infantryDMultiplier) {
 		this.infantryDMultiplier = infantryDMultiplier;
-	}
-
-	public static int getOilCost(String unit) {
-		if (unit.equals("Tank")) {
-			return 0;
-		}
-		else if (unit.equals("Infantry")) {
-			return 0;
-		}
-		else if (unit.equals("Aircraft")) {
-			return 1;
-		}
-		else
-			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
-	}
-	
-	public static int getSteelCost(String unit) {
-		if (unit.equals("Tank")) {
-			return 1;
-		}
-		else if (unit.equals("Infantry")) {
-			return 0;
-		}
-		else if (unit.equals("Aircraft")) {
-			return 0;
-		}
-		else
-			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
-	}
-	
-	public static int getCreditCost(String unit) {
-		if (unit.equals("Tank")) {
-			return 500;
-		}
-		else if (unit.equals("Infantry")) {
-			return 200;
-		}
-		else if (unit.equals("Aircraft")) {
-			return 700;
-		}
-		else
-			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
 	}
 	
 	public void decreaseHealth(int value) {
