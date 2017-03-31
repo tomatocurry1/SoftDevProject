@@ -5,6 +5,8 @@ public class Player {
 	private int victoryPoints;
 	private int oil;
 	private int steel;
+	private int oilUsed;
+	private int steelUsed;
 	private int credits;
 	private float red;
 	private float green;
@@ -71,7 +73,27 @@ public class Player {
 		credits = credits + value;
 	}
 	
+	public void substractCredits(int value){
+		credits -= value;
+	}
+	
 	public int getCredits() {
 		return credits;
+	}
+
+	public int getSteelUsed() {
+		return steelUsed;
+	}
+
+	public void setSteelUsed(int steelUsed) {
+		this.steelUsed = steelUsed;
+	}
+
+	public int getOilUsed() {
+		return oilUsed;
+	}
+
+	public void setOilUsed(int oilUsed) {
+		this.oilUsed = oilUsed;
 	}
 }
