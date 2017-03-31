@@ -15,6 +15,7 @@ public class TankDefault extends Unit {
 		
 		setHealth(10);
 		setAttack(4);
+		setMovementPts(3);
 	}
 
 	public double getMultiplier(Terrain t) {

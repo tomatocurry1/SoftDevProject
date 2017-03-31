@@ -37,16 +37,37 @@ public class GameInterface {
 		for(int i=0; i<14;i++){
 			for(int j=0; j<10;j++){
 				grid[i][j] = new Tile(Terrain.GRASSLANDS, null,i,j);
-				if((j==5&&i<5)||(j==6&&i>=5)){
+				if((j==5)||(j==4)){
 					grid[i][j].setTerrain(Terrain.WATER);
 				}
-				if (j==0 && i < 10 && i > 3)
-					grid[i][j].setTerrain(Terrain.ROADS);
-				if (i == 8 && j<6 && j >1)
-					grid[i][j].setTerrain(Terrain.MOUNTAINS);
-				if ((j==2 && i == 4) || (j == 7 && i == 6)) {
-					grid[i][j].setResource(new Resource("Steel"));
+				
+				if ((j==3  && (i>4 && i<9)) || (j==6 && (i>4 && i<9))) {
+					grid[i][j].setTerrain(Terrain.HILLS);
 				}
+				if (((i>=0 && i<4) || (i<= 13 && i>10)) && (j==2 || j ==7))
+					grid[i][j].setTerrain(Terrain.HILLS);
+				
+				if ((j==4 || j==5 || j ==3 || j == 6)  && (i == 4 || i == 9))
+					grid[i][j].setTerrain(Terrain.ROADS);
+
+				if ((j == 1 || j == 0 || j == 8 || j == 9) && (i==1 || i==12))
+					grid[i][j].setTerrain(Terrain.ROADS);
+				
+				if ((i==2 || i==3 || i==10 || i==11) && (j==1 || j==8))
+					grid[i][j].setTerrain(Terrain.ROADS);
+				
+				if ((i==3 || i==4 || i==9 || i==10) && (j==2 || j==7))
+					grid[i][j].setTerrain(Terrain.ROADS);
+				
+				
+				if (((j==1 || j == 2) && (i==6 || i == 7)) || ((j == 7 || j ==8) && (i == 6 || i == 7))) {
+					grid[i][j].setTerrain(Terrain.MOUNTAINS);
+				}
+				
+				
+			//	if (((j==1 || j == 2) && (i==6 || i == 7)) || ((j == 7 || j ==8) && (i == 6 || i == 7))) {
+				//	grid[i][j].setResource(new Resource("Steel"));
+			//	}
 				if ((j==3 && i == 4) || (j == 4 && i == 6)) {
 					grid[i][j].setResource(new Resource("Oil"));
 				}
@@ -186,7 +207,7 @@ public class GameInterface {
 		    		System.out.println("End Turn button clicked");
 		    		TurnManager.endTurn();
 		    	}
-		    	
+		   
 		    	if (posX > 952 + 40 && posX < 1280-40 && posY > 720 - 500 && posY < 720 - 400) {
 		    		System.out.println("Trying to buy unit");
 		    		if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer()))
