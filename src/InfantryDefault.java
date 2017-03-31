@@ -16,6 +16,7 @@ public class InfantryDefault extends Unit {
 		setHealth(6);
 		setAttack(2);
 		setMovementPts(2);
+		setOriginalMovementPts(2);
 	}
 
 	public double getMultiplier(Terrain t) {

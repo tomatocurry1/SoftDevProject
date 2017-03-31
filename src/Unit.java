@@ -4,19 +4,15 @@ public class Unit {
 	private Player owner;
 	private int health;
 	private int attack;
-	private double movementPts = 5;
-	private double originalMovement = movementPts;
+	private double movementPts;
 	private double tankAMultiplier;
 	private double aircraftAMultiplier;
 	private double cityAMultiplier;
 	private double tankDMultiplier;
 	private double aircraftDMultiplier;
 	private double infantryDMultiplier;
-	private double grasslandMultiplier = 50000;
-	private double hillMultiplier = 50000;
-	private double roadMultiplier = 5000000;
-	private double mountainMultiplier = 500000;
-	private double waterMultiplier = 500000;
+	private double originalMovementPts;
+
 	
 	public Unit(Player p) {
 		owner = p;
@@ -64,9 +60,13 @@ public class Unit {
 		this.movementPts = movementPts;
 	}
 	
+	public void setOriginalMovementPts(double origPts) {
+		originalMovementPts = origPts;
+	}
+	
 	
 	public void resetMovePts() {
-		this.setMovementPts(originalMovement);
+		this.setMovementPts(originalMovementPts);
 	}
 
 	public double getTankAMultiplier() {

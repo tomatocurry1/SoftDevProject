@@ -10,12 +10,14 @@ public class TankDefault extends Unit {
 	private int steelCost = 1;
 	private static int creditCost = 500;
 	
+	
 	public TankDefault(Player p) {
 		super(p);
 		
 		setHealth(10);
 		setAttack(4);
 		setMovementPts(3);
+		setOriginalMovementPts(3.0);
 	}
 
 	public double getMultiplier(Terrain t) {
