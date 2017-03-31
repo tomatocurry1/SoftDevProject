@@ -23,16 +23,7 @@ public class Unit {
 	}
 	
 	public double getMultiplier(Terrain t) {
-		if (t == Terrain.GRASSLANDS)
-			return grasslandMultiplier;
-		else if (t == Terrain.HILLS)
-			return hillMultiplier;
-		else if (t == Terrain.MOUNTAINS)
-			return mountainMultiplier;
-		else if (t == Terrain.ROADS) 
-			return roadMultiplier;
-		else 
-			return waterMultiplier;
+		return 100000.0;
 	}
 	
 	public Unit(Player p, int h, int a) {

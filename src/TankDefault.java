@@ -15,6 +15,18 @@ public class TankDefault extends Unit {
 		setMovementPts(3);
 	}
 
+	public double getMultiplier(Terrain t) {
+		if (t == Terrain.GRASSLANDS)
+			return grasslandMultiplier;
+		else if (t == Terrain.HILLS)
+			return hillMultiplier;
+		else if (t == Terrain.MOUNTAINS)
+			return mountainMultiplier;
+		else if (t == Terrain.ROADS) 
+			return roadMultiplier;
+		else 
+			return waterMultiplier;
+	}
 	/*public double getGrasslandMultipier() {
 		return grasslandMultiplier;
 	}
