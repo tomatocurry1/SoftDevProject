@@ -54,8 +54,8 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
-		grid[1][1].setUnit(new Unit(TurnManager.plst[0], 100, 75));
-		grid[1][8].setUnit(new Unit(TurnManager.plst[1], 100, 75));
+		grid[1][1].setUnit(new TankDefault(TurnManager.plst[0]));
+		grid[1][8].setUnit(new AircraftDefault(TurnManager.plst[1]));
 		grid[12][8].setUnit(new Unit(TurnManager.plst[2], 100, 75));
 		grid[12][1].setUnit(new Unit(TurnManager.plst[3], 100, 75));
 		
@@ -192,9 +192,12 @@ public class GameInterface {
 		    	
 		    	if (posX > 952 + 40 && posX < 1280-40 && posY > 720 - 500 && posY < 720 - 400) {
 		    		System.out.println("Trying to buy unit");
-		    		if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer()))
-		    			UnitCreator.createUnit(TurnManager.getCurrentPlayer());
 		    		
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null)
+		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
+		    				System.out.println("can buy unit");
+		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Tank");
+		    			}
 		    	}
 		    }
 		    }
