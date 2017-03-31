@@ -89,8 +89,9 @@ public class TurnManager {
 				
 				if(temp.getBuilding()!=null){
 					if(temp.getBuilding().getOwner()!=null){
-						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints());
-						temp.getBuilding().getOwner().addCredits(1000);
+						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints()+1);
+						if(temp.getBuilding().getOwner()!=null)
+							temp.getBuilding().getOwner().addCredits(250);
 					}
 				}
 			}

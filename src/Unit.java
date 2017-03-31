@@ -110,13 +110,13 @@ public class Unit {
 
 	public static int getOilCost(String unit) {
 		if (unit.equals("Tank")) {
-			return 100;
+			return 0;
 		}
 		else if (unit.equals("Infantry")) {
-			return 200;
+			return 0;
 		}
 		else if (unit.equals("Aircraft")) {
-			return 300;
+			return 1;
 		}
 		else
 			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
@@ -124,13 +124,13 @@ public class Unit {
 	
 	public static int getSteelCost(String unit) {
 		if (unit.equals("Tank")) {
-			return 100;
+			return 1;
 		}
 		else if (unit.equals("Infantry")) {
-			return 200;
+			return 0;
 		}
 		else if (unit.equals("Aircraft")) {
-			return 300;
+			return 0;
 		}
 		else
 			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
@@ -138,13 +138,13 @@ public class Unit {
 	
 	public static int getCreditCost(String unit) {
 		if (unit.equals("Tank")) {
-			return 100;
+			return 500;
 		}
 		else if (unit.equals("Infantry")) {
 			return 200;
 		}
 		else if (unit.equals("Aircraft")) {
-			return 300;
+			return 700;
 		}
 		else
 			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
