@@ -69,6 +69,9 @@ public class GameInterface {
 		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
 		grid[6][5].setBuilding(new City(true));
 		grid[10][4].setBuilding(new City(true));
+		
+		UnitManager.setup();
+		
 	}
 
 	private Tile lastTile = null;
@@ -144,16 +147,17 @@ public class GameInterface {
 				    	
 			
 				    	if (justClickedTile.getUnit() != null) {
-				    		System.out.println("Oil: " + justClickedTile.getUnit().getOwner().getOil());
-				    		System.out.println("Steel: " + justClickedTile.getUnit().getOwner().getSteel());
+				    		//System.out.println("Oil: " + justClickedTile.getUnit().getOwner().getOil());
+				    		//System.out.println("Steel: " + justClickedTile.getUnit().getOwner().getSteel());
 				    		System.out.println("Has Unit! Attack: " + justClickedTile.getUnit().getAttack());
+				    		System.out.println("Movement points: " + justClickedTile.getUnit().getMovementPts());
 				    	}
 				    	else
 				    		System.out.println("No Unit");
 				    	//determines if the current player can move their unit on lastTile to the justClickedTile
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && 
 				    		(lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && 
-				    		UnitManager.isMoveValid(lastTile, justClickedTile)) {
+				    		UnitManager.isValidMove(lastTile, justClickedTile)) {
 				    		
 				    		if (justClickedTile.getUnit() == null) 
 					    		UnitManager.moveUnit(lastTile, justClickedTile);
