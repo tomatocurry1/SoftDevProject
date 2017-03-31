@@ -17,6 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class GameInterface {
 	
 	public static Tile[][] grid;
+	private static String info;
 	
 	// initializes the game board and players
 	public static void gameInit(){
@@ -41,12 +42,21 @@ public class GameInterface {
 					grid[i][j].setTerrain(Terrain.WATER);
 				}
 				
-				if ((j==3  && (i>4 && i<9)) || (j==6 && (i>4 && i<9))) {
+				if ((j==3  && (i>4 && i<9)) || (j==6 && (i>4 && i<9))) 
 					grid[i][j].setTerrain(Terrain.HILLS);
-				}
+				
 				if (((i>=0 && i<4) || (i<= 13 && i>10)) && (j==2 || j ==7))
 					grid[i][j].setTerrain(Terrain.HILLS);
 				
+				if ((j==0 || j==9) && (i==2 ||i == 3))
+					grid[i][j].setTerrain(Terrain.HILLS);
+				
+				if ((j==1 || j==8) && (i ==0 || i == 13))
+					grid[i][j].setTerrain(Terrain.HILLS);
+				
+				if ((j==1 || j==8) && (i==5 || i==8)) 
+					grid[i][j].setTerrain(Terrain.HILLS);
+					
 				if ((j==4 || j==5 || j ==3 || j == 6)  && (i == 4 || i == 9))
 					grid[i][j].setTerrain(Terrain.ROADS);
 
@@ -59,11 +69,9 @@ public class GameInterface {
 				if ((i==3 || i==4 || i==9 || i==10) && (j==2 || j==7))
 					grid[i][j].setTerrain(Terrain.ROADS);
 				
-				
 				if (((j==1 || j == 2) && (i==6 || i == 7)) || ((j == 7 || j ==8) && (i == 6 || i == 7))) {
 					grid[i][j].setTerrain(Terrain.MOUNTAINS);
 				}
-				
 				
 				if  ((i==1 || i ==12) && (j==2 || j == 7)) 
 					grid[i][j].setResource(new Resource("Steel"));
@@ -95,8 +103,10 @@ public class GameInterface {
 		grid[13][9].getBuilding().setOwner(TurnManager.plst[2]);
 		grid[13][0].setBuilding(new City(false));
 		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
-		grid[6][5].setBuilding(new City(true));
-		grid[10][4].setBuilding(new City(true));
+		grid[5][2].setBuilding(new City(true));
+		grid[8][2].setBuilding(new City(true));
+		grid[5][7].setBuilding(new City(true));
+		grid[8][7].setBuilding(new City(true));
 		
 	}
 
@@ -381,6 +391,11 @@ public class GameInterface {
 			GL11.glVertex2f(1280-30,200);
 			GL11.glVertex2f(68*14+30,200);
 		    GL11.glEnd(); 
+		    
+		    if(justClickedTile!=null)
+		    	if(justClickedTile.getUnit()!=null)
+		    Text.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 30f, 1.5f);
+		    
 		    
 		    Text.drawString("END TURN", 52.5f, 7f, 80f, 5f);
  
