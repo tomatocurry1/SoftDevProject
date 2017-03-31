@@ -24,9 +24,11 @@ public class UnitManager {
 	}
 	
 	public static boolean isValidMove(Tile tile1, Tile tile2) {
-		setup(tile1.getUnit());
-		if (shortestPath(tile1, tile2) >= 0)
-			return true;
+		if ((tile1.getUnit().getOwner() == TurnManager.getCurrentPlayer())) {
+			setup(tile1.getUnit());
+			if (shortestPath(tile1, tile2) >= 0)
+				return true;
+		}
 		return false;
 	}
 

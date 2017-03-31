@@ -74,10 +74,10 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
-		grid[1][1].setUnit(new InfantryDefault(TurnManager.plst[0]));
-		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
-		grid[12][8].setUnit(new InfantryDefault(TurnManager.plst[2]));
-		grid[12][1].setUnit(new InfantryDefault(TurnManager.plst[3]));
+		grid[1][1].setUnit(new TankDefault(TurnManager.plst[0]));
+		grid[1][8].setUnit(new TankDefault(TurnManager.plst[1]));
+		grid[12][8].setUnit(new TankDefault(TurnManager.plst[2]));
+		grid[12][1].setUnit(new TankDefault(TurnManager.plst[3]));
 
 		
 		//puts bases on the board for each player and assigns the owner of the base
@@ -175,8 +175,7 @@ public class GameInterface {
 				    	else
 				    		System.out.println("No Unit");
 				    	//determines if the current player can move their unit on lastTile to the justClickedTile
-				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null && 
-				    		(lastTile.getUnit().getOwner() == TurnManager.getCurrentPlayer()) && 
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null &&  
 				    		UnitManager.isValidMove(lastTile, justClickedTile)) {
 				    		
 				    		if (justClickedTile.getUnit() == null) 
