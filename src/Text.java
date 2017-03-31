@@ -18,8 +18,8 @@ public static void drawString(String s, float x, float y, float scale, float wid
               break;
           case '\n':
               y -= 2;
-              startX -= charNum * (scale * 5);
-              startX -= spaceNum * (scale * 3);
+              startX -= charNum ;
+              startX -= spaceNum;
               spaceNum = 0;
               charNum = 0;
               break;

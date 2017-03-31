@@ -17,6 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class GameInterface {
 	
 	public static Tile[][] grid;
+	private static String info;
 	
 	// initializes the game board and players
 	public static void gameInit(){
@@ -383,6 +384,11 @@ public class GameInterface {
 			GL11.glVertex2f(1280-30,200);
 			GL11.glVertex2f(68*14+30,200);
 		    GL11.glEnd(); 
+		    
+		    if(justClickedTile!=null)
+		    	if(justClickedTile.getUnit()!=null)
+		    Text.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 30f, 1.5f);
+		    
 		    
 		    Text.drawString("END TURN", 52.5f, 7f, 80f, 5f);
  
