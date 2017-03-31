@@ -12,13 +12,27 @@ public class Unit {
 	private double tankDMultiplier;
 	private double aircraftDMultiplier;
 	private double infantryDMultiplier;
+	private double grasslandMultiplier = 50000;
+	private double hillMultiplier = 50000;
+	private double roadMultiplier = 5000000;
+	private double mountainMultiplier = 500000;
+	private double waterMultiplier = 500000;
 	
 	public Unit(Player p) {
 		owner = p;
 	}
 	
 	public double getMultiplier(Terrain t) {
-		return 500.0;
+		if (t == Terrain.GRASSLANDS)
+			return grasslandMultiplier;
+		else if (t == Terrain.HILLS)
+			return hillMultiplier;
+		else if (t == Terrain.MOUNTAINS)
+			return mountainMultiplier;
+		else if (t == Terrain.ROADS) 
+			return roadMultiplier;
+		else 
+			return waterMultiplier;
 	}
 	
 	public Unit(Player p, int h, int a) {
