@@ -54,10 +54,10 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
-		grid[1][1].setUnit(new Unit(TurnManager.plst[0], 100, 75));
-		grid[1][8].setUnit(new Unit(TurnManager.plst[1], 100, 75));
-		grid[12][8].setUnit(new Unit(TurnManager.plst[2], 100, 75));
-		grid[12][1].setUnit(new Unit(TurnManager.plst[3], 100, 75));
+		grid[1][1].setUnit(new TankDefault(TurnManager.plst[0]));
+		grid[1][8].setUnit(new TankDefault(TurnManager.plst[1]));
+		grid[12][8].setUnit(new TankDefault(TurnManager.plst[2]));
+		grid[12][1].setUnit(new TankDefault(TurnManager.plst[3]));
 		
 		//puts bases on the board for each player and assigns the owner of the base
 		grid[0][0].setBuilding(new City(false));
@@ -70,8 +70,6 @@ public class GameInterface {
 		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
 		grid[6][5].setBuilding(new City(true));
 		grid[10][4].setBuilding(new City(true));
-		
-		UnitManager.setup();
 		
 	}
 

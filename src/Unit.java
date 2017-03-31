@@ -17,6 +17,10 @@ public class Unit {
 		owner = p;
 	}
 	
+	public double getMultiplier(Terrain t) {
+		return 500.0;
+	}
+	
 	public Unit(Player p, int h, int a) {
 		owner = p;
 		health = h;
