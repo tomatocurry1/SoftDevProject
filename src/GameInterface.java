@@ -74,13 +74,13 @@ public class GameInterface {
 				}
 				
 				if  ((i==1 || i ==12) && (j==2 || j == 7)) 
-					grid[i][j].setResource(new Resource("Steel"));
+					grid[i][j].setResource(new Steel());
 				
 				if ((i==5 || i==8) && (j==3 || j ==6))
-					grid[i][j].setResource(new Resource("Steel"));
+					grid[i][j].setResource(new Steel());
 				
 				if ((j==0 || j ==9) && (i == 5 || i == 8)) 
-					grid[i][j].setResource(new Resource("Oil"));
+					grid[i][j].setResource(new Oil());
 				
 				
 				

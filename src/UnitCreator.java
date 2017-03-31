@@ -15,6 +15,10 @@ public class UnitCreator {
 					if(p.getCredits()>AircraftDefault.getCreditCost())
 						return true;
 			break;
+			case "Infantry":
+				if(p.getCredits()>InfantryDefault.getCreditCost())
+					return true;
+			break;
 		
 		}
 		return false;
@@ -23,14 +27,18 @@ public class UnitCreator {
 	public static void createUnit(Player p, int x, int y, String type) {
 		if(canCreateUnit(p,type)){
 			switch(type){
+				case "Infantry":
+					GameInterface.grid[x][y].setUnit(new InfantryDefault(p));
+					p.subtractCredits(InfantryDefault.getCreditCost());
+				break;
 				case "Tank":
 					GameInterface.grid[x][y].setUnit(new TankDefault(p));
-					p.substractCredits(TankDefault.getCreditCost());
+					p.subtractCredits(TankDefault.getCreditCost());
 					p.setSteelUsed(p.getSteelUsed()+1);
 				break;
 				case "Aircraft":
 					GameInterface.grid[x][y].setUnit(new AircraftDefault(p));
-					p.substractCredits(AircraftDefault.getCreditCost());
+					p.subtractCredits(AircraftDefault.getCreditCost());
 					p.setOilUsed(p.getOilUsed()+1);
 				break;
 				

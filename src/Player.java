@@ -73,7 +73,7 @@ public class Player {
 		credits = credits + value;
 	}
 	
-	public void substractCredits(int value){
+	public void subtractCredits(int value){
 		credits -= value;
 	}
 	

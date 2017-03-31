@@ -8,10 +8,13 @@ public class UnitCreatorTest {
 	public void createAircraftEnough(){
 		GameInterface.gameInit();
 		//tile with oil
-		GameInterface.grid[4][3].getResource().setOwner(TurnManager.getCurrentPlayer());
+		GameInterface.grid[5][9].getResource().setOwner(TurnManager.getCurrentPlayer());
 		for(int i=0; i<4; i++)
 			TurnManager.endTurn();
 		int credit = TurnManager.getCurrentPlayer().getCredits();
+		System.out.println(GameInterface.grid[5][0].getResource());
+		System.out.println(TurnManager.getCurrentPlayer().getOil());
+		System.out.println(UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(),"Aircraft"));
 		UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 3, 2, "Aircraft");
 		try{
 			if(GameInterface.grid[3][2].getUnit() instanceof AircraftDefault){
@@ -49,10 +52,54 @@ public class UnitCreatorTest {
 	}
 	
 	@Test
+	public void createInfantryEnough(){
+		GameInterface.gameInit();
+		
+		for(int i=0; i<4; i++)
+			TurnManager.endTurn();
+		int credit = TurnManager.getCurrentPlayer().getCredits();
+		UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 3, 2, "Infantry");
+		try{
+			if(GameInterface.grid[3][2].getUnit() instanceof InfantryDefault){
+				if(GameInterface.grid[3][2].getUnit().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()){
+					if(TurnManager.getCurrentPlayer().getCredits()+InfantryDefault.getCreditCost() == credit){
+						assert(true);
+					}
+				}
+			}
+			else{
+				fail("Failed at making infantry");
+			}
+		}catch(Exception e){
+			fail("Error thrown while making infantry");
+		}
+		
+	}
+	
+	@Test
+	public void createInfantryNotEnough(){
+		GameInterface.gameInit();
+		TurnManager.getCurrentPlayer().subtractCredits(TurnManager.getCurrentPlayer().getCredits());
+		UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 2, 2, "Infantry");
+		try{
+			if(GameInterface.grid[2][2].getUnit() instanceof InfantryDefault){
+				fail("Not supposed to make a infantry");
+			}
+			else{
+				
+			}
+		}catch(Exception e){
+			fail("Error thrown while making infantry");
+		}
+		assert(true);
+	}
+	
+	@Test
 	public void createTankEnough(){
 		GameInterface.gameInit();
-		//tile with steel
-		GameInterface.grid[7][6].getResource().setOwner(TurnManager.getCurrentPlayer());
+		//2 tiles with steel
+		GameInterface.grid[1][2].getResource().setOwner(TurnManager.getCurrentPlayer());
+		GameInterface.grid[1][7].getResource().setOwner(TurnManager.getCurrentPlayer());
 		for(int i=0; i<4; i++)
 			TurnManager.endTurn();
 		int credit = TurnManager.getCurrentPlayer().getCredits();
@@ -97,7 +144,7 @@ public class UnitCreatorTest {
 	public void createWrongTurn(){
 		GameInterface.gameInit();
 		//tile with steel
-		GameInterface.grid[7][6].getResource().setOwner(TurnManager.plst[0]);
+		GameInterface.grid[1][2].getResource().setOwner(TurnManager.plst[0]);
 		for(int i=0; i<5; i++)
 			TurnManager.endTurn();
 		int credit = TurnManager.plst[0].getCredits();

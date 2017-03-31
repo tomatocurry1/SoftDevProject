@@ -8,7 +8,7 @@ public class InfantryDefault extends Unit {
 	private double waterMultiplier = 500000;
 	private int oilCost = 0;
 	private int steelCost = 0;
-	private int creditCost = 200;
+	private static int creditCost = 200;
 	
 	public InfantryDefault(Player p) {
 		super(p);
@@ -39,7 +39,7 @@ public class InfantryDefault extends Unit {
 		return steelCost;
 	}
 	
-	public int getCreditCost() {
+	public static int getCreditCost() {
 		return creditCost;
 	}
 }
