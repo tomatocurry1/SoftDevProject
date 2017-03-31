@@ -15,6 +15,7 @@ public class AircraftDefault extends Unit {
 		setHealth(10);
 		setAttack(4);
 		setMovementPts(5);
+		setOriginalMovementPts(5);
 	}
 
 	public double getMultiplier(Terrain t) {
