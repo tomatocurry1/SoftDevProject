@@ -66,7 +66,10 @@ public class UnitManager {
 		//if unit is destroyed
 		if (unit2.getHealth() <= 0) {
 			moveUnit(tile1, tile2);
+			tile2.getUnit().setMovementPts(0.0);
 		}
+		else
+			tile1.getUnit().setMovementPts(0.0);
 		System.out.println("Remaining Health: " + unit2.getHealth());
 	}
 	

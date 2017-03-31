@@ -188,7 +188,6 @@ public class GameInterface {
 					    		UnitManager.moveUnit(lastTile, justClickedTile);
 				    		else {
 				    			UnitManager.attack(lastTile, justClickedTile);
-				    			justClickedTile.getUnit().setMovementPts(0.0);
 				    		}
 				    		lastTile = null;
 				    		justClickedTile = null;
