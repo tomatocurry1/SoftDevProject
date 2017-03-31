@@ -8,7 +8,7 @@ public class AircraftDefault extends Unit {
 	private double waterMultiplier = 1;
 	private int oilCost = 1;
 	private int steelCost = 0;
-	private int creditCost = 700;
+	private static int creditCost = 700;
 	public AircraftDefault(Player p) {
 		super(p);
 		
@@ -37,7 +37,7 @@ public class AircraftDefault extends Unit {
 		return steelCost;
 	}
 	
-	public int getCreditCost() {
+	public static int getCreditCost() {
 		return creditCost;
 	}
 }
