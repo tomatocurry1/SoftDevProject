@@ -197,7 +197,7 @@ public class GameInterface {
 				    		if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
 				    			UnitManager.attack(lastTile, justClickedTile);
 				    			}
-				    		else {
+				    		else if (justClickedTile.getUnit() == null){
 				    			UnitManager.moveUnit(lastTile, justClickedTile);
 				    		}
 				    		lastTile = null;

@@ -19,6 +19,8 @@ public class MovementTest {
 		assertEquals(-1, UnitManager.shortestPath(GameInterface.grid[1][1], GameInterface.grid[8][0]), 0.01);
 		assertEquals(-1, UnitManager.shortestPath(GameInterface.grid[1][8], GameInterface.grid[8][0]), 0.01);
 		assertEquals(1, UnitManager.shortestPath(GameInterface.grid[1][8], GameInterface.grid[0][8]), 0.01);
+		assertEquals(-1, UnitManager.shortestPath(GameInterface.grid[12][1], GameInterface.grid[13][2]), 0.01);
+		assertEquals(1, UnitManager.shortestPath(GameInterface.grid[12][1], GameInterface.grid[13][1]), 0.01);
 	}
 	
 	@Test
