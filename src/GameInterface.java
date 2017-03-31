@@ -65,12 +65,18 @@ public class GameInterface {
 				}
 				
 				
-			//	if (((j==1 || j == 2) && (i==6 || i == 7)) || ((j == 7 || j ==8) && (i == 6 || i == 7))) {
-				//	grid[i][j].setResource(new Resource("Steel"));
-			//	}
-				if ((j==3 && i == 4) || (j == 4 && i == 6)) {
+				if  ((i==1 || i ==12) && (j==2 || j == 7)) 
+					grid[i][j].setResource(new Resource("Steel"));
+				
+				if ((i==5 || i==8) && (j==3 || j ==6))
+					grid[i][j].setResource(new Resource("Steel"));
+				
+				if ((j==0 || j ==9) && (i == 5 || i == 8)) 
 					grid[i][j].setResource(new Resource("Oil"));
-				}
+				
+				
+				
+				
 			}
 		}
 		//puts units on board for each player
@@ -469,10 +475,28 @@ public class GameInterface {
 	private static void drawUnit(int i, int j, Unit u) {
     	Player p = u.getOwner();
     	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
-    	GL11.glBegin(GL11.GL_TRIANGLES);
-    	GL11.glVertex2f(68*j+30,68*i+38);
-		GL11.glVertex2f(68*j+20,68*i+20);
-		GL11.glVertex2f(68*j+40,68*i+20);
+    	if(u instanceof AircraftDefault){
+	    	GL11.glBegin(GL11.GL_TRIANGLES);
+	    	GL11.glVertex2f(68*j+30,68*i+38);
+			GL11.glVertex2f(68*j+20,68*i+20);
+			GL11.glVertex2f(68*j+40,68*i+20);
+    	}
+    	if(u instanceof InfantryDefault){
+        	GL11.glBegin(GL11.GL_QUADS);
+        	GL11.glVertex2f(68*j+20,68*i+40);
+    		GL11.glVertex2f(68*j+20,68*i+20);
+    		GL11.glVertex2f(68*j+40,68*i+20);
+    		GL11.glVertex2f(68*j+40,68*i+40);
+    	}
+    	
+    	if(u instanceof TankDefault){
+        	GL11.glBegin(GL11.GL_QUADS);
+        	GL11.glVertex2f(68*j+10,68*i+40);
+    		GL11.glVertex2f(68*j+20,68*i+20);
+    		GL11.glVertex2f(68*j+40,68*i+20);
+    		GL11.glVertex2f(68*j+30,68*i+40);
+    	}
+    	
 	    GL11.glEnd();
 	}
 	
@@ -511,7 +535,7 @@ public class GameInterface {
 	private static void renderPlayerInfo(){
 	    for(int i = 0; i < TurnManager.plst.length; i++){
 	    	Player player = TurnManager.plst[i];
-		    Text.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), 6f+i*42.5f, 93.5f, 30f, 5f);
+		    Text.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), 6f+i*42.5f, 93.5f, 30f, 1.5f);
 		    
 		    
 			GL11.glColor3f(player.getRed(),player.getGreen(),player.getBlue());
