@@ -54,9 +54,9 @@ public class UnitManager {
 				p.setOil(p.getOil() + 1);
 			}
 			tile2.getResource().setOwner(p);
-		}*/
+		}
 		if (tile2.getBuilding() != null)
-			tile2.getBuilding().setOwner(p);
+			tile2.getBuilding().setOwner(p);*/
 	}
 	
 	public static void attack(Tile tile1, Tile tile2) {
