@@ -476,10 +476,28 @@ public class GameInterface {
 	private static void drawUnit(int i, int j, Unit u) {
     	Player p = u.getOwner();
     	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
-    	GL11.glBegin(GL11.GL_TRIANGLES);
-    	GL11.glVertex2f(68*j+30,68*i+38);
-		GL11.glVertex2f(68*j+20,68*i+20);
-		GL11.glVertex2f(68*j+40,68*i+20);
+    	if(u instanceof AircraftDefault){
+	    	GL11.glBegin(GL11.GL_TRIANGLES);
+	    	GL11.glVertex2f(68*j+30,68*i+38);
+			GL11.glVertex2f(68*j+20,68*i+20);
+			GL11.glVertex2f(68*j+40,68*i+20);
+    	}
+    	if(u instanceof InfantryDefault){
+        	GL11.glBegin(GL11.GL_QUADS);
+        	GL11.glVertex2f(68*j+20,68*i+40);
+    		GL11.glVertex2f(68*j+20,68*i+20);
+    		GL11.glVertex2f(68*j+40,68*i+20);
+    		GL11.glVertex2f(68*j+40,68*i+40);
+    	}
+    	
+    	if(u instanceof TankDefault){
+        	GL11.glBegin(GL11.GL_QUADS);
+        	GL11.glVertex2f(68*j+10,68*i+40);
+    		GL11.glVertex2f(68*j+20,68*i+20);
+    		GL11.glVertex2f(68*j+40,68*i+20);
+    		GL11.glVertex2f(68*j+30,68*i+40);
+    	}
+    	
 	    GL11.glEnd();
 	}
 	
