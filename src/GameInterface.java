@@ -192,11 +192,11 @@ public class GameInterface {
 				    		System.out.println("No Unit");
 				    	//determines if the current player can move their unit on lastTile to the justClickedTile
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null &&  
-				    		UnitManager.isValidMove(lastTile, justClickedTile)) {
+				    		UnitManager.isValidMove(lastTile, justClickedTile) ) {
 				    		
 				    		if (justClickedTile.getUnit() == null) 
 					    		UnitManager.moveUnit(lastTile, justClickedTile);
-				    		else {
+				    		else if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
 				    			UnitManager.attack(lastTile, justClickedTile);
 				    		}
 				    		lastTile = null;

@@ -31,7 +31,20 @@ public class UnitManager {
 		}
 		return false;
 	}
+	
+	public static boolean isAttackValid (Tile tile1, Tile tile2) {
+		if ((tile1.getUnit().getOwner() == TurnManager.getCurrentPlayer())) {
+	
+			if ((Math.abs(tile1.getX() - tile2.getX()) + Math.abs(tile1.getY() - tile2.getY())) > 1) {
+				return false;
+			}
+			return true;
+		}
+		
+		return false;
+	}
 
+	
 	public static void moveUnit(Tile tile1, Tile tile2) {
 		Unit temp = tile1.getUnit();
 		//deducts movement points
