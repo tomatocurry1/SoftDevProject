@@ -74,10 +74,11 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
-		grid[1][1].setUnit(new TankDefault(TurnManager.plst[0]));
-		grid[1][8].setUnit(new TankDefault(TurnManager.plst[1]));
-		grid[12][8].setUnit(new TankDefault(TurnManager.plst[2]));
-		grid[12][1].setUnit(new TankDefault(TurnManager.plst[3]));
+		grid[1][1].setUnit(new InfantryDefault(TurnManager.plst[0]));
+		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[12][8].setUnit(new InfantryDefault(TurnManager.plst[2]));
+		grid[12][1].setUnit(new InfantryDefault(TurnManager.plst[3]));
+
 		
 		//puts bases on the board for each player and assigns the owner of the base
 		grid[0][0].setBuilding(new City(false));
@@ -119,7 +120,7 @@ public class GameInterface {
 		glfwSetErrorCallback(null).free();
 	}
 
-	private void init() {
+	public void init() {
 		// Setup an error callback. The default implementation
 		// will print the error message in System.err.
 		GLFWErrorCallback.createPrint(System.err).set();
@@ -210,9 +211,12 @@ public class GameInterface {
 		   
 		    	if (posX > 952 + 40 && posX < 1280-40 && posY > 720 - 500 && posY < 720 - 400) {
 		    		System.out.println("Trying to buy unit");
-		    		if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer()))
-		    			UnitCreator.createUnit(TurnManager.getCurrentPlayer());
 		    		
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum())
+		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
+		    				System.out.println("can buy unit");
+		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Tank");
+		    			}
 		    	}
 		    }
 		    }

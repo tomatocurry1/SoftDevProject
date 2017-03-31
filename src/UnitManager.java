@@ -82,6 +82,7 @@ public class UnitManager {
 			}
 		}
 		
+		//returns the number of movement points left after movement from tile1 to tile2
 		public static double shortestPath(Tile tile1, Tile tile2) {
 			double[][] move = new double [14][10];
 			for (int i = 0; i < 14; i++) {

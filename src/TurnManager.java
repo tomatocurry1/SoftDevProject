@@ -22,6 +22,7 @@ public class TurnManager {
 			arrayPointer++;
 		currentPlayer = plst[arrayPointer];
 		System.out.println(currentPlayer);
+		System.out.println("Steel used: "+currentPlayer.getSteelUsed());
 	}
 	
 	public static void  resetMovement() {
@@ -68,6 +69,8 @@ public class TurnManager {
 			plst[k].setOil(0);
 			plst[k].setSteel(0);
 			plst[k].setVictoryPoints(0);
+			plst[k].setOilUsed(0);
+			plst[k].setSteelUsed(0);
 		}
 		
 		
@@ -92,6 +95,17 @@ public class TurnManager {
 						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints()+1);
 						if(temp.getBuilding().getOwner()!=null)
 							temp.getBuilding().getOwner().addCredits(250);
+					}
+				}
+				
+				if(temp.getUnit() != null){
+					if(temp.getUnit() instanceof AircraftDefault){
+						Player owner = temp.getUnit().getOwner();
+						owner.setOilUsed(owner.getOilUsed()+1);
+					}
+					if(temp.getUnit() instanceof TankDefault){
+						Player owner = temp.getUnit().getOwner();
+						owner.setSteelUsed(owner.getSteelUsed()+1);
 					}
 				}
 			}

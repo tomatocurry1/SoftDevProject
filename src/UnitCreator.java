@@ -1,21 +1,30 @@
 
 public class UnitCreator {
 	
-	public static boolean canCreateUnit(Player p) {
-		if (p.getOil() > 0 && p.getSteel() > 0)
-			return true;
+	public static boolean canCreateUnit(Player p, String type) {
+		switch(type){
+			case "Tank":
+				if(p.getSteel()-p.getSteelUsed()>0)
+					if(p.getCredits()>TankDefault.getCreditCost())
+						return true;
+			break;
+		
+		}
 		return false;
 	}
 	
-	public static void createUnit(Player p) {
-		if (p.getNum() == 1) 
-			GameInterface.grid[1][1].setUnit(new Unit(p));
-		else if (p.getNum() == 2)
-			GameInterface.grid[1][8].setUnit(new Unit(p));
-		else if (p.getNum() == 3) 
-			GameInterface.grid[12][8].setUnit(new Unit(p));
-		else if (p.getNum() == 4)
-			GameInterface.grid[12][1].setUnit(new Unit(p));
+	public static void createUnit(Player p, int x, int y, String type) {
+		if(canCreateUnit(p,type)){
+			switch(type){
+				case "Tank":
+					GameInterface.grid[x][y].setUnit(new TankDefault(p));
+					p.substractCredits(TankDefault.getCreditCost());
+					p.setSteelUsed(p.getSteelUsed()+1);
+				break;
+				
+			}
+		}
+			
 	}
 	
 }

@@ -8,7 +8,7 @@ public class TankDefault extends Unit {
 	private double waterMultiplier = 500000;
 	private int oilCost = 0;
 	private int steelCost = 1;
-	private int creditCost = 500;
+	private static int creditCost = 500;
 	
 	public TankDefault(Player p) {
 		super(p);
@@ -38,7 +38,7 @@ public class TankDefault extends Unit {
 		return steelCost;
 	}
 	
-	public int getCreditCost() {
+	public static int getCreditCost() {
 		return creditCost;
 	}
 	
