@@ -33,14 +33,13 @@ public class UnitManager {
 	}
 	
 	public static boolean isAttackValid (Tile tile1, Tile tile2) {
-		if ((tile1.getUnit().getOwner() == TurnManager.getCurrentPlayer())) {
+		if (tile2.getUnit() != null && (tile1.getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) && !tile2.getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) {
 	
 			if ((Math.abs(tile1.getX() - tile2.getX()) + Math.abs(tile1.getY() - tile2.getY())) > 1) {
 				return false;
 			}
 			return true;
 		}
-		
 		return false;
 	}
 
@@ -152,9 +151,6 @@ public class UnitManager {
 			return move[tile2.getX()][tile2.getY()];
 		}
 		
-		public static void run() {
-		System.out.println(shortestPath(GameInterface.grid[1][1], GameInterface.grid[4][0]));
-		}
 	}
 
 

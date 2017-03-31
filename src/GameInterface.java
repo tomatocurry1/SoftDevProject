@@ -194,10 +194,11 @@ public class GameInterface {
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null &&  
 				    		UnitManager.isValidMove(lastTile, justClickedTile) ) {
 				    		
-				    		if (justClickedTile.getUnit() == null) 
-					    		UnitManager.moveUnit(lastTile, justClickedTile);
-				    		else if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
+				    		if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
 				    			UnitManager.attack(lastTile, justClickedTile);
+				    			}
+				    		else if (justClickedTile.getUnit() == null){
+				    			UnitManager.moveUnit(lastTile, justClickedTile);
 				    		}
 				    		lastTile = null;
 				    		justClickedTile = null;
