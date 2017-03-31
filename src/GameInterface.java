@@ -457,6 +457,8 @@ public class GameInterface {
 			GL11.glColor3f(0.2f, 0.2f, 0.2f);
 		else if (t == Terrain.ROADS)
 			GL11.glColor3f(1.0f, 1.0f, 0.2f);
+		else if (t == Terrain.HILLS)
+			GL11.glColor3f(0.8f, .0f, 0.2f);
 	    GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(68*j,68*i);
 		GL11.glVertex2f(68*(j+1),68*i);
