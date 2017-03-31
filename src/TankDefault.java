@@ -6,13 +6,15 @@ public class TankDefault extends Unit {
 	private double roadMultiplier = .5;
 	private double mountainMultiplier = 500000;
 	private double waterMultiplier = 500000;
+	private int oilCost = 0;
+	private int steelCost = 1;
+	private int creditCost = 500;
 	
 	public TankDefault(Player p) {
 		super(p);
 		
 		setHealth(10);
 		setAttack(4);
-		setMovementPts(3);
 	}
 
 	public double getMultiplier(Terrain t) {
@@ -27,25 +29,16 @@ public class TankDefault extends Unit {
 		else 
 			return waterMultiplier;
 	}
-	/*public double getGrasslandMultipier() {
-		return grasslandMultiplier;
+	public int getOilCost() {
+		return oilCost;
 	}
 	
-	public double getHillMultipier() {
-		return hillMultiplier;
+	public int getSteelCost() {
+		return steelCost;
 	}
 	
-	public double getRoadMultipier() {
-		return roadMultiplier;
+	public int getCreditCost() {
+		return creditCost;
 	}
-	
-	public double getMountainMultipier() {
-		return mountainMultiplier;
-	}
-	
-	public double getWaterMultipier() {
-		return waterMultiplier;
-	}*/
-	
 	
 }

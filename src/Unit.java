@@ -116,48 +116,6 @@ public class Unit {
 	public void setInfantryDMultiplier(double infantryDMultiplier) {
 		this.infantryDMultiplier = infantryDMultiplier;
 	}
-
-	public static int getOilCost(String unit) {
-		if (unit.equals("Tank")) {
-			return 0;
-		}
-		else if (unit.equals("Infantry")) {
-			return 0;
-		}
-		else if (unit.equals("Aircraft")) {
-			return 1;
-		}
-		else
-			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
-	}
-	
-	public static int getSteelCost(String unit) {
-		if (unit.equals("Tank")) {
-			return 1;
-		}
-		else if (unit.equals("Infantry")) {
-			return 0;
-		}
-		else if (unit.equals("Aircraft")) {
-			return 0;
-		}
-		else
-			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
-	}
-	
-	public static int getCreditCost(String unit) {
-		if (unit.equals("Tank")) {
-			return 500;
-		}
-		else if (unit.equals("Infantry")) {
-			return 200;
-		}
-		else if (unit.equals("Aircraft")) {
-			return 700;
-		}
-		else
-			throw new IllegalArgumentException("Must enter 'Tank', 'Infantry', or 'Aircraft'");
-	}
 	
 	public void decreaseHealth(int value) {
 		health = health - value;
