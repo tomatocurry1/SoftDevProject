@@ -54,15 +54,10 @@ public class GameInterface {
 		}
 		//puts units on board for each player
 		grid[1][1].setUnit(new TankDefault(TurnManager.plst[0]));
-<<<<<<< HEAD
-		grid[1][8].setUnit(new AircraftDefault(TurnManager.plst[1]));
-		grid[12][8].setUnit(new Unit(TurnManager.plst[2], 100, 75));
-		grid[12][1].setUnit(new Unit(TurnManager.plst[3], 100, 75));
-=======
 		grid[1][8].setUnit(new TankDefault(TurnManager.plst[1]));
 		grid[12][8].setUnit(new TankDefault(TurnManager.plst[2]));
 		grid[12][1].setUnit(new TankDefault(TurnManager.plst[3]));
->>>>>>> branch 'master' of https://github.com/tomatocurry1/SoftDevProject
+
 		
 		//puts bases on the board for each player and assigns the owner of the base
 		grid[0][0].setBuilding(new City(false));
