@@ -219,9 +219,11 @@ public class GameInterface {
 		    	
 		    	}
 		    	//if "end turn" button clicked
-		    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-68 && posY > 720-200){
+		    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-20 && posY > 720-150){
 		    		System.out.println("End Turn button clicked");
 		    		TurnManager.endTurn();
+		    		justClickedTile = null;
+		    		lastTile = null;
 		    	}
 		   
 		    	if (posX > 952 + 40 && posX < 1280-40 && posY > 720 - 500 && posY < 720 - 400) {
@@ -316,13 +318,9 @@ public class GameInterface {
 			GL11.glVertex2f(0,720-40);
 		    GL11.glEnd();
 		    
-		    GL11.glColor3f(0.f,0.f,0f);
-		    GL11.glBegin(GL11.GL_QUADS);
-		    GL11.glVertex2f(952 + 40,400);
-			GL11.glVertex2f(1280 - 40,400);
-			GL11.glVertex2f(1280 - 40,500);
-			GL11.glVertex2f(952 + 40,500);
-		    GL11.glEnd();
+		    drawInfantryButton(false);
+		    drawTankButton(false);
+		    drawAircraftButton(false);
 		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
@@ -387,18 +385,26 @@ public class GameInterface {
 		    //draws the end turn button
 			GL11.glColor3f(0.8f,0.2f,0.6f);
 		    GL11.glBegin(GL11.GL_QUADS);
-		    GL11.glVertex2f(68*14+30,68);
-			GL11.glVertex2f(1280-30,68);
-			GL11.glVertex2f(1280-30,200);
-			GL11.glVertex2f(68*14+30,200);
+		    GL11.glVertex2f(68*14+30,20);
+			GL11.glVertex2f(1280-30,20);
+			GL11.glVertex2f(1280-30,150);
+			GL11.glVertex2f(68*14+30,150);
 		    GL11.glEnd(); 
 		    
 		    if(justClickedTile!=null)
 		    	if(justClickedTile.getUnit()!=null)
 		    Text.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 30f, 1.5f);
 		    
+		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {
+		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry"))
+		    		drawInfantryButton(true);
+		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank"))
+		    		drawTankButton(true);
+		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft"))
+		    		drawAircraftButton(true);
+		    }
 		    
-		    Text.drawString("END TURN", 52.5f, 7f, 80f, 5f);
+		    Text.drawString("END TURN", 52.5f, 4.5f, 80f, 5f);
  
 		    renderPlayerInfo();
 
@@ -561,6 +567,54 @@ public class GameInterface {
 			GL11.glVertex2f(10+i*320,720-30);
 		    GL11.glEnd();
 	    }
+	}
+	
+	private static void drawInfantryButton(boolean canBuy) {
+		if (canBuy) {
+			GL11.glColor3f(0.8f,0.2f,0.6f);
+		}
+		else { 
+			GL11.glColor3f(0.4f, 0.4f, 0.4f);
+		}
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(952 + 40,720 - 260);
+		GL11.glVertex2f(952 + 140,720 - 260);
+		GL11.glVertex2f(952 + 140,720 - 330);
+		GL11.glVertex2f(952 + 40,720 - 330);
+	    GL11.glEnd();
+	    Text.drawString("Infantry", 100.5f, 42.5f, 40f, 1.5f);
+	}
+	
+	private static void drawTankButton(boolean canBuy) {
+		if (canBuy) {
+			GL11.glColor3f(0.8f,0.2f,0.6f);
+		}
+		else { 
+			GL11.glColor3f(0.4f, 0.4f, 0.4f);
+		}
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(952 + 40,720 - 370);
+		GL11.glVertex2f(952 + 140,720 - 370);
+		GL11.glVertex2f(952 + 140,720 - 440);
+		GL11.glVertex2f(952 + 40,720 - 440);
+	    GL11.glEnd();
+	    Text.drawString("Tank", 100.5f, 31.5f, 40f, 1.5f);
+	}
+	
+	private static void drawAircraftButton(boolean canBuy) {
+		if (canBuy) {
+			GL11.glColor3f(0.8f,0.2f,0.6f);
+		}
+		else { 
+			GL11.glColor3f(0.4f, 0.4f, 0.4f);
+		}
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(952 + 40,720 - 480);
+		GL11.glVertex2f(952 + 140,720 - 480);
+		GL11.glVertex2f(952 + 140,720 - 550);
+		GL11.glVertex2f(952 + 40,720 - 550);
+	    GL11.glEnd();
+	    Text.drawString("Aircraft", 100.5f, 20.5f, 40f, 1.5f);
 	}
 	
 	public static void main(String[] args) {
