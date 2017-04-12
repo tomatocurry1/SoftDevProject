@@ -226,13 +226,31 @@ public class GameInterface {
 		    		lastTile = null;
 		    	}
 		   
-		    	if (posX > 952 + 40 && posX < 1280-40 && posY > 720 - 500 && posY < 720 - 400) {
-		    		System.out.println("Trying to buy unit");
+		    	if (posX > 952 + 40 && posX < 952 + 140 && posY > 260 && posY < 330) {
+		    		System.out.println("Trying to buy Infantry");
+		    		
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum())
+		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")){
+		    				System.out.println("can buy Infantry");
+		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Infantry");
+		    			}
+		    	}
+		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 370 && posY < 440) {
+		    		System.out.println("Trying to buy Tank");
 		    		
 		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum())
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
-		    				System.out.println("can buy unit");
+		    				System.out.println("can buy Tank");
 		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Tank");
+		    			}
+		    	}
+		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 480 && posY < 550) {
+		    		System.out.println("Trying to buy Aircraft");
+		    		
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum())
+		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft")){
+		    				System.out.println("can buy Aircraft");
+		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Aircraft");
 		    			}
 		    	}
 		    }
