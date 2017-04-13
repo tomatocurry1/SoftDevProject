@@ -42,11 +42,29 @@ public class UnitManager {
 		}
 		return false;
 	}
-
+	
+	public static boolean isInfantry(Unit u) {
+		if (u.getOriginalMovementPts() == 2) 
+			return true;
+		else
+			return false;	
+	}
+	public static boolean isTank(Unit u) {
+		if (u.getOriginalMovementPts() == 3) 
+			return true;
+		else
+			return false;	
+	}
+	public static boolean isAircraft(Unit u) {
+		if (u.getOriginalMovementPts() == 5) 
+			return true;
+		else
+			return false;
+	}
 	
 	public static void moveUnit(Tile tile1, Tile tile2) {
 		Unit temp = tile1.getUnit();
-		if (temp.getOriginalMovementPts() == 2) { 
+		if (isInfantry(temp)) { 
 			if (tile2.getBuilding() != null) 
 				((InfantryDefault) temp).setIsOnCity(true);
 			
