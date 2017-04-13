@@ -43,28 +43,11 @@ public class UnitManager {
 		return false;
 	}
 	
-	public static boolean isInfantry(Unit u) {
-		if (u.getOriginalMovementPts() == 2) 
-			return true;
-		else
-			return false;	
-	}
-	public static boolean isTank(Unit u) {
-		if (u.getOriginalMovementPts() == 3) 
-			return true;
-		else
-			return false;	
-	}
-	public static boolean isAircraft(Unit u) {
-		if (u.getOriginalMovementPts() == 5) 
-			return true;
-		else
-			return false;
-	}
+	
 	
 	public static void moveUnit(Tile tile1, Tile tile2) {
 		Unit temp = tile1.getUnit();
-		if (isInfantry(temp)) { 
+		if (Unit.isInfantry(temp)) { 
 			if (tile2.getBuilding() != null) 
 				((InfantryDefault) temp).setIsOnCity(true);
 			
@@ -100,7 +83,13 @@ public class UnitManager {
 	public static void attack(Tile tile1, Tile tile2) {
 		Unit unit1 = tile1.getUnit();
 		Unit unit2 = tile2.getUnit();
-		unit2.decreaseHealth(unit1.getAttack());
+		
+		if (unit1.useSpecial(unit2)) {
+			unit2.decreaseHealth(unit1.getSpecialAttack());
+		}
+		else {
+			unit2.decreaseHealth(unit1.getAttack());
+		}
 		//if unit is destroyed
 		if (unit2.getHealth() <= 0) {
 			moveUnit(tile1, tile2);

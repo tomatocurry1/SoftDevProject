@@ -1,9 +1,10 @@
 	
 public class Unit {
 
+	private static double specialAttack = 0;
 	private Player owner;
-	private int health;
-	private int attack;
+	private double health;
+	private double attack;
 	private double movementPts;
 	private double tankAMultiplier;
 	private double aircraftAMultiplier;
@@ -36,15 +37,15 @@ public class Unit {
 		this.owner = owner;
 	}
 
-	public int getHealth() {
+	public double getHealth() {
 		return health;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
+	public void setHealth(double d) {
+		this.health = d;
 	}
 
-	public int getAttack() {
+	public double getAttack() {
 		return attack;
 	}
 
@@ -120,8 +121,43 @@ public class Unit {
 		this.infantryDMultiplier = infantryDMultiplier;
 	}
 	
-	public void decreaseHealth(int value) {
-		this.setHealth(health - value);
+	public void decreaseHealth(double d) {
+		this.setHealth(health - d);
+	}
+	
+	public static boolean isInfantry(Unit u) {
+		if (u.getOriginalMovementPts() == 2) 
+			return true;
+		else
+			return false;	
+	}
+	public static boolean isTank(Unit u) {
+		if (u.getOriginalMovementPts() == 3) 
+			return true;
+		else
+			return false;	
+	}
+	public static boolean isAircraft(Unit u) {
+		if (u.getOriginalMovementPts() == 5) 
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean useSpecial(Unit u) {
+		return false;
+	}
+	
+	public static double getSpecialAttack(Unit u) {
+		return specialAttack ;
+	}
+
+	public  double getSpecialAttack() {
+		return specialAttack;
+	}
+
+	public static void setSpecialAttack(double specialAttack) {
+		Unit.specialAttack = specialAttack;
 	}
 
 	
