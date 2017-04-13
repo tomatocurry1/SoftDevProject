@@ -59,6 +59,9 @@ public class Unit {
 	public void setMovementPts(double movementPts) {
 		this.movementPts = movementPts;
 	}
+	public double getOriginalMovementPts() {
+		return originalMovementPts;
+	}
 	
 	public void setOriginalMovementPts(double origPts) {
 		originalMovementPts = origPts;
@@ -118,6 +121,8 @@ public class Unit {
 	}
 	
 	public void decreaseHealth(int value) {
-		health = health - value;
+		this.setHealth(health - value);
 	}
+
+	
 }

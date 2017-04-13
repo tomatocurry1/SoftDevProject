@@ -48,10 +48,13 @@ public class GameInterface {
 				if (((i>=0 && i<4) || (i<= 13 && i>10)) && (j==2 || j ==7))
 					grid[i][j].setTerrain(Terrain.HILLS);
 				
-				if ((j==0 || j==9) && (i==2 ||i == 3))
+				if ((j==0 || j==9) && (i==11 ||i == 10 || i == 2 || i == 3))
 					grid[i][j].setTerrain(Terrain.HILLS);
 				
 				if ((j==1 || j==8) && (i ==0 || i == 13))
+					grid[i][j].setTerrain(Terrain.HILLS);
+				
+				if ((j==0 || j==9) && (i ==0 || i == 13))
 					grid[i][j].setTerrain(Terrain.HILLS);
 				
 				if ((j==1 || j==8) && (i==5 || i==8)) 
