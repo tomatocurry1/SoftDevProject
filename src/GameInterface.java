@@ -338,7 +338,7 @@ public class GameInterface {
 			spriteoil = TextureLoader.glLoadPNG("img/oil.png");
 		
 		if(spritesteel == 0)
-			spritesteel = TextureLoader.glLoadPNG("img/steel.png");
+			spritesteel = TextureLoader.glLoadPNG("img/steel2.png");
 
 
 		// Set the clear color
