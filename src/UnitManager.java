@@ -84,6 +84,12 @@ public class UnitManager {
 		Unit unit1 = tile1.getUnit();
 		Unit unit2 = tile2.getUnit();
 		
+		if (tile2.getBuilding() != null) 
+			Unit.setEnemyOnCity(true); 
+		else
+			Unit.setEnemyOnCity(false);
+		
+		
 		if (unit1.useSpecial(unit2)) {
 			unit2.decreaseHealth(unit1.getSpecialAttack());
 		}
@@ -101,11 +107,8 @@ public class UnitManager {
 	}
 	
 	
-	
 
-		
-		
-		
+
 		public static void setup(Unit u) {
 			for (int i = 0; i < 14; i++) {
 				for (int j = 0; j < 10; j++) {
