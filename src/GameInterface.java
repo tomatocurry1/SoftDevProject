@@ -293,33 +293,33 @@ public class GameInterface {
 		    	if (buyingInfantry || buyingAircraft || buyingTank) {
 			    	if (posX > 952 + 170 && posX < 952 + 270 && posY > 260 && posY < 330) {
 			    		if (buyingInfantry)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "InfantrySiege");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "InfantrySiege");
 			    		else if (buyingTank)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "TankSiege");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "TankSiege");
 			    		else if (buyingAircraft)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "AircraftSiege");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "AircraftSiege");
 			    		buyingInfantry = false;
     					buyingTank = false;
     					buyingAircraft = false;
 			    	}
 			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 370 && posY < 440) {
 			    		if (buyingInfantry)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "InfantryAT");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "InfantryAT");
 			    		else if (buyingTank)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "TankAT");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "TankAT");
 			    		else if (buyingAircraft)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "AircraftAT");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "AircraftAT");
 			    		buyingInfantry = false;
     					buyingTank = false;
     					buyingAircraft = false;
 			    	}
 			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 480 && posY < 550) {
 			    		if (buyingInfantry)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "InfantryAA");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "InfantryAA");
 			    		else if (buyingTank)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "TankAA");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "TankAA");
 			    		else if (buyingAircraft)
-			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "AircraftAA");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "AircraftAA");
 			    		buyingInfantry = false;
     					buyingTank = false;
     					buyingAircraft = false;

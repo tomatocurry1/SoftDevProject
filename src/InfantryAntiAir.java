@@ -5,7 +5,7 @@ public class InfantryAntiAir extends InfantryDefault {
 		super(p);
 		
 		this.setAircraftAMultiplier(1.5);
-		InfantryAntiTank.setSpecialAttack(getAircraftAMultiplier() * getAttack());
+		setSpecialAttack(getAircraftAMultiplier() * getAttack());
 	}
 	
 	public boolean useSpecial(Unit u) {

@@ -1,7 +1,7 @@
 	
 public class Unit {
 
-	private static double specialAttack = 0;
+	private double specialAttack = 0;
 	private static boolean enemyOnCity;
 	private Player owner;
 	private int health;
@@ -35,15 +35,15 @@ public class Unit {
 		this.owner = owner;
 	}
 
-	public double getHealth() {
+	public int getHealth() {
 		return health;
 	}
 
-	public  void setHealth(double d) {
-		health = d;
+	public  void setHealth(int i) {
+		health = i;
 	}
 
-	public double getAttack() {
+	public int getAttack() {
 		return attack;
 	}
 
@@ -95,8 +95,8 @@ public class Unit {
 		this.cityAMultiplier = cityAMultiplier;
 	}
 	
-	public void decreaseHealth(double d) {
-		this.setHealth(health - d);
+	public void decreaseHealth(double i) {
+		this.setHealth((int)(health - i));
 	}
 	
 	public static boolean isInfantry(Unit u) {
@@ -122,7 +122,7 @@ public class Unit {
 		return false;
 	}
 	
-	public static double getSpecialAttack(Unit u) {
+	public  double getSpecialAttack(Unit u) {
 		return specialAttack ;
 	}
 
@@ -130,8 +130,8 @@ public class Unit {
 		return specialAttack;
 	}
 
-	public static void setSpecialAttack(double specialAttack) {
-		Unit.specialAttack = specialAttack;
+	public void setSpecialAttack(double specialAttack) {
+		this.specialAttack = specialAttack;
 	}
 
 	public static void setEnemyOnCity(boolean b) {

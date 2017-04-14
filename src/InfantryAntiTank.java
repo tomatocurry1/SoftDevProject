@@ -6,11 +6,13 @@ public class InfantryAntiTank extends InfantryDefault {
 		super(p);
 		
 		this.setTankAMultiplier(1.5);
-		InfantryAntiTank.setSpecialAttack(getTankAMultiplier() * getAttack());
+		setSpecialAttack(getTankAMultiplier() * getAttack());
 	}
 	
 	public boolean useSpecial(Unit u) {
 		if (isTank(u)) {
+			System.out.println(getSpecialAttack());			
+			System.out.println(getTankAMultiplier() * getAttack());
 			return true;
 		}
 		else
