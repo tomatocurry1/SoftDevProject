@@ -154,7 +154,6 @@ public class GameInterface {
 		// Setup an error callback. The default implementation
 		// will print the error message in System.err.
 		GLFWErrorCallback.createPrint(System.err).set();
-
 		// Initialize GLFW. Most GLFW functions will not work before doing this.
 		if ( !glfwInit() )
 			throw new IllegalStateException("Unable to initialize GLFW");
@@ -372,7 +371,7 @@ public class GameInterface {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		//GL11.glEnable(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB);
 		if(spritenum == 0)
-			//spritenum = TextureLoader.glLoadPNG("img/infantrybro.png");
+			spritenum = TextureLoader.glLoadPNG("img/tankbad.png");
 		
 		if(spriteinfantry == 0)
 			spriteinfantry = TextureLoader.glLoadPNG("img/infantrybro.png");
