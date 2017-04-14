@@ -249,7 +249,7 @@ public class GameInterface {
 		    	if (posX > 952 + 40 && posX < 952 + 140 && posY > 260 && posY < 330) {
 		    		System.out.println("Trying to buy Infantry");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingAircraft = false;
     					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")){
@@ -263,7 +263,7 @@ public class GameInterface {
 		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 370 && posY < 440) {
 		    		System.out.println("Trying to buy Tank");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingInfantry = false;
     					buyingAircraft = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
@@ -277,7 +277,7 @@ public class GameInterface {
 		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 480 && posY < 550) {
 		    		System.out.println("Trying to buy Aircraft");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingInfantry = false;
     					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft")){
@@ -371,7 +371,7 @@ public class GameInterface {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		//GL11.glEnable(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB);
 		if(spritenum == 0)
-			spritenum = TextureLoader.glLoadPNG("img/tankbad.png");
+			spritenum = TextureLoader.glLoadPNG("img/cooltankbro.png");
 		
 		if(spriteinfantry == 0)
 			spriteinfantry = TextureLoader.glLoadPNG("img/infantrybro.png");
@@ -833,8 +833,6 @@ public class GameInterface {
 	    for(int i = 0; i < TurnManager.plst.length; i++){
 	    	Player player = TurnManager.plst[i];
 		    Text.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), 6f+i*42.5f, 93.5f, 30f, 1.5f);
-		    
-		    
 			GL11.glColor3f(player.getRed(),player.getGreen(),player.getBlue());
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(10+i*320, 720-10);

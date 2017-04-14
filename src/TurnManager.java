@@ -52,12 +52,17 @@ public class TurnManager {
 				
 				//Resource captured?
 				if(checkCaptured.getResource()!=null){
-					if(checkCaptured.getUnit()!=null)
-						if(checkCaptured.getResource().getOwner() == null || checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getResource().getOwner().getNum()){
-							
+					if(checkCaptured.getUnit()!=null) {
+						if(checkCaptured.getResource().getOwner() == null) {
 							Player attacker = checkCaptured.getUnit().getOwner();
 							checkCaptured.getResource().setOwner(attacker);
 						}
+						else if (checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getResource().getOwner().getNum()){
+							//insert code for checking if player losing resource needs to get rid of units
+							Player attacker = checkCaptured.getUnit().getOwner();
+							checkCaptured.getResource().setOwner(attacker);
+						}
+					}
 				}
 			}
 	}
