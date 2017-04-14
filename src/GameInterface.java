@@ -3,9 +3,6 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -157,7 +154,6 @@ public class GameInterface {
 		// Setup an error callback. The default implementation
 		// will print the error message in System.err.
 		GLFWErrorCallback.createPrint(System.err).set();
-
 		// Initialize GLFW. Most GLFW functions will not work before doing this.
 		if ( !glfwInit() )
 			throw new IllegalStateException("Unable to initialize GLFW");
@@ -945,6 +941,6 @@ public class GameInterface {
 	
 	public static void main(String[] args) {
 		new GameInterface().run();
-		GL11.glDeleteTextures(spritenum);
+		//GL11.glDeleteTextures(spritenum);
 	}
 }
