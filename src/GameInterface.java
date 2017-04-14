@@ -18,6 +18,16 @@ public class GameInterface {
 	
 	public static Tile[][] grid;
 	private static String info;
+	private static int spritenum;
+	private static int spriteinfantry;
+	private static int spriteheli;
+	private static int spritecity;
+	private static int spritegrass;
+	private static int spriteroad;
+	private static int spritemountain;
+	private static int spritehill;
+	private static int spriteoil;
+	private static int spritesteel;
 	
 	// initializes the game board and players
 	public static void gameInit(){
@@ -90,8 +100,8 @@ public class GameInterface {
 		//puts units on board for each player
 		grid[1][1].setUnit(new TankDefault(TurnManager.plst[0]));
 		grid[1][8].setUnit(new TankDefault(TurnManager.plst[1]));
-		grid[12][8].setUnit(new TankDefault(TurnManager.plst[2]));
-		grid[12][1].setUnit(new TankDefault(TurnManager.plst[3]));
+		grid[12][8].setUnit(new AircraftDefault(TurnManager.plst[2]));
+		grid[12][1].setUnit(new InfantryDefault(TurnManager.plst[3]));
 
 		
 		//puts bases on the board for each player and assigns the owner of the base
@@ -107,6 +117,7 @@ public class GameInterface {
 		grid[8][2].setBuilding(new City(true));
 		grid[5][7].setBuilding(new City(true));
 		grid[8][7].setBuilding(new City(true));
+		
 		
 	}
 
@@ -158,6 +169,7 @@ public class GameInterface {
 		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+	
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
 		});
 		
@@ -274,6 +286,37 @@ public class GameInterface {
 		// creates the GLCapabilities instance and makes the OpenGL
 		// bindings available for use.
 		GL.createCapabilities();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		//GL11.glEnable(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB);
+		if(spritenum == 0)
+			spritenum = TextureLoader.glLoadPNG("src/tankbad.png");
+		
+		if(spriteinfantry == 0)
+			spriteinfantry = TextureLoader.glLoadPNG("src/infantrybro.png");
+		
+		if(spriteheli == 0)
+			spriteheli = TextureLoader.glLoadPNG("src/heli.png");
+		if(spritecity == 0)
+			spritecity = TextureLoader.glLoadPNG("src/city.png");
+		
+		if(spritegrass == 0)
+			spritegrass = TextureLoader.glLoadPNG("src/grass.png");
+		
+		if(spriteroad == 0)
+			spriteroad = TextureLoader.glLoadPNG("src/road.png");
+
+		if(spritemountain == 0)
+			spritemountain = TextureLoader.glLoadPNG("src/mountain.png");
+		
+		if(spritehill == 0)
+			spritehill = TextureLoader.glLoadPNG("src/hills.png");
+		
+		if(spriteoil == 0)
+			spriteoil = TextureLoader.glLoadPNG("src/oil.png");
+		
+		if(spritesteel == 0)
+			spritesteel = TextureLoader.glLoadPNG("src/steel.png");
+
 
 		// Set the clear color
 		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
@@ -282,6 +325,10 @@ public class GameInterface {
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, 1280, 0, 720, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+		//GL11.glTexEnvf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		// Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
@@ -290,6 +337,14 @@ public class GameInterface {
 			
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);	
 			 
+		    GL11.glColor3f(0.f,0.f,0f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(0 ,0);
+			GL11.glVertex2f(1280,0);
+			GL11.glVertex2f(1280,720);
+			GL11.glVertex2f(0,720);
+		    GL11.glEnd();
+			
 		    // set the color of the quad (R,G,B)
 		    
 		    GL11.glColor3f(0.1f,0.5f,1.0f);
@@ -331,19 +386,21 @@ public class GameInterface {
 		    		if (GameInterface.grid[j][i].getTerrain() != null)
 		    			drawTerrain(i, j, GameInterface.grid[j][i].getTerrain());
 		
-				    //draws the units on the board
-				    if(GameInterface.grid[j][i].getUnit()!=null){
-				    	drawUnit(i, j, GameInterface.grid[j][i].getUnit());
-				    }
+				    
 				    
 				    //draws the buildings on board
 				    if(GameInterface.grid[j][i].getBuilding() != null) {
-				    	drawBuilding(j, i, GameInterface.grid[j][i].getBuilding());
+				    	drawBuilding(i, j, GameInterface.grid[j][i].getBuilding());
 				    }
 				    
 				    //draws the resource on the board
 				    if (GameInterface.grid[j][i].getResource() != null) {
 				    	drawResource(i, j, GameInterface.grid[j][i].getResource());
+				    }
+				    
+				    //draws the units on the board
+				    if(GameInterface.grid[j][i].getUnit()!=null){
+				    	drawUnit(i, j, GameInterface.grid[j][i].getUnit());
 				    }
 		    	}
 		    }
@@ -393,6 +450,7 @@ public class GameInterface {
 			GL11.glVertex2f(68*14+30,200);
 		    GL11.glEnd(); 
 		    
+		    
 		    if(justClickedTile!=null)
 		    	if(justClickedTile.getUnit()!=null)
 		    Text.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 30f, 1.5f);
@@ -439,13 +497,38 @@ public class GameInterface {
 
 	
 	private static void drawBuilding(int i, int j, City b) {
-		if (b.getOwner() == null) {
-			drawCircle(i, j, 15, null);
-		}
-		if (!b.isCity())
-			drawCircle(i, j, 25, b.getOwner());
-		else
-			drawCircle(i, j, 15, b.getOwner());
+		if(b.getOwner() != null){
+			Player p = b.getOwner();
+	    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+	    }else
+	    	GL11.glColor3f(0.5f, 0.5f, 0.5f);
+//		if (b.getOwner() == null) {
+//			drawCircle(i, j, 15, null);
+//		}
+//		if (!b.isCity())
+//			drawCircle(i, j, 25, b.getOwner());
+//		else
+//			drawCircle(i, j, 15, b.getOwner());
+		
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritecity);
+    	GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glTexCoord2f(0,1);
+	    GL11.glVertex2f(68*j,68*i);
+	    
+	    GL11.glTexCoord2f(0,0);
+	    //GL11.glTexCoord2f(0,32);
+		GL11.glVertex2f(68*j,68*(i+1));
+		
+		GL11.glTexCoord2f(1,0);
+		//GL11.glTexCoord2f(32,32);
+		GL11.glVertex2f(68*(j+1),68*(i+1));
+		
+		GL11.glTexCoord2f(1,1);
+		//GL11.glTexCoord2f(32,0);
+	    GL11.glVertex2f(68*(j+1),68*i);
+	    GL11.glEnd();
+	    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+	    
 	}
 	
 	// draws a circle on the tile with radius r with player p's color
@@ -469,53 +552,174 @@ public class GameInterface {
 	
 	//draws the terrain on the board
 	private static void drawTerrain(int i, int j, Terrain t){
-		if(t==Terrain.GRASSLANDS)
-			GL11.glColor3f(0.0f,0.8f,0.2f);
+		if(t==Terrain.GRASSLANDS){
+			GL11.glColor3f(1.0f,1.0f,1.0f);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritegrass);
+		}
 		else if(t==Terrain.WATER)
 			GL11.glColor3f(0.0f,0.2f,0.8f);
-		else if (t == Terrain.MOUNTAINS)
-			GL11.glColor3f(0.2f, 0.2f, 0.2f);
-		else if (t == Terrain.ROADS)
-			GL11.glColor3f(1.0f, 1.0f, 0.2f);
-		else if (t == Terrain.HILLS)
-			GL11.glColor3f(0.8f, .0f, 0.2f);
-	    GL11.glBegin(GL11.GL_QUADS);
+		else if (t == Terrain.MOUNTAINS){
+			GL11.glColor3f(1.0f,1.0f,1.0f);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritemountain);
+		
+		}
+		else if (t == Terrain.ROADS){
+			GL11.glColor3f(0.8f,.8f,.8f);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteroad);
+		
+		}
+		else if (t == Terrain.HILLS){
+			GL11.glColor3f(1.0f,1.0f,1.0f);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritehill);
+		}
+		
+		
+		//GL11.glColor3f(.0f,.0f,1.0f);
+		
+		//System.out.println(spritenum);
+		
+		//GL11.glBindTexture(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB, spritenum);
+		
+		GL11.glBegin(GL11.GL_QUADS);
+	    
+	    GL11.glTexCoord2f(0,1);
 	    GL11.glVertex2f(68*j,68*i);
-		GL11.glVertex2f(68*(j+1),68*i);
-		GL11.glVertex2f(68*(j+1),68*(i+1));
+	    
+	    GL11.glTexCoord2f(0,0);
+	    //GL11.glTexCoord2f(0,32);
 		GL11.glVertex2f(68*j,68*(i+1));
-	    GL11.glEnd();
+		
+		GL11.glTexCoord2f(1,0);
+		//GL11.glTexCoord2f(32,32);
+		GL11.glVertex2f(68*(j+1),68*(i+1));
+		
+		GL11.glTexCoord2f(1,1);
+		//GL11.glTexCoord2f(32,0);
+	    GL11.glVertex2f(68*(j+1),68*i);
+	    
+		GL11.glEnd();
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		//GL11.glBindTexture(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB, 0);
 	}
 	
 	private static void drawUnit(int i, int j, Unit u) {
     	Player p = u.getOwner();
     	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
     	if(u instanceof AircraftDefault){
-	    	GL11.glBegin(GL11.GL_TRIANGLES);
-	    	GL11.glVertex2f(68*j+30,68*i+38);
-			GL11.glVertex2f(68*j+20,68*i+20);
-			GL11.glVertex2f(68*j+40,68*i+20);
+    		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteheli);
+        	GL11.glBegin(GL11.GL_QUADS);
+    	    GL11.glTexCoord2f(0,1);
+    	    GL11.glVertex2f(68*j,68*i);
+    	    
+    	    GL11.glTexCoord2f(0,0);
+    	    //GL11.glTexCoord2f(0,32);
+    		GL11.glVertex2f(68*j,68*(i+1));
+    		
+    		GL11.glTexCoord2f(1,0);
+    		//GL11.glTexCoord2f(32,32);
+    		GL11.glVertex2f(68*(j+1),68*(i+1));
+    		
+    		GL11.glTexCoord2f(1,1);
+    		//GL11.glTexCoord2f(32,0);
+    	    GL11.glVertex2f(68*(j+1),68*i);
     	}
     	if(u instanceof InfantryDefault){
+    		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteinfantry);
         	GL11.glBegin(GL11.GL_QUADS);
-        	GL11.glVertex2f(68*j+20,68*i+40);
-    		GL11.glVertex2f(68*j+20,68*i+20);
-    		GL11.glVertex2f(68*j+40,68*i+20);
-    		GL11.glVertex2f(68*j+40,68*i+40);
+    	    GL11.glTexCoord2f(0,1);
+    	    GL11.glVertex2f(68*j,68*i);
+    	    
+    	    GL11.glTexCoord2f(0,0);
+    	    //GL11.glTexCoord2f(0,32);
+    		GL11.glVertex2f(68*j,68*(i+1));
+    		
+    		GL11.glTexCoord2f(1,0);
+    		//GL11.glTexCoord2f(32,32);
+    		GL11.glVertex2f(68*(j+1),68*(i+1));
+    		
+    		GL11.glTexCoord2f(1,1);
+    		//GL11.glTexCoord2f(32,0);
+    	    GL11.glVertex2f(68*(j+1),68*i);
     	}
     	
     	if(u instanceof TankDefault){
+    		
+    		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritenum);
         	GL11.glBegin(GL11.GL_QUADS);
-        	GL11.glVertex2f(68*j+10,68*i+40);
-    		GL11.glVertex2f(68*j+20,68*i+20);
-    		GL11.glVertex2f(68*j+40,68*i+20);
-    		GL11.glVertex2f(68*j+30,68*i+40);
+        	
+//        	GL11.glTexCoord2f(0,0);
+//        	GL11.glVertex2f(68*j+10,68*i+40);
+//        	
+//        	GL11.glTexCoord2f(0,1);
+//    		GL11.glVertex2f(68*j+20,68*i+20);
+//    		
+//    		GL11.glTexCoord2f(1,1);
+//    		GL11.glVertex2f(68*j+40,68*i+20);
+//    		
+//    		GL11.glTexCoord2f(1,0);
+//    		GL11.glVertex2f(68*j+30,68*i+40);
+        	
+    	    
+    	    GL11.glTexCoord2f(0,1);
+    	    GL11.glVertex2f(68*j,68*i);
+    	    
+    	    GL11.glTexCoord2f(0,0);
+    	    //GL11.glTexCoord2f(0,32);
+    		GL11.glVertex2f(68*j,68*(i+1));
+    		
+    		GL11.glTexCoord2f(1,0);
+    		//GL11.glTexCoord2f(32,32);
+    		GL11.glVertex2f(68*(j+1),68*(i+1));
+    		
+    		GL11.glTexCoord2f(1,1);
+    		//GL11.glTexCoord2f(32,0);
+    	    GL11.glVertex2f(68*(j+1),68*i);
+    	    
+    		GL11.glEnd();
+    		
     	}
     	
 	    GL11.glEnd();
+	    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 	}
 	
 	private static void drawResource(int i, int j, Resource r) {
+		if (r.toString().equals("Oil")){
+			GL11.glColor3f(1.0f,1.0f,1.0f);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteoil);
+		}
+		if (r.toString().equals("Steel")){
+			GL11.glColor3f(1.0f,1.0f,1.0f);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritesteel);
+		}
+		
+		
+		//GL11.glColor3f(.0f,.0f,1.0f);
+		
+		//System.out.println(spritenum);
+		
+		//GL11.glBindTexture(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB, spritenum);
+		
+		GL11.glBegin(GL11.GL_QUADS);
+	    
+	    GL11.glTexCoord2f(0,1);
+	    GL11.glVertex2f(68*j,68*i);
+	    
+	    GL11.glTexCoord2f(0,0);
+	    //GL11.glTexCoord2f(0,32);
+		GL11.glVertex2f(68*j,68*(i+1));
+		
+		GL11.glTexCoord2f(1,0);
+		//GL11.glTexCoord2f(32,32);
+		GL11.glVertex2f(68*(j+1),68*(i+1));
+		
+		GL11.glTexCoord2f(1,1);
+		//GL11.glTexCoord2f(32,0);
+	    GL11.glVertex2f(68*(j+1),68*i);
+	    
+		GL11.glEnd();
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		
 		drawMainResource(i, j, r);
 		drawOwnedResource(i, j, r);
 	}
@@ -565,5 +769,6 @@ public class GameInterface {
 	
 	public static void main(String[] args) {
 		new GameInterface().run();
+		GL11.glDeleteTextures(spritenum);
 	}
 }
