@@ -4,8 +4,8 @@ public class Unit {
 	private static double specialAttack = 0;
 	private static boolean enemyOnCity;
 	private Player owner;
-	private double health;
-	private double attack;
+	private int health;
+	private int attack;
 	private double movementPts;
 	private double tankAMultiplier;
 	private double aircraftAMultiplier;
@@ -39,8 +39,8 @@ public class Unit {
 		return health;
 	}
 
-	public void setHealth(double d) {
-		this.health = d;
+	public  void setHealth(double d) {
+		health = d;
 	}
 
 	public double getAttack() {
