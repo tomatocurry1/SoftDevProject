@@ -58,7 +58,6 @@ public class TurnManager {
 							checkCaptured.getResource().setOwner(attacker);
 						}
 						else if (checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getResource().getOwner().getNum()){
-							//insert code for checking if player losing resource needs to get rid of units
 							Player attacker = checkCaptured.getUnit().getOwner();
 							checkCaptured.getResource().setOwner(attacker);
 						}
@@ -116,9 +115,44 @@ public class TurnManager {
 			}
 	}
 	
+	/*private static void checkResourceUnitTransfer() {
+		for (int i = 0; i < plst.length; i++ ) {
+			while (plst[i].getOil() < plst[i].getOilUsed()) {
+				deleteTank(plst[i]);
+			}
+			while (plst[i].getSteel() < plst[i].getSteelUsed()) {
+				deleteAircraft(plst[i]);
+			}
+		}
+	}
+	
+	private static void deleteTank(Player p) {
+			for (int i = 0; i < GameInterface.grid.length; i++) {
+				for (int j = 0; j < GameInterface.grid[i].length; j++) {
+					if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof TankDefault)) {
+						GameInterface.grid[i][j].setUnit(null);
+						p.setSteelUsed(p.getSteelUsed() - 1);
+					}
+				}
+			}
+		}
+	
+	
+	private static void deleteAircraft(Player p) {
+		for (int i = 0; i < GameInterface.grid.length; i++) {
+			for (int j = 0; j < GameInterface.grid[i].length; j++) {
+				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof AircraftDefault)) {
+					GameInterface.grid[i][j].setUnit(null);
+					p.setOilUsed(p.getOilUsed() - 1);
+				}
+			}
+		}
+	}*/
+	
 	public static void endTurn() {
 		resetMovement();
 		calculateResources();
+		//checkResourceUnitTransfer();
 		cyclePlayers();
 		
 	}
