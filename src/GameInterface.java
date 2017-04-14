@@ -837,8 +837,6 @@ public class GameInterface {
 	    for(int i = 0; i < TurnManager.plst.length; i++){
 	    	Player player = TurnManager.plst[i];
 		    Text.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), 6f+i*42.5f, 93.5f, 30f, 1.5f);
-		    
-		    
 			GL11.glColor3f(player.getRed(),player.getGreen(),player.getBlue());
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(10+i*320, 720-10);
