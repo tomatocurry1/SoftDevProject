@@ -1,8 +1,7 @@
 
-public class InfantryAntiTank extends InfantryDefault {
+public class TankAntiTank extends TankDefault {
 	
-		
-	public InfantryAntiTank(Player p) {
+	public TankAntiTank(Player p) {
 		super(p);
 		
 		this.setTankAMultiplier(1.5);
@@ -16,6 +15,5 @@ public class InfantryAntiTank extends InfantryDefault {
 		else
 			return false;
 	}
-	
-	
+
 }
