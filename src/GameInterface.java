@@ -375,7 +375,7 @@ public class GameInterface {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		//GL11.glEnable(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB);
 		if(spritenum == 0)
-			spritenum = TextureLoader.glLoadPNG("img/tankbad.png");
+			//spritenum = TextureLoader.glLoadPNG("img/infantrybro.png");
 		
 		if(spriteinfantry == 0)
 			spriteinfantry = TextureLoader.glLoadPNG("img/infantrybro.png");
@@ -963,6 +963,6 @@ public class GameInterface {
 	
 	public static void main(String[] args) {
 		new GameInterface().run();
-		GL11.glDeleteTextures(spritenum);
+		//GL11.glDeleteTextures(spritenum);
 	}
 }
