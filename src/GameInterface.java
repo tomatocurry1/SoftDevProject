@@ -293,33 +293,33 @@ public class GameInterface {
 		    	if (buyingInfantry || buyingAircraft || buyingTank) {
 			    	if (posX > 952 + 170 && posX < 952 + 270 && posY > 260 && posY < 330) {
 			    		if (buyingInfantry)
-			    			System.out.println("Anti-Infantry Infantry");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "InfantrySiege");
 			    		else if (buyingTank)
-			    			System.out.println("Anti-Infantry Tank");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "TankSiege");
 			    		else if (buyingAircraft)
-			    			System.out.println("Anti-infantry Aircraft");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "AircraftSiege");
 			    		buyingInfantry = false;
     					buyingTank = false;
     					buyingAircraft = false;
 			    	}
 			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 370 && posY < 440) {
 			    		if (buyingInfantry)
-			    			System.out.println("Anti-Tank Infantry");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "InfantryAT");
 			    		else if (buyingTank)
-			    			System.out.println("Anti-Tank Tank");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "TankAT");
 			    		else if (buyingAircraft)
-			    			System.out.println("Anti-Tank Aircraft");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "AircraftAT");
 			    		buyingInfantry = false;
     					buyingTank = false;
     					buyingAircraft = false;
 			    	}
 			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 480 && posY < 550) {
 			    		if (buyingInfantry)
-			    			System.out.println("Anti-Aircraft Infantry");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "InfantryAA");
 			    		else if (buyingTank)
-			    			System.out.println("Anti-Aircraft Tank");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "TankAA");
 			    		else if (buyingAircraft)
-			    			System.out.println("Anti-Aircraft Aircraft");
+			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getY(), justClickedTile.getY(), "AircraftAA");
 			    		buyingInfantry = false;
     					buyingTank = false;
     					buyingAircraft = false;

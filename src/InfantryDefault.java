@@ -10,7 +10,7 @@ public class InfantryDefault extends Unit {
 	private int steelCost = 0;
 	private boolean isOnCity = false;
 	private static int creditCost = 200;
-	private static int cityDamageReduction = 3;
+	private static int cityDamageReduction = 1;
 	
 	public InfantryDefault(Player p) {
 		super(p);
@@ -19,6 +19,11 @@ public class InfantryDefault extends Unit {
 		setAttack(2);
 		setMovementPts(2);
 		setOriginalMovementPts(2);
+		setCityDamageReduction(3);
+	}
+
+	private void setCityDamageReduction(int i) {
+		cityDamageReduction = i;
 	}
 
 	public double getMultiplier(Terrain t) {
@@ -49,7 +54,8 @@ public class InfantryDefault extends Unit {
 			return cityDamageReduction;
 	}
 	
-	public void decreaseHealth(int value) {
+	public void decreaseHealth(double value) {
+		System.out.println(this.isOnCity);
 		if (this.isOnCity  == true) {
 			setHealth(getHealth() - (value / getCityDamageReduction()));
 		}

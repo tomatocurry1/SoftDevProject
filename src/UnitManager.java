@@ -44,12 +44,11 @@ public class UnitManager {
 	}
 	
 	
-	
 	public static void moveUnit(Tile tile1, Tile tile2) {
 		Unit temp = tile1.getUnit();
 		if (Unit.isInfantry(temp)) { 
 			if (tile2.getBuilding() != null) 
-				((InfantryDefault) temp).setIsOnCity(true);
+				((InfantryDefault)temp).setIsOnCity(true);
 			
 			else
 				((InfantryDefault) temp).setIsOnCity(false);
