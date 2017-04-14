@@ -743,21 +743,7 @@ public class GameInterface {
     	if(u instanceof TankDefault){
     		
     		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritenum);
-        	GL11.glBegin(GL11.GL_QUADS);
-        	
-//        	GL11.glTexCoord2f(0,0);
-//        	GL11.glVertex2f(68*j+10,68*i+40);
-//        	
-//        	GL11.glTexCoord2f(0,1);
-//    		GL11.glVertex2f(68*j+20,68*i+20);
-//    		
-//    		GL11.glTexCoord2f(1,1);
-//    		GL11.glVertex2f(68*j+40,68*i+20);
-//    		
-//    		GL11.glTexCoord2f(1,0);
-//    		GL11.glVertex2f(68*j+30,68*i+40);
-        	
-    	    
+    		GL11.glBegin(GL11.GL_QUADS);
     	    GL11.glTexCoord2f(0,1);
     	    GL11.glVertex2f(68*j,68*i);
     	    
@@ -772,8 +758,6 @@ public class GameInterface {
     		GL11.glTexCoord2f(1,1);
     		//GL11.glTexCoord2f(32,0);
     	    GL11.glVertex2f(68*(j+1),68*i);
-    	    
-    		GL11.glEnd();
     		
     	}
     	
