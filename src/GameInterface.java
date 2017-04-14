@@ -119,6 +119,9 @@ public class GameInterface {
 	private static int yCord;
 	private double posX;
 	private double posY;
+	private boolean buyingTank = false;
+	private boolean buyingInfantry = false;
+	private boolean buyingAircraft = false;
 
 	// The window handle
 	private long window;
@@ -173,7 +176,9 @@ public class GameInterface {
 		    	posY = getCursorPosY(window);
 		    	
 		    	if (posY > 40 && posX < 952) { //if mouse clicked on the board
-			    	
+		    		buyingInfantry = false;
+					buyingTank = false;
+					buyingAircraft = false;
 			    	xCord = getXCord(posX);
 		    		yCord = getYCord(posY);
 		    		lastTile = justClickedTile;
@@ -227,35 +232,93 @@ public class GameInterface {
 		    		TurnManager.endTurn();
 		    		justClickedTile = null;
 		    		lastTile = null;
+		    		buyingInfantry = false;
+		    		buyingTank = false;
+		    		buyingAircraft = false;
 		    	}
 		   
+		    	//selecting the generic type of unit
 		    	if (posX > 952 + 40 && posX < 952 + 140 && posY > 260 && posY < 330) {
 		    		System.out.println("Trying to buy Infantry");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum())
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    			buyingAircraft = false;
+    					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")){
 		    				System.out.println("can buy Infantry");
-		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Infantry");
+		    				buyingInfantry = true;
+		    				
+		    				//UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Infantry");
 		    			}
+		    		}
 		    	}
 		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 370 && posY < 440) {
 		    		System.out.println("Trying to buy Tank");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum())
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    			buyingInfantry = false;
+    					buyingAircraft = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
 		    				System.out.println("can buy Tank");
-		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Tank");
+		    				buyingTank = true;
+		    				
+		    				//UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Tank");
 		    			}
+		    		}
 		    	}
 		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 480 && posY < 550) {
 		    		System.out.println("Trying to buy Aircraft");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum())
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    			buyingInfantry = false;
+    					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft")){
 		    				System.out.println("can buy Aircraft");
-		    				UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Aircraft");
+		    				buyingAircraft = true;
+		    				
+		    				//UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Aircraft");
 		    			}
+		    		}
 		    	}
+		    	
+		    	//selecting the specialized unit
+		    	if (buyingInfantry || buyingAircraft || buyingTank) {
+			    	if (posX > 952 + 170 && posX < 952 + 270 && posY > 260 && posY < 330) {
+			    		if (buyingInfantry)
+			    			System.out.println("Anti-Infantry Infantry");
+			    		else if (buyingTank)
+			    			System.out.println("Anti-Infantry Tank");
+			    		else if (buyingAircraft)
+			    			System.out.println("Anti-infantry Aircraft");
+			    		buyingInfantry = false;
+    					buyingTank = false;
+    					buyingAircraft = false;
+			    	}
+			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 370 && posY < 440) {
+			    		if (buyingInfantry)
+			    			System.out.println("Anti-Tank Infantry");
+			    		else if (buyingTank)
+			    			System.out.println("Anti-Tank Tank");
+			    		else if (buyingAircraft)
+			    			System.out.println("Anti-Tank Aircraft");
+			    		buyingInfantry = false;
+    					buyingTank = false;
+    					buyingAircraft = false;
+			    	}
+			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 480 && posY < 550) {
+			    		if (buyingInfantry)
+			    			System.out.println("Anti-Aircraft Infantry");
+			    		else if (buyingTank)
+			    			System.out.println("Anti-Aircraft Tank");
+			    		else if (buyingAircraft)
+			    			System.out.println("Anti-Aircraft Aircraft");
+			    		buyingInfantry = false;
+    					buyingTank = false;
+    					buyingAircraft = false;
+			    	}
+		    	}
+		    	
+		    	
 		    }
 		    }
 		}); 
@@ -342,9 +405,11 @@ public class GameInterface {
 		    drawInfantryButton(false);
 		    drawTankButton(false);
 		    drawAircraftButton(false);
-		    drawAntiInfantryButton(false);
-		    drawAntiTankButton(false);
-		    drawAntiAircraftButton(false);
+		    if (buyingAircraft || buyingInfantry || buyingTank) {
+			    drawAntiInfantryButton(true);
+			    drawAntiTankButton(true);
+			    drawAntiAircraftButton(true);
+		    }
 		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
@@ -422,21 +487,12 @@ public class GameInterface {
 		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {
 		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")) {
 		    		drawInfantryButton(true);
-		    		drawAntiInfantryButton(true);
-				    drawAntiTankButton(true);
-				    drawAntiAircraftButton(true);
 		    	}
 		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")) {
 		    		drawTankButton(true);
-		    		drawAntiInfantryButton(true);
-				    drawAntiTankButton(true);
-				    drawAntiAircraftButton(true);
 		    	}
 		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft")) {
 		    		drawAircraftButton(true);
-		    		drawAntiInfantryButton(true);
-				    drawAntiTankButton(true);
-				    drawAntiAircraftButton(true);
 		    	}
 		    }
 		    
@@ -666,7 +722,7 @@ public class GameInterface {
 		GL11.glVertex2f(952 + 260,720 - 330);
 		GL11.glVertex2f(952 + 160,720 - 330);
 	    GL11.glEnd();
-	    Text.drawString("AntiInfantry", 110.5f, 40.5f, 40f, 1.5f);
+	    Text.drawString("Siege", 110.5f, 40.5f, 40f, 1.5f);
 	}
 	
 	private static void drawAntiTankButton(boolean canBuy) {
