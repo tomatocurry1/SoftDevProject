@@ -249,7 +249,7 @@ public class GameInterface {
 		    	if (posX > 952 + 40 && posX < 952 + 140 && posY > 260 && posY < 330) {
 		    		System.out.println("Trying to buy Infantry");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingAircraft = false;
     					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")){
@@ -263,7 +263,7 @@ public class GameInterface {
 		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 370 && posY < 440) {
 		    		System.out.println("Trying to buy Tank");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingInfantry = false;
     					buyingAircraft = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
@@ -277,7 +277,7 @@ public class GameInterface {
 		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 480 && posY < 550) {
 		    		System.out.println("Trying to buy Aircraft");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingInfantry = false;
     					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft")){
