@@ -3,9 +3,6 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
