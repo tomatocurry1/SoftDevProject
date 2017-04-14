@@ -342,6 +342,9 @@ public class GameInterface {
 		    drawInfantryButton(false);
 		    drawTankButton(false);
 		    drawAircraftButton(false);
+		    drawAntiInfantryButton(false);
+		    drawAntiTankButton(false);
+		    drawAntiAircraftButton(false);
 		    
 		    for(int i=0; i<10; i++){
 		    	for(int j = 0; j<14; j++){
@@ -417,12 +420,24 @@ public class GameInterface {
 		    Text.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 30f, 1.5f);
 		    
 		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {
-		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry"))
+		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")) {
 		    		drawInfantryButton(true);
-		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank"))
+		    		drawAntiInfantryButton(true);
+				    drawAntiTankButton(true);
+				    drawAntiAircraftButton(true);
+		    	}
+		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")) {
 		    		drawTankButton(true);
-		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft"))
+		    		drawAntiInfantryButton(true);
+				    drawAntiTankButton(true);
+				    drawAntiAircraftButton(true);
+		    	}
+		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft")) {
 		    		drawAircraftButton(true);
+		    		drawAntiInfantryButton(true);
+				    drawAntiTankButton(true);
+				    drawAntiAircraftButton(true);
+		    	}
 		    }
 		    
 		    Text.drawString("END TURN", 52.5f, 4.5f, 80f, 5f);
@@ -636,6 +651,54 @@ public class GameInterface {
 		GL11.glVertex2f(952 + 40,720 - 550);
 	    GL11.glEnd();
 	    Text.drawString("Aircraft", 100.5f, 20.5f, 40f, 1.5f);
+	}
+	
+	private static void drawAntiInfantryButton(boolean canBuy) {
+		if (canBuy) {
+			GL11.glColor3f(0.8f,0.2f,0.6f);
+		}
+		else { 
+			GL11.glColor3f(0.4f, 0.4f, 0.4f);
+		}
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(952 + 160,720 - 260);
+		GL11.glVertex2f(952 + 260,720 - 260);
+		GL11.glVertex2f(952 + 260,720 - 330);
+		GL11.glVertex2f(952 + 160,720 - 330);
+	    GL11.glEnd();
+	    Text.drawString("AntiInfantry", 110.5f, 40.5f, 40f, 1.5f);
+	}
+	
+	private static void drawAntiTankButton(boolean canBuy) {
+		if (canBuy) {
+			GL11.glColor3f(0.8f,0.2f,0.6f);
+		}
+		else { 
+			GL11.glColor3f(0.4f, 0.4f, 0.4f);
+		}
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(952 + 170,720 - 370);
+		GL11.glVertex2f(952 + 270,720 - 370);
+		GL11.glVertex2f(952 + 270,720 - 440);
+		GL11.glVertex2f(952 + 170,720 - 440);
+	    GL11.glEnd();
+	    Text.drawString("AntiTank", 110.5f, 30.5f, 40f, 1.5f);
+	}
+	
+	private static void drawAntiAircraftButton(boolean canBuy) {
+		if (canBuy) {
+			GL11.glColor3f(0.8f,0.2f,0.6f);
+		}
+		else { 
+			GL11.glColor3f(0.4f, 0.4f, 0.4f);
+		}
+	    GL11.glBegin(GL11.GL_QUADS);
+	    GL11.glVertex2f(952 + 170,720 - 480);
+		GL11.glVertex2f(952 + 270,720 - 480);
+		GL11.glVertex2f(952 + 270,720 - 550);
+		GL11.glVertex2f(952 + 170,720 - 550);
+	    GL11.glEnd();
+	    Text.drawString("AntiAircraft", 110.5f, 20.5f, 40f, 1.5f);
 	}
 	
 	public static void main(String[] args) {
