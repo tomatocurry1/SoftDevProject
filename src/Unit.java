@@ -2,6 +2,7 @@
 public class Unit {
 
 	private static double specialAttack = 0;
+	private static boolean enemyOnCity;
 	private Player owner;
 	private double health;
 	private double attack;
@@ -9,9 +10,6 @@ public class Unit {
 	private double tankAMultiplier;
 	private double aircraftAMultiplier;
 	private double cityAMultiplier;
-	private double tankDMultiplier;
-	private double aircraftDMultiplier;
-	private double infantryDMultiplier;
 	private double originalMovementPts;
 
 	
@@ -96,30 +94,6 @@ public class Unit {
 	public void setCityAMultiplier(double cityAMultiplier) {
 		this.cityAMultiplier = cityAMultiplier;
 	}
-
-	public double getTankDMultiplier() {
-		return tankDMultiplier;
-	}
-
-	public void setTankDMultiplier(double tankDMultiplier) {
-		this.tankDMultiplier = tankDMultiplier;
-	}
-
-	public double getAircraftDMultiplier() {
-		return aircraftDMultiplier;
-	}
-
-	public void setAircraftDMultiplier(double aircraftDMultiplier) {
-		this.aircraftDMultiplier = aircraftDMultiplier;
-	}
-
-	public double getInfantryDMultiplier() {
-		return infantryDMultiplier;
-	}
-
-	public void setInfantryDMultiplier(double infantryDMultiplier) {
-		this.infantryDMultiplier = infantryDMultiplier;
-	}
 	
 	public void decreaseHealth(double d) {
 		this.setHealth(health - d);
@@ -158,6 +132,16 @@ public class Unit {
 
 	public static void setSpecialAttack(double specialAttack) {
 		Unit.specialAttack = specialAttack;
+	}
+
+	public static void setEnemyOnCity(boolean b) {
+		enemyOnCity = true;
+		
+	}
+	
+	public static boolean getEnemyOnCity() {
+		return enemyOnCity;
+		
 	}
 
 	
