@@ -312,33 +312,33 @@ public class GameInterface {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		//GL11.glEnable(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB);
 		if(spritenum == 0)
-			spritenum = TextureLoader.glLoadPNG("src/tankbad.png");
+			spritenum = TextureLoader.glLoadPNG("img/tankbad.png");
 		
 		if(spriteinfantry == 0)
-			spriteinfantry = TextureLoader.glLoadPNG("src/infantrybro.png");
+			spriteinfantry = TextureLoader.glLoadPNG("img/infantrybro.png");
 		
 		if(spriteheli == 0)
-			spriteheli = TextureLoader.glLoadPNG("src/heli.png");
+			spriteheli = TextureLoader.glLoadPNG("img/heli.png");
 		if(spritecity == 0)
-			spritecity = TextureLoader.glLoadPNG("src/city.png");
+			spritecity = TextureLoader.glLoadPNG("img/city.png");
 		
 		if(spritegrass == 0)
-			spritegrass = TextureLoader.glLoadPNG("src/grass.png");
+			spritegrass = TextureLoader.glLoadPNG("img/grass3.png");
 		
 		if(spriteroad == 0)
-			spriteroad = TextureLoader.glLoadPNG("src/road.png");
+			spriteroad = TextureLoader.glLoadPNG("img/road.png");
 
 		if(spritemountain == 0)
-			spritemountain = TextureLoader.glLoadPNG("src/mountain.png");
+			spritemountain = TextureLoader.glLoadPNG("img/mountain.png");
 		
 		if(spritehill == 0)
-			spritehill = TextureLoader.glLoadPNG("src/hills.png");
+			spritehill = TextureLoader.glLoadPNG("img/hills.png");
 		
 		if(spriteoil == 0)
-			spriteoil = TextureLoader.glLoadPNG("src/oil.png");
+			spriteoil = TextureLoader.glLoadPNG("img/oil.png");
 		
 		if(spritesteel == 0)
-			spritesteel = TextureLoader.glLoadPNG("src/steel.png");
+			spritesteel = TextureLoader.glLoadPNG("img/steel.png");
 
 
 		// Set the clear color
