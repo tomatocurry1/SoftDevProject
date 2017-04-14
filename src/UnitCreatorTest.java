@@ -8,7 +8,7 @@ public class UnitCreatorTest {
 	public void createAircraftEnough(){
 		GameInterface.gameInit();
 		//tile with oil
-		GameInterface.grid[5][9].getResource().setOwner(TurnManager.getCurrentPlayer());
+		GameInterface.grid[5][0].getResource().setOwner(TurnManager.getCurrentPlayer());
 		for(int i=0; i<4; i++)
 			TurnManager.endTurn();
 		int credit = TurnManager.getCurrentPlayer().getCredits();

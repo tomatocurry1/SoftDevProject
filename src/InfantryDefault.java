@@ -8,7 +8,9 @@ public class InfantryDefault extends Unit {
 	private double waterMultiplier = 500000;
 	private int oilCost = 0;
 	private int steelCost = 0;
+	private boolean isOnCity = false;
 	private static int creditCost = 200;
+	private static int cityDamageReduction = 3;
 	
 	public InfantryDefault(Player p) {
 		super(p);
@@ -42,6 +44,23 @@ public class InfantryDefault extends Unit {
 	public static int getCreditCost() {
 		return creditCost;
 	}
+	
+	public static int getCityDamageReduction() {
+			return cityDamageReduction;
+	}
+	
+	public void decreaseHealth(int value) {
+		if (this.isOnCity  == true) {
+			setHealth(getHealth() - (value / getCityDamageReduction()));
+		}
+		else 
+			setHealth(getHealth() - value);
+	}
+	
+	public void setIsOnCity(boolean b) {
+		isOnCity = b;
+	}
+
 }
 
 

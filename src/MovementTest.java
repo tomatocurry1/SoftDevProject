@@ -99,6 +99,7 @@ public class MovementTest {
 			assertEquals(10, GameInterface.grid[4][5].getUnit().getHealth());
 			assertEquals(0.0, GameInterface.grid[4][5].getUnit().getMovementPts(), 0.01);
 			
+		
 			assertFalse(UnitManager.isAttackValid(GameInterface.grid[4][5], GameInterface.grid[12][1]));
 			assertFalse(UnitManager.isAttackValid(GameInterface.grid[4][5], GameInterface.grid[3][5]));
 			assertFalse(UnitManager.isAttackValid(GameInterface.grid[12][1], GameInterface.grid[3][5]));
