@@ -57,10 +57,10 @@ public class InfantryDefault extends Unit {
 	public void decreaseHealth(double value) {
 		System.out.println(this.isOnCity);
 		if (this.isOnCity  == true) {
-			setHealth(getHealth() - (value / getCityDamageReduction()));
+			setHealth((int)(getHealth() - (value / getCityDamageReduction())));
 		}
 		else 
-			setHealth(getHealth() - value);
+			setHealth((int)(getHealth() - value));
 	}
 	
 	public void setIsOnCity(boolean b) {

@@ -39,7 +39,7 @@ public class Unit {
 		return health;
 	}
 
-	public  void setHealth(double d) {
+	public  void setHealth(int d) {
 		health = d;
 	}
 
@@ -95,7 +95,7 @@ public class Unit {
 		this.cityAMultiplier = cityAMultiplier;
 	}
 	
-	public void decreaseHealth(double d) {
+	public void decreaseHealth(int d) {
 		this.setHealth(health - d);
 	}
 	

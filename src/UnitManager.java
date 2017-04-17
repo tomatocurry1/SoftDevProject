@@ -90,10 +90,10 @@ public class UnitManager {
 		
 		
 		if (unit1.useSpecial(unit2)) {
-			unit2.decreaseHealth(unit1.getSpecialAttack());
+			unit2.decreaseHealth((int)unit1.getSpecialAttack());
 		}
 		else {
-			unit2.decreaseHealth(unit1.getAttack());
+			unit2.decreaseHealth((int)unit1.getAttack());
 		}
 		//if unit is destroyed
 		if (unit2.getHealth() <= 0) {
