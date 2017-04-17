@@ -5,7 +5,7 @@ public class AircraftSiege extends AircraftDefault {
 		super(p);
 		
 		this.setCityAMultiplier(1.5);
-		InfantryAntiTank.setSpecialAttack(getCityAMultiplier() * getAttack());
+		setSpecialAttack(getCityAMultiplier() * getAttack());
 	}
 	
 	public boolean useSpecial(Unit u) {

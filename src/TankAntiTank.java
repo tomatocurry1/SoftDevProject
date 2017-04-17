@@ -5,7 +5,7 @@ public class TankAntiTank extends TankDefault {
 		super(p);
 		
 		this.setTankAMultiplier(1.5);
-		InfantryAntiTank.setSpecialAttack(getTankAMultiplier() * getAttack());
+		setSpecialAttack(getTankAMultiplier() * getAttack());
 	}
 	
 	public boolean useSpecial(Unit u) {

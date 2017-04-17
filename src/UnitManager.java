@@ -88,7 +88,7 @@ public class UnitManager {
 		else
 			Unit.setEnemyOnCity(false);
 		
-		
+		// might need to add an "or" to this part for infantry in cities (siege)
 		if (unit1.useSpecial(unit2)) {
 			unit2.decreaseHealth((int)unit1.getSpecialAttack());
 		}
