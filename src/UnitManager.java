@@ -104,9 +104,6 @@ public class UnitManager {
 			tile1.getUnit().setMovementPts(0.0);
 		System.out.println("Remaining Health: " + unit2.getHealth());
 	}
-	
-	
-
 
 		public static void setup(Unit u) {
 			for (int i = 0; i < 14; i++) {

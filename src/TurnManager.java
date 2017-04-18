@@ -1,9 +1,13 @@
+import org.lwjgl.opengl.GL11;
 
 public class TurnManager {
 
 	public static int arrayPointer = 0;
 	private static Player currentPlayer;
 	public static Player plst[] = new Player[4];
+	private static int pntLmt = 8;
+	private static int numOfPlayers = 4;
+
 	
 	
 	public static Player getCurrentPlayer() {
@@ -15,14 +19,12 @@ public class TurnManager {
 	}
 	
 	public static void cyclePlayers() {
-		if (arrayPointer == 3) {
+		if (arrayPointer == (numOfPlayers -1)) {
 			arrayPointer = 0;
 		}
 		else
 			arrayPointer++;
 		currentPlayer = plst[arrayPointer];
-		System.out.println(currentPlayer);
-		System.out.println("Steel used: "+currentPlayer.getSteelUsed());
 	}
 	
 	public static void  resetMovement() {
@@ -92,11 +94,9 @@ public class TurnManager {
 					}
 				}
 				
-				
-				
 				if(temp.getBuilding()!=null){
 					if(temp.getBuilding().getOwner()!=null){
-						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints()+1);
+						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints()+temp.getBuilding().getVictoryPointWorth());
 						if(temp.getBuilding().getOwner()!=null)
 							temp.getBuilding().getOwner().addCredits(250);
 					}
@@ -153,19 +153,42 @@ public class TurnManager {
 					GameInterface.grid[i][j].setUnit(null);
 					p.setOilUsed(p.getOilUsed() - 1);
 					found = true;
-				}
+					}
 				j++;
 			}
 			i++;
 		}
 		}
+		
+	
+	public static void pointLimit() {
+		
+			if (currentPlayer.getVictoryPoints() >= pntLmt) {
+				currentPlayer.setEndGameCounter(currentPlayer.getEndGameCounter() + 1);
+			}
+				else
+					currentPlayer.setEndGameCounter(0);
+	}
+	
+	public static boolean endGame() {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (plst[i].getEndGameCounter() >= 2) {
+				return true; 
+			}
+		}
+		return false;
+	}
 	
 	public static void endTurn() {
 		resetMovement();
 		calculateResources();
+		pointLimit();
+
 		checkResourceUnitTransfer();
+
 		cyclePlayers();
-		
+		endGame();
+		System.out.println(endGame());
 	}
 }
 
