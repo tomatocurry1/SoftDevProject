@@ -10,6 +10,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
 
 public class GameInterface {
 	
@@ -26,8 +27,232 @@ public class GameInterface {
 	private static int spriteoil;
 	private static int spritesteel;
 	
+	private Tile lastTile = null;
+	private Tile justClickedTile = null;
+	private static int xCord;
+	private static int yCord;
+	private double posX;
+	private double posY;
+	private boolean buyingTank = false;
+	private boolean buyingInfantry = false;
+	private boolean buyingAircraft = false;
+	static boolean nextScreen = false;
+	static int numplayers = 4;
+
+	// The window handle
+	private long window;
+	
+	GLFWMouseButtonCallback mouseCallback;
+
+	public void run() {
+		
+		init();
+		prescreen();
+		gameInit();
+		mainLoop();
+
+		// Free the window callbacks and destroy the window
+		glfwFreeCallbacks(window);
+		glfwDestroyWindow(window);
+
+		// Terminate GLFW and free the error callback
+		glfwTerminate();
+		glfwSetErrorCallback(null).free();
+	}
+	
+	public void prescreen(){
+			int panda = TextureLoader.glLoadPNG("img/panda.png");
+			
+			Font.init();
+			
+			int fontset = TextureLoader.glLoadLinearPNG("img/fontset.png");
+		
+		
+		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
+		    @Override
+		    public void invoke(long wind, int button, int action, int mods) {
+		    	double posX=-1;
+		    	double posY=-1;
+		    	if (action == GLFW_RELEASE) {
+			    	posX = 1280 - getCursorPosX(window);
+			    	posY = 720 - getCursorPosY(window);
+			    	if (button == GLFW_MOUSE_BUTTON_1) {
+			    		if(posX > 1280/2 - 240/2 && posX < 1280/2 + 240/2 && posY > 720/2 - 80/2 && posY < 720/2 + 80/2){
+			    			numplayers = 2;
+			    			nextScreen = true;
+			    		}
+			    		
+			    		if(posX > 1280/2 - 240/2 && posX < 1280/2 + 240/2 && posY > 720/2 - 80/2 - 100 && posY < 720/2 + 80/2 - 100){
+			    			numplayers = 3;
+			    			nextScreen = true;
+			    		}
+			    		
+			    		if(posX > 1280/2 - 240/2 && posX < 1280/2 + 240/2 && posY > 720/2 - 80/2 - 200 && posY < 720/2 + 80/2 - 200){
+			    			numplayers = 4;
+			    			nextScreen = true;
+			    		}
+			    		
+			    	}
+			    
+		    	}
+		    }
+		});
+		
+		
+		while(!glfwWindowShouldClose(window) && !nextScreen){
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+			
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+			
+		    GL11.glEnable(GL11.GL_TEXTURE_2D);
+			
+			GL11.glColor3f(1.f,1.f,1.f);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, panda);
+	    	GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glTexCoord2f(0,1);
+		    GL11.glVertex2f(0,0);
+		    
+		    GL11.glTexCoord2f(0,0);
+			GL11.glVertex2f(0,720);
+			
+			GL11.glTexCoord2f(1,0);
+			GL11.glVertex2f(1280,720);
+			
+			GL11.glTexCoord2f(1,1);
+		    GL11.glVertex2f(1280,0);
+		    GL11.glEnd();
+		    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+			
+			GL11.glColor3f(1.f,1.f,0f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(1280/2 - 240/2 ,720/2 - 80/2);
+			GL11.glVertex2f(1280/2 + 240/2,720/2 - 80/2);
+			GL11.glVertex2f(1280/2 + 240/2,720/2 + 80/2);
+			GL11.glVertex2f(1280/2 - 240/2,720/2 + 80/2);
+		    GL11.glEnd();
+		   
+		    
+		    GL11.glColor3f(1.f,1.f,0f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(1280/2 - 240/2 ,720/2 - 80/2 - 100);
+			GL11.glVertex2f(1280/2 + 240/2,720/2 - 80/2 - 100);
+			GL11.glVertex2f(1280/2 + 240/2,720/2 + 80/2 - 100);
+			GL11.glVertex2f(1280/2 - 240/2,720/2 + 80/2 - 100);
+		    GL11.glEnd();
+		    
+		    GL11.glColor3f(1.f,1.f,0f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(1280/2 - 240/2 ,720/2 - 80/2 - 200);
+			GL11.glVertex2f(1280/2 + 240/2,720/2 - 80/2 - 200);
+			GL11.glVertex2f(1280/2 + 240/2,720/2 + 80/2 - 200);
+			GL11.glVertex2f(1280/2 - 240/2,720/2 + 80/2 - 200);
+		    GL11.glEnd();
+			
+			GL11.glEnable(GL_TEXTURE_RECTANGLE_ARB);
+		    
+		    GL11.glColor3f(1.f,1.f,1.f);
+			GL11.glBindTexture(GL_TEXTURE_RECTANGLE_ARB, fontset);
+	    	GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glTexCoord2f(5,50);
+		    GL11.glVertex2f(0,0);
+		    
+		    GL11.glTexCoord2f(5,0);
+			GL11.glVertex2f(0,50/2);
+			
+			GL11.glTexCoord2f(45,0);
+			GL11.glVertex2f(40/2,50/2);
+			
+			GL11.glTexCoord2f(45,50);
+		    GL11.glVertex2f(40/2,0);
+		    GL11.glEnd();
+		    GL11.glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
+		    
+		    GL11.glDisable(GL_TEXTURE_RECTANGLE_ARB);
+			
+		    Font.drawString("hello everyone", 0, 0, 1, 0);
+		    
+			glfwSwapBuffers(window); // swap the color buffers
+
+			// Poll for window events. The key callback above will only be
+			// invoked during this call.
+			glfwPollEvents();
+		}
+		
+		nextScreen = false;
+		
+	}
+
+	public void init() {
+		// Setup an error callback. The default implementation
+		// will print the error message in System.err.
+		GLFWErrorCallback.createPrint(System.err).set();
+		// Initialize GLFW. Most GLFW functions will not work before doing this.
+		if ( !glfwInit() )
+			throw new IllegalStateException("Unable to initialize GLFW");
+
+		// Configure GLFW
+		glfwDefaultWindowHints(); // optional, the current window hints are already the default
+		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+
+		// Create the window
+		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
+		if ( window == NULL )
+			throw new RuntimeException("Failed to create the GLFW window");
+
+		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
+		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+	
+				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
+		});
+		
+		
+
+		// Get the thread stack and push a new frame
+		try ( MemoryStack stack = stackPush() ) {
+			IntBuffer pWidth = stack.mallocInt(1); // int*
+			IntBuffer pHeight = stack.mallocInt(1); // int*
+
+			// Get the window size passed to glfwCreateWindow
+			glfwGetWindowSize(window, pWidth, pHeight);
+
+			// Get the resolution of the primary monitor
+			GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+			// Center the window
+			glfwSetWindowPos(
+				window,
+				(vidmode.width() - pWidth.get(0)) / 2,
+				(vidmode.height() - pHeight.get(0)) / 2
+			);
+		} // the stack frame is popped automatically
+
+		// Make the OpenGL context current
+		glfwMakeContextCurrent(window);
+		// Enable v-sync
+		glfwSwapInterval(1);
+
+		// Make the window visible
+		glfwShowWindow(window);
+		GL.createCapabilities();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL_TEXTURE_RECTANGLE_ARB);
+		// Set the clear color
+		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+		
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, 1280, 0, 720, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
+		//GL11.glTexEnvf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	}
+
 	// initializes the game board and players
-	public static void gameInit(){
+	public void gameInit(){
 		
 		//creates new players and assigns their colors
 		TurnManager.plst[0] = new Player(1, 0.5f,0.0f,0.8f);
@@ -117,63 +342,6 @@ public class GameInterface {
 		grid[8][2].setBuilding(new City(true));
 		grid[5][7].setBuilding(new City(true));
 		grid[8][7].setBuilding(new City(true));
-		
-		
-	}
-
-	private Tile lastTile = null;
-	private Tile justClickedTile = null;
-	private static int xCord;
-	private static int yCord;
-	private double posX;
-	private double posY;
-	private boolean buyingTank = false;
-	private boolean buyingInfantry = false;
-	private boolean buyingAircraft = false;
-
-	// The window handle
-	private long window;
-	
-	GLFWMouseButtonCallback mouseCallback;
-
-	public void run() {
-		
-		init();
-		loop();
-
-		// Free the window callbacks and destroy the window
-		glfwFreeCallbacks(window);
-		glfwDestroyWindow(window);
-
-		// Terminate GLFW and free the error callback
-		glfwTerminate();
-		glfwSetErrorCallback(null).free();
-	}
-
-	public void init() {
-		// Setup an error callback. The default implementation
-		// will print the error message in System.err.
-		GLFWErrorCallback.createPrint(System.err).set();
-		// Initialize GLFW. Most GLFW functions will not work before doing this.
-		if ( !glfwInit() )
-			throw new IllegalStateException("Unable to initialize GLFW");
-
-		// Configure GLFW
-		glfwDefaultWindowHints(); // optional, the current window hints are already the default
-		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
-
-		// Create the window
-		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
-		if ( window == NULL )
-			throw new RuntimeException("Failed to create the GLFW window");
-
-		// Setup a key callback. It will be called every time a key is pressed, repeated or released.
-		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-	
-				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-		});
 		
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
 		    @Override
@@ -330,46 +498,7 @@ public class GameInterface {
 		    }
 		    }
 		}); 
-
-		// Get the thread stack and push a new frame
-		try ( MemoryStack stack = stackPush() ) {
-			IntBuffer pWidth = stack.mallocInt(1); // int*
-			IntBuffer pHeight = stack.mallocInt(1); // int*
-
-			// Get the window size passed to glfwCreateWindow
-			glfwGetWindowSize(window, pWidth, pHeight);
-
-			// Get the resolution of the primary monitor
-			GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-			// Center the window
-			glfwSetWindowPos(
-				window,
-				(vidmode.width() - pWidth.get(0)) / 2,
-				(vidmode.height() - pHeight.get(0)) / 2
-			);
-		} // the stack frame is popped automatically
-
-		// Make the OpenGL context current
-		glfwMakeContextCurrent(window);
-		// Enable v-sync
-		glfwSwapInterval(1);
-
-		// Make the window visible
-		glfwShowWindow(window);
 		
-		gameInit();
-	}
-
-	private void loop() {
-		// This line is critical for LWJGL's interoperation with GLFW's
-		// OpenGL context, or any context that is managed externally.
-		// LWJGL detects the context that is current in the current thread,
-		// creates the GLCapabilities instance and makes the OpenGL
-		// bindings available for use.
-		GL.createCapabilities();
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		//GL11.glEnable(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB);
 		if(spritenum == 0)
 			spritenum = TextureLoader.glLoadPNG("img/cooltankbro.png");
 		
@@ -398,19 +527,16 @@ public class GameInterface {
 		
 		if(spritesteel == 0)
 			spritesteel = TextureLoader.glLoadPNG("img/steel2.png");
-
-
-		// Set the clear color
-		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
-		
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
-		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 1280, 0, 720, 1, -1);
-		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		
-		//GL11.glTexEnvf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	}
+	
+	private void mainLoop() {
+		// This line is critical for LWJGL's interoperation with GLFW's
+		// OpenGL context, or any context that is managed externally.
+		// LWJGL detects the context that is current in the current thread,
+		// creates the GLCapabilities instance and makes the OpenGL
+		// bindings available for use.
+		//GL11.glEnable(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
 		// Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.

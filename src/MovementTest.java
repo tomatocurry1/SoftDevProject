@@ -11,7 +11,7 @@ public class MovementTest {
 	
 	@Test
 	public void testMovementOptimization() {
-		GameInterface.gameInit();
+		new GameInterface().gameInit();
 		UnitManager.setup(GameInterface.grid[1][1].getUnit());
 		assertEquals(1.5, UnitManager.shortestPath(GameInterface.grid[1][1], GameInterface.grid[3][2]), 0.01);
 		assertEquals(0.0, UnitManager.shortestPath(GameInterface.grid[1][1], GameInterface.grid[1][3]), 0.01);
@@ -25,7 +25,7 @@ public class MovementTest {
 	
 	@Test
 	public void testUnitMovement() {
-		GameInterface.gameInit();
+		new GameInterface().gameInit();
 		assertTrue(GameInterface.grid[2][0].getUnit() == null);
 		UnitManager.moveUnit(GameInterface.grid[1][1], GameInterface.grid[2][0]);
 		assertTrue(GameInterface.grid[2][0].getUnit() != null);
@@ -33,7 +33,7 @@ public class MovementTest {
 	
 	@Test
 	public void testCurrentPlayerInteraction() {
-		GameInterface.gameInit();
+		new GameInterface().gameInit();
 		//current player attempts to move own unit
 		assertTrue(UnitManager.isValidMove(GameInterface.grid[1][1], GameInterface.grid[3][2]));
 		//current player attempts to move other player's unit
@@ -44,7 +44,7 @@ public class MovementTest {
 	
 	@Test
 	public void testAttack() {
-		GameInterface.gameInit();
+		new GameInterface().gameInit();
 		try {
 			assertTrue(TurnManager.getCurrentPlayer().getNum() == 1);
 			assertTrue(GameInterface.grid[1][1].getUnit() != null);
