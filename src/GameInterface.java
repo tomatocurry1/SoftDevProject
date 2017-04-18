@@ -855,8 +855,11 @@ public class GameInterface {
 			GL11.glVertex2f(30+i*320,720-30);
 			GL11.glVertex2f(10+i*320,720-30);
 		    GL11.glEnd();
+		    
+		    
 	    }
 	}
+	
 	
 	private static void drawInfantryButton(boolean canBuy) {
 		if (canBuy) {
