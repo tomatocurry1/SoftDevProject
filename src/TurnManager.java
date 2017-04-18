@@ -117,39 +117,51 @@ public class TurnManager {
 			}
 	}
 	
-	/*private static void checkResourceUnitTransfer() {
+	private static void checkResourceUnitTransfer() {
 		for (int i = 0; i < plst.length; i++ ) {
 			while (plst[i].getOil() < plst[i].getOilUsed()) {
-				deleteTank(plst[i]);
+				deleteAircraft(plst[i]);
 			}
 			while (plst[i].getSteel() < plst[i].getSteelUsed()) {
-				deleteAircraft(plst[i]);
+				deleteTank(plst[i]);
 			}
 		}
 	}
 	
 	private static void deleteTank(Player p) {
-			for (int i = 0; i < GameInterface.grid.length; i++) {
-				for (int j = 0; j < GameInterface.grid[i].length; j++) {
-					if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof TankDefault)) {
-						GameInterface.grid[i][j].setUnit(null);
-						p.setSteelUsed(p.getSteelUsed() - 1);
-					}
+		boolean found = false;
+		int i = 0;
+		while (!found && i < GameInterface.grid.length) {
+			int j = 0;
+			while (!found && j < GameInterface.grid[i].length) {
+				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof TankDefault)) {
+					GameInterface.grid[i][j].setUnit(null);
+					p.setSteelUsed(p.getSteelUsed() - 1);
+					found = true;
 				}
+				j++;
 			}
+			i++;
+		}
 		}
 	
 	
 	private static void deleteAircraft(Player p) {
-		for (int i = 0; i < GameInterface.grid.length; i++) {
-			for (int j = 0; j < GameInterface.grid[i].length; j++) {
+		boolean found = false;
+		int i = 0;
+		while (!found && i < GameInterface.grid.length) {
+			int j = 0;
+			while (!found && j < GameInterface.grid[i].length) {
 				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof AircraftDefault)) {
 					GameInterface.grid[i][j].setUnit(null);
 					p.setOilUsed(p.getOilUsed() - 1);
-				}
+					found = true;
+					}
+				j++;
+				}	
+				i++;
 			}
 		}
-	}*/
 	
 	public static void pointLimit() {
 		
@@ -169,18 +181,13 @@ public class TurnManager {
 		return false;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	public static void endTurn() {
 		resetMovement();
 		calculateResources();
 		pointLimit();
-		//checkResourceUnitTransfer();
+
+		checkResourceUnitTransfer();
+
 		cyclePlayers();
 		endGame();
 		System.out.println(endGame());
