@@ -94,8 +94,6 @@ public class TurnManager {
 					}
 				}
 				
-				
-				
 				if(temp.getBuilding()!=null){
 					if(temp.getBuilding().getOwner()!=null){
 						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints()+temp.getBuilding().getVictoryPointWorth());
@@ -145,7 +143,6 @@ public class TurnManager {
 		}
 		}
 	
-	
 	private static void deleteAircraft(Player p) {
 		boolean found = false;
 		int i = 0;
@@ -158,10 +155,11 @@ public class TurnManager {
 					found = true;
 					}
 				j++;
-				}	
-				i++;
 			}
+			i++;
 		}
+		}
+		
 	
 	public static void pointLimit() {
 		

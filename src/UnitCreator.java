@@ -127,6 +127,7 @@ public class UnitCreator {
 				break;
 				
 			}
+			GameInterface.grid[x][y].getUnit().setMovementPts(0);
 		}
 			
 	}
