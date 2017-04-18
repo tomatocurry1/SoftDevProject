@@ -98,9 +98,9 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
-		grid[1][1].setUnit(new TankDefault(TurnManager.plst[0]));
-		grid[1][8].setUnit(new TankDefault(TurnManager.plst[1]));
-		grid[12][8].setUnit(new AircraftDefault(TurnManager.plst[2]));
+		grid[1][1].setUnit(new InfantryDefault(TurnManager.plst[0]));
+		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[12][8].setUnit(new InfantryDefault(TurnManager.plst[2]));
 		grid[12][1].setUnit(new InfantryDefault(TurnManager.plst[3]));
 
 		
