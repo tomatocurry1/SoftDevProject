@@ -143,16 +143,6 @@ public class TurnManager {
 		}
 		}
 	
-			/*for (int i = 0; i < GameInterface.grid.length; i++) {
-				for (int j = 0; j < GameInterface.grid[i].length; j++) {
-					if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof TankDefault)) {
-						GameInterface.grid[i][j].setUnit(null);
-						p.setSteelUsed(p.getSteelUsed() - 1);
-					}
-				}
-			}
-		}*/
-	
 	private static void deleteAircraft(Player p) {
 		boolean found = false;
 		int i = 0;
@@ -169,18 +159,6 @@ public class TurnManager {
 			i++;
 		}
 		}
-	
-	
-	/*private static void deleteAircraft(Player p) {
-		for (int i = 0; i < GameInterface.grid.length; i++) {
-			for (int j = 0; j < GameInterface.grid[i].length; j++) {
-				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof AircraftDefault)) {
-					GameInterface.grid[i][j].setUnit(null);
-					p.setOilUsed(p.getOilUsed() - 1);
-				}
-			}
-		}
-	}*/
 	
 	public static void endTurn() {
 		resetMovement();
