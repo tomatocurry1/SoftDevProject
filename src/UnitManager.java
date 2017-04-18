@@ -32,6 +32,8 @@ public class UnitManager {
 		return false;
 	}
 	
+	
+	
 	public static boolean isAttackValid (Tile tile1, Tile tile2) {
 		if (tile2.getUnit() != null && (tile1.getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) && !tile2.getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) {
 	
