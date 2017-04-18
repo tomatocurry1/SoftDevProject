@@ -43,8 +43,8 @@ public class GameInterface {
 	private long window;
 	
 	GLFWMouseButtonCallback mouseCallback;
-
-	public void run() {
+	
+public void run() {
 		
 		init();
 		prescreen();
@@ -323,6 +323,12 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
+		grid[1][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[13][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[13][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		
+		
 		grid[1][1].setUnit(new InfantryDefault(TurnManager.plst[0]));
 		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		grid[12][8].setUnit(new InfantryDefault(TurnManager.plst[2]));
@@ -330,18 +336,18 @@ public class GameInterface {
 
 		
 		//puts bases on the board for each player and assigns the owner of the base
-		grid[0][0].setBuilding(new City(false));
+		grid[0][0].setBuilding(new Base());
 		grid[0][0].getBuilding().setOwner(TurnManager.plst[0]);
-		grid[0][9].setBuilding(new City(false));
+		grid[0][9].setBuilding(new Base());
 		grid[0][9].getBuilding().setOwner(TurnManager.plst[1]);
-		grid[13][9].setBuilding(new City(false));
+		grid[13][9].setBuilding(new Base());
 		grid[13][9].getBuilding().setOwner(TurnManager.plst[2]);
-		grid[13][0].setBuilding(new City(false));
+		grid[13][0].setBuilding(new Base());
 		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
-		grid[5][2].setBuilding(new City(true));
-		grid[8][2].setBuilding(new City(true));
-		grid[5][7].setBuilding(new City(true));
-		grid[8][7].setBuilding(new City(true));
+		grid[5][2].setBuilding(new City());
+		grid[8][2].setBuilding(new City());
+		grid[5][7].setBuilding(new City());
+		grid[8][7].setBuilding(new City());
 		
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
 		    @Override
@@ -417,7 +423,7 @@ public class GameInterface {
 		    	if (posX > 952 + 40 && posX < 952 + 140 && posY > 260 && posY < 330) {
 		    		System.out.println("Trying to buy Infantry");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingAircraft = false;
     					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")){
@@ -431,7 +437,7 @@ public class GameInterface {
 		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 370 && posY < 440) {
 		    		System.out.println("Trying to buy Tank");
 		    		
-		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
+		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingInfantry = false;
     					buyingAircraft = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
@@ -527,7 +533,12 @@ public class GameInterface {
 		
 		if(spritesteel == 0)
 			spritesteel = TextureLoader.glLoadPNG("img/steel2.png");
+		
 	}
+
+	
+		
+		
 	
 	private void mainLoop() {
 		// This line is critical for LWJGL's interoperation with GLFW's
@@ -664,7 +675,7 @@ public class GameInterface {
 		    	if(justClickedTile.getUnit()!=null)
 		    Text.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 30f, 1.5f);
 		    
-		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {
+		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {
 		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")) {
 		    		drawInfantryButton(true);
 		    	}
@@ -679,7 +690,16 @@ public class GameInterface {
 		    Text.drawString("END TURN", 52.5f, 4.5f, 80f, 5f);
  
 		    renderPlayerInfo();
-
+		    if (TurnManager.endGame() == true) {
+		    	GL11.glColor3f(1.0f,1.0f,1.0f);
+			    GL11.glBegin(GL11.GL_QUADS);
+			    GL11.glVertex2f(800,600);
+				GL11.glVertex2f(800,200);
+				GL11.glVertex2f(200,200);
+				GL11.glVertex2f(200,600);
+			    GL11.glEnd();
+		    }
+		    
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be

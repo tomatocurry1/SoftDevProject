@@ -1,9 +1,13 @@
+import org.lwjgl.opengl.GL11;
 
 public class TurnManager {
 
 	public static int arrayPointer = 0;
 	private static Player currentPlayer;
 	public static Player plst[] = new Player[4];
+	private static int pntLmt = 8;
+	private static int numOfPlayers = 4;
+
 	
 	
 	public static Player getCurrentPlayer() {
@@ -15,14 +19,12 @@ public class TurnManager {
 	}
 	
 	public static void cyclePlayers() {
-		if (arrayPointer == 3) {
+		if (arrayPointer == (numOfPlayers -1)) {
 			arrayPointer = 0;
 		}
 		else
 			arrayPointer++;
 		currentPlayer = plst[arrayPointer];
-		System.out.println(currentPlayer);
-		System.out.println("Steel used: "+currentPlayer.getSteelUsed());
 	}
 	
 	public static void  resetMovement() {
@@ -92,11 +94,9 @@ public class TurnManager {
 					}
 				}
 				
-				
-				
 				if(temp.getBuilding()!=null){
 					if(temp.getBuilding().getOwner()!=null){
-						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints()+1);
+						temp.getBuilding().getOwner().setVictoryPoints(temp.getBuilding().getOwner().getVictoryPoints()+temp.getBuilding().getVictoryPointWorth());
 						if(temp.getBuilding().getOwner()!=null)
 							temp.getBuilding().getOwner().addCredits(250);
 					}
@@ -115,46 +115,80 @@ public class TurnManager {
 			}
 	}
 	
-	/*private static void checkResourceUnitTransfer() {
+	private static void checkResourceUnitTransfer() {
 		for (int i = 0; i < plst.length; i++ ) {
 			while (plst[i].getOil() < plst[i].getOilUsed()) {
-				deleteTank(plst[i]);
+				deleteAircraft(plst[i]);
 			}
 			while (plst[i].getSteel() < plst[i].getSteelUsed()) {
-				deleteAircraft(plst[i]);
+				deleteTank(plst[i]);
 			}
 		}
 	}
 	
 	private static void deleteTank(Player p) {
-			for (int i = 0; i < GameInterface.grid.length; i++) {
-				for (int j = 0; j < GameInterface.grid[i].length; j++) {
-					if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof TankDefault)) {
-						GameInterface.grid[i][j].setUnit(null);
-						p.setSteelUsed(p.getSteelUsed() - 1);
-					}
+		boolean found = false;
+		int i = 0;
+		while (!found && i < GameInterface.grid.length) {
+			int j = 0;
+			while (!found && j < GameInterface.grid[i].length) {
+				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof TankDefault)) {
+					GameInterface.grid[i][j].setUnit(null);
+					p.setSteelUsed(p.getSteelUsed() - 1);
+					found = true;
 				}
+				j++;
 			}
+			i++;
+		}
 		}
 	
-	
 	private static void deleteAircraft(Player p) {
-		for (int i = 0; i < GameInterface.grid.length; i++) {
-			for (int j = 0; j < GameInterface.grid[i].length; j++) {
+		boolean found = false;
+		int i = 0;
+		while (!found && i < GameInterface.grid.length) {
+			int j = 0;
+			while (!found && j < GameInterface.grid[i].length) {
 				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof AircraftDefault)) {
 					GameInterface.grid[i][j].setUnit(null);
 					p.setOilUsed(p.getOilUsed() - 1);
-				}
+					found = true;
+					}
+				j++;
+			}
+			i++;
+		}
+		}
+		
+	
+	public static void pointLimit() {
+		
+			if (currentPlayer.getVictoryPoints() >= pntLmt) {
+				currentPlayer.setEndGameCounter(currentPlayer.getEndGameCounter() + 1);
+			}
+				else
+					currentPlayer.setEndGameCounter(0);
+	}
+	
+	public static boolean endGame() {
+		for (int i = 0; i < numOfPlayers; i++) {
+			if (plst[i].getEndGameCounter() >= 2) {
+				return true; 
 			}
 		}
-	}*/
+		return false;
+	}
 	
 	public static void endTurn() {
 		resetMovement();
 		calculateResources();
-		//checkResourceUnitTransfer();
+		pointLimit();
+
+		checkResourceUnitTransfer();
+
 		cyclePlayers();
-		
+		endGame();
+		System.out.println(endGame());
 	}
 }
 
