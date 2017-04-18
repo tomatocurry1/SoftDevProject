@@ -58,25 +58,6 @@ public class UnitManager {
 		temp.setMovementPts(shortestPath(tile1, tile2));
 		tile1.setUnit(null);	
 		tile2.setUnit(temp);
-		Player p = tile2.getUnit().getOwner();
-		
-		//if tile has a resource, gives ownership to the current player and deducts from previous owner (if applicable)
-		/*if (tile2.getResource() != null)  {
-			Resource r = tile2.getResource();
-			if (r.toString().equals("Steel")) {
-				if (r.getOwner() != null)
-					r.getOwner().setSteel(r.getOwner().getSteel() - 1);
-				p.setSteel(p.getSteel() + 1);
-			}
-			else {
-				if (r.getOwner() != null)
-					r.getOwner().setOil(r.getOwner().getOil() - 1);
-				p.setOil(p.getOil() + 1);
-			}
-			tile2.getResource().setOwner(p);
-		}
-		if (tile2.getBuilding() != null)
-			tile2.getBuilding().setOwner(p);*/
 	}
 	
 	public static void attack(Tile tile1, Tile tile2) {
@@ -109,6 +90,9 @@ public class UnitManager {
 			for (int i = 0; i < 14; i++) {
 				for (int j = 0; j < 10; j++) {
 					terrainMultiplierArray[i][j] = u.getMultiplier(GameInterface.grid[i][j].getTerrain());
+					if (GameInterface.grid[i][j].getUnit() != null && !GameInterface.grid[i][j].getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) {
+						terrainMultiplierArray[i][j] = 50000;
+					}
 				}
 			}
 		}
