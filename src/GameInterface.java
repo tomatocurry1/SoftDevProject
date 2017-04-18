@@ -98,6 +98,12 @@ public class GameInterface {
 			}
 		}
 		//puts units on board for each player
+		grid[1][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[13][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		grid[13][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
+		
+		
 		grid[1][1].setUnit(new InfantryDefault(TurnManager.plst[0]));
 		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		grid[12][8].setUnit(new InfantryDefault(TurnManager.plst[2]));
@@ -105,18 +111,18 @@ public class GameInterface {
 
 		
 		//puts bases on the board for each player and assigns the owner of the base
-		grid[0][0].setBuilding(new City(false));
+		grid[0][0].setBuilding(new Base());
 		grid[0][0].getBuilding().setOwner(TurnManager.plst[0]);
-		grid[0][9].setBuilding(new City(false));
+		grid[0][9].setBuilding(new Base());
 		grid[0][9].getBuilding().setOwner(TurnManager.plst[1]);
-		grid[13][9].setBuilding(new City(false));
+		grid[13][9].setBuilding(new Base());
 		grid[13][9].getBuilding().setOwner(TurnManager.plst[2]);
-		grid[13][0].setBuilding(new City(false));
+		grid[13][0].setBuilding(new Base());
 		grid[13][0].getBuilding().setOwner(TurnManager.plst[3]);
-		grid[5][2].setBuilding(new City(true));
-		grid[8][2].setBuilding(new City(true));
-		grid[5][7].setBuilding(new City(true));
-		grid[8][7].setBuilding(new City(true));
+		grid[5][2].setBuilding(new City());
+		grid[8][2].setBuilding(new City());
+		grid[5][7].setBuilding(new City());
+		grid[8][7].setBuilding(new City());
 		
 		
 	}
@@ -553,7 +559,16 @@ public class GameInterface {
 		    Text.drawString("END TURN", 52.5f, 4.5f, 80f, 5f);
  
 		    renderPlayerInfo();
-
+		    if (TurnManager.endGame() == true) {
+		    	GL11.glColor3f(1.0f,1.0f,1.0f);
+			    GL11.glBegin(GL11.GL_QUADS);
+			    GL11.glVertex2f(800,600);
+				GL11.glVertex2f(800,200);
+				GL11.glVertex2f(200,200);
+				GL11.glVertex2f(200,600);
+			    GL11.glEnd();
+		    }
+		    
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be

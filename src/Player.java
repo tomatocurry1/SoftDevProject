@@ -11,6 +11,7 @@ public class Player {
 	private float red;
 	private float green;
 	private float blue;
+	private int endGameCounter = 0;
 	
 	public Player(int num) {
 		playerNum = num;
@@ -68,6 +69,15 @@ public class Player {
 	public int getVictoryPoints() {
 		return victoryPoints;
 	}
+	
+	public void setEndGameCounter(int n) {
+		endGameCounter = n;
+	}
+	
+	public int getEndGameCounter() {
+		return endGameCounter;
+	}
+	
 	
 	public void addCredits(int value) {
 		credits = credits + value;
