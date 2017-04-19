@@ -149,7 +149,7 @@ public void run() {
 		    GL11.glEnd();
 			
 			
-		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234567890", 10, 10, 1.f, 1.5f);
+		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234-567890:", 10, 10, 1.f, 1.5f);
 		    
 			glfwSwapBuffers(window); // swap the color buffers
 
