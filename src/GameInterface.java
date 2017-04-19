@@ -384,15 +384,21 @@ public void run() {
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null &&  
 				    		UnitManager.isValidMove(lastTile, justClickedTile) ) {
 				    		
-				    		if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
-				    			UnitManager.attack(lastTile, justClickedTile);
-				    			}
-				    		else if (justClickedTile.getUnit() == null){
-				    			UnitManager.moveUnit(lastTile, justClickedTile);
+					    		if (justClickedTile.getUnit() == null){
+					    			UnitManager.moveUnit(lastTile, justClickedTile);
 				    		}
 				    		lastTile = null;
 				    		justClickedTile = null;
 				    	}
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
+				    		
+				    		if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
+				    			UnitManager.attack(lastTile, justClickedTile);
+				    			}
+				    		
+			    		lastTile = null;
+			    		justClickedTile = null;
+			    	}
 			    	}
 			    	//right clicking displays the terrain, resource, and building????
 			    	else if (button == GLFW_MOUSE_BUTTON_2) {
