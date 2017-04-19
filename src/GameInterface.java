@@ -690,6 +690,7 @@ public void run() {
 		    Text.drawString("END TURN", 52.5f, 4.5f, 80f, 5f);
  
 		    renderPlayerInfo();
+		    renderCurrentPlayerOutline();
 		    if (TurnManager.endGame() == true) {
 		    	GL11.glColor3f(1.0f,1.0f,1.0f);
 			    GL11.glBegin(GL11.GL_QUADS);
@@ -986,10 +987,40 @@ public void run() {
 			GL11.glVertex2f(30+i*320,720-30);
 			GL11.glVertex2f(10+i*320,720-30);
 		    GL11.glEnd();
-		    
-		    
 	    }
 	}
+	
+	private static void renderCurrentPlayerOutline() {
+		int n = 0;
+		if (TurnManager.getCurrentPlayer() == TurnManager.plst[1]) {
+			n = 1;
+		}
+		if (TurnManager.getCurrentPlayer() == TurnManager.plst[2]) {
+			n = 2;
+		}
+		if (TurnManager.getCurrentPlayer() == TurnManager.plst[3]) {
+			n = 3;
+		}
+		
+		GL11.glColor3f(1.0f, 1.0f, 0.0f);
+    	GL11.glBegin(GL11.GL_LINES);
+    	GL11.glLineWidth((float)10);
+    	
+    	GL11.glVertex2f(5+n*320, 720-5);
+		GL11.glVertex2f(310+n*320,720-5);
+		
+		GL11.glVertex2f(310+n*320,720-35);
+		GL11.glVertex2f(5+n*320,720-35);
+		
+		GL11.glVertex2f(5+n*320, 720-5);
+		GL11.glVertex2f(5+n*320, 720-35);
+		
+		GL11.glVertex2f(310+n*320,720-35);
+		GL11.glVertex2f(310+n*320,720-5);
+		
+    	GL11.glEnd();
+	}
+
 	
 	
 	private static void drawInfantryButton(boolean canBuy) {
