@@ -159,20 +159,4 @@ public class Player {
 	public Unit getLastAircraft() {
 		return aircraftStack.pop();
 	}
-	
-	/*public void setLastAircraft(Unit a) {
-		this.lastAircraft = a;
-	}
-	
-	public Unit getLastAircraft() {
-		return lastAircraft;
-	}
-	
-	public void setLastTank(Unit t) {
-		this.lastTank = t;
-	}
-	
-	public Unit getLastTank() {
-		return lastTank;
-	}*/
 }

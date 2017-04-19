@@ -148,6 +148,9 @@ public void run() {
 			GL11.glVertex2f(1280/2 - 240/2,720/2 + 80/2 - 200);
 		    GL11.glEnd();
 			
+		    Font.drawString("TWO PLAYER", 550, 348, 2f, 2.5f);
+		    Font.drawString("THREE PLAYER", 543, 248, 2f, 2.5f);
+		    Font.drawString("FOUR PLAYER", 550, 150, 2f, 2.5f);
 			
 		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234-567890:", 10, 10, 1.f, 1.5f);
 		    
@@ -633,13 +636,6 @@ public void run() {
 	    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
 	    }else
 	    	GL11.glColor3f(0.5f, 0.5f, 0.5f);
-//		if (b.getOwner() == null) {
-//			drawCircle(i, j, 15, null);
-//		}
-//		if (!b.isCity())
-//			drawCircle(i, j, 25, b.getOwner());
-//		else
-//			drawCircle(i, j, 15, b.getOwner());
 		
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritecity);
     	GL11.glBegin(GL11.GL_QUADS);
@@ -647,15 +643,12 @@ public void run() {
 	    GL11.glVertex2f(68*j,68*i);
 	    
 	    GL11.glTexCoord2f(0,0);
-	    //GL11.glTexCoord2f(0,32);
 		GL11.glVertex2f(68*j,68*(i+1));
 		
 		GL11.glTexCoord2f(1,0);
-		//GL11.glTexCoord2f(32,32);
 		GL11.glVertex2f(68*(j+1),68*(i+1));
 		
 		GL11.glTexCoord2f(1,1);
-		//GL11.glTexCoord2f(32,0);
 	    GL11.glVertex2f(68*(j+1),68*i);
 	    GL11.glEnd();
 	    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
@@ -665,7 +658,6 @@ public void run() {
 	// draws a circle on the tile with radius r with player p's color
 	private static void drawCircle(int xCord, int yCord, int radius, Player p){
 	    glBegin(GL_TRIANGLE_FAN);
-	    // if the building doesn't have an owner, make it grey
 	    if (p == null)
 	    	GL11.glColor3f(0.5f, 0.5f, 0.5f);
 	    else
