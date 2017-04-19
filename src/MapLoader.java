@@ -18,19 +18,29 @@ public class MapLoader {
 			case 4:
 				load4P(mapnum);
 				break;
-			default: 
+				
+			default:
+				System.err.println("Player number out of bounds (2-4)");
 		}
 	}
 	
 	public static void load2P(int mapnum){
 		switch(mapnum){
 			case 0:
+				break;
+				
+			default:
+				System.err.println("Map number out of bounds " + maps[0]);	
 		}
 	}
 	
 	public static void load3P(int mapnum){
 		switch(mapnum){
 			case 0:
+				break;
+				
+			default:
+				System.err.println("Map number out of bounds " + maps[1]);
 		}
 	}
 	
@@ -132,6 +142,8 @@ public class MapLoader {
 				GameInterface.grid[8][7].setBuilding(new City());
 				break;
 				
+			default:
+				System.err.println("Map number out of bounds " + maps[2]);
 		}
 	}
 }
