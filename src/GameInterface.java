@@ -412,7 +412,6 @@ public void run() {
 		    	}
 		    	//if "end turn" button clicked
 		    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-20 && posY > 720-150){
-		    		System.out.println("End Turn button clicked");
 		    		TurnManager.endTurn();
 		    		justClickedTile = null;
 		    		lastTile = null;
@@ -1023,8 +1022,7 @@ public void run() {
     	GL11.glEnd();
 	}
 
-	
-	
+		
 	private static void drawInfantryButton(boolean canBuy) {
 		if (canBuy) {
 			GL11.glColor3f(0.8f,0.2f,0.6f);

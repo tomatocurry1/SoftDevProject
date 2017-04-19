@@ -55,8 +55,14 @@ public class TurnManager {
 				if(checkCaptured.getBuilding()!=null){
 					
 						if(checkCaptured.getUnit()!=null)
-							if(checkCaptured.getBuilding().getOwner() == null ||checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getBuilding().getOwner().getNum()){
-							
+							if(checkCaptured.getBuilding().getOwner() == null) {
+								
+								Player attacker = checkCaptured.getUnit().getOwner();
+								checkCaptured.getBuilding().setOwner(attacker);
+							}
+								
+							else if (checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getBuilding().getOwner().getNum()) {
+												
 								checkCaptured.getBuilding().getOwner().setCitiesControlled(checkCaptured.getBuilding().getOwner().getCitiesControlled() - 1);
 								Player attacker = checkCaptured.getUnit().getOwner();
 								checkCaptured.getBuilding().setOwner(attacker);
