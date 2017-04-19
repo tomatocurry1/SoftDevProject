@@ -12,6 +12,8 @@ public class Player {
 	private float green;
 	private float blue;
 	private int endGameCounter = 0;
+	private int citiesControlled = 1;
+	private int unitsControlled = 1;
 	
 	public Player(int num) {
 		playerNum = num;
@@ -22,6 +24,30 @@ public class Player {
 		red = r;
 		green = g;
 		blue = b;
+	}
+	
+	public void setCitiesControlled (int n) {
+		citiesControlled = n;
+	}
+	
+	public int getCitiesControlled () {
+		return citiesControlled;
+	}
+	
+	public void setUnitsControlled (int n) {
+		unitsControlled = n;
+	}
+	
+	public int getUnitsControlled () {
+		return unitsControlled;
+	}
+	
+	public boolean isEliminated() {
+		if ((this.getUnitsControlled() + this.getCitiesControlled()) <= 0) {
+			return true;
+		}
+		else 
+			return false;
 	}
 	
 	public int getNum() {

@@ -80,12 +80,21 @@ public class UnitManager {
 		}
 		//if unit is destroyed
 		if (unit2.getHealth() <= 0) {
+			unit2.getOwner().setUnitsControlled(unit2.getOwner().getUnitsControlled() - 1);
 			moveUnit(tile1, tile2);
 			tile2.getUnit().setMovementPts(0.0);
 		}
 		else
 			tile1.getUnit().setMovementPts(0.0);
-		System.out.println("Remaining Health: " + unit2.getHealth());
+		
+		if (Unit.isInfantry(unit1)) { 
+			if (tile2.getBuilding() != null) 
+				((InfantryDefault)unit1).setIsOnCity(true);
+			
+			else
+				((InfantryDefault) unit1).setIsOnCity(false);
+		}
+		
 	}
 
 		public static void setup(Unit u) {

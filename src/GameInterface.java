@@ -324,7 +324,6 @@ public void run() {
 		}
 		//puts units on board for each player
 		grid[1][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
-		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		grid[13][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		grid[13][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		
@@ -373,10 +372,7 @@ public void run() {
 				    	
 			
 				    	if (justClickedTile.getUnit() != null) {
-				    		//System.out.println("Oil: " + justClickedTile.getUnit().getOwner().getOil());
-				    		//System.out.println("Steel: " + justClickedTile.getUnit().getOwner().getSteel());
-				    		System.out.println("Has Unit! Attack: " + justClickedTile.getUnit().getAttack());
-				    		System.out.println("Movement points: " + justClickedTile.getUnit().getMovementPts());
+				    	
 				    	}
 				    	else
 				    		System.out.println("No Unit");
