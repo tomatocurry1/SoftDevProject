@@ -402,7 +402,7 @@ public void run() {
 		    	}
 		   
 		    	//selecting the generic type of unit
-		    	if (posX > 952 + 40 && posX < 952 + 140 && posY > 260 && posY < 330) {
+		    	if (posX > 952 + 40 && posX < 952 + 165 && posY > 260 && posY < 330) {
 		    		System.out.println("Trying to buy Infantry");
 		    		
 		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
@@ -416,7 +416,7 @@ public void run() {
 		    			}
 		    		}
 		    	}
-		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 370 && posY < 440) {
+		    	else if (posX > 952 + 40 && posX < 952 + 165 && posY > 370 && posY < 440) {
 		    		System.out.println("Trying to buy Tank");
 		    		
 		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
@@ -430,7 +430,7 @@ public void run() {
 		    			}
 		    		}
 		    	}
-		    	else if (posX > 952 + 40 && posX < 952 + 140 && posY > 480 && posY < 550) {
+		    	else if (posX > 952 + 40 && posX < 952 + 165 && posY > 480 && posY < 550) {
 		    		System.out.println("Trying to buy Aircraft");
 		    		
 		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
@@ -447,7 +447,7 @@ public void run() {
 		    	
 		    	//selecting the specialized unit
 		    	if (buyingInfantry || buyingAircraft || buyingTank) {
-			    	if (posX > 952 + 170 && posX < 952 + 270 && posY > 260 && posY < 330) {
+			    	if (posX > 952 + 170 && posX < 952 + 295 && posY > 260 && posY < 330) {
 			    		if (buyingInfantry)
 			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "InfantrySiege");
 			    		else if (buyingTank)
@@ -458,7 +458,7 @@ public void run() {
     					buyingTank = false;
     					buyingAircraft = false;
 			    	}
-			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 370 && posY < 440) {
+			    	else if (posX > 952 + 170 && posX < 952 + 295 && posY > 370 && posY < 440) {
 			    		if (buyingInfantry)
 			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "InfantryAT");
 			    		else if (buyingTank)
@@ -469,7 +469,7 @@ public void run() {
     					buyingTank = false;
     					buyingAircraft = false;
 			    	}
-			    	else if (posX > 952 + 170 && posX < 952 + 270 && posY > 480 && posY < 550) {
+			    	else if (posX > 952 + 170 && posX < 952 + 295 && posY > 480 && posY < 550) {
 			    		if (buyingInfantry)
 			    			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "InfantryAA");
 			    		else if (buyingTank)
@@ -1013,11 +1013,11 @@ public void run() {
 		}
 	    GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(952 + 40,720 - 260);
-		GL11.glVertex2f(952 + 140,720 - 260);
-		GL11.glVertex2f(952 + 140,720 - 330);
+		GL11.glVertex2f(952 + 165,720 - 260);
+		GL11.glVertex2f(952 + 165,720 - 330);
 		GL11.glVertex2f(952 + 40,720 - 330);
 	    GL11.glEnd();
-	    Font.drawString("Infantry", 1280-275f, 423f, 1.5f, 1.0f);
+	    Font.drawString("Infantry", 1280-275f, 417f, 1.5f, 1.0f);
 	}
 	
 	private static void drawTankButton(boolean canBuy) {
@@ -1029,11 +1029,11 @@ public void run() {
 		}
 	    GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(952 + 40,720 - 370);
-		GL11.glVertex2f(952 + 140,720 - 370);
-		GL11.glVertex2f(952 + 140,720 - 440);
+		GL11.glVertex2f(952 + 165,720 - 370);
+		GL11.glVertex2f(952 + 165,720 - 440);
 		GL11.glVertex2f(952 + 40,720 - 440);
 	    GL11.glEnd();
-	    Font.drawString("Tank", 1280-275f, 423-110f, 1.5f, 1.5f);
+	    Font.drawString("Tank", 1280-250f, 417-110f, 1.5f, 1.5f);
 	}
 	
 	private static void drawAircraftButton(boolean canBuy) {
@@ -1045,11 +1045,11 @@ public void run() {
 		}
 	    GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(952 + 40,720 - 480);
-		GL11.glVertex2f(952 + 140,720 - 480);
-		GL11.glVertex2f(952 + 140,720 - 550);
+		GL11.glVertex2f(952 + 165,720 - 480);
+		GL11.glVertex2f(952 + 165,720 - 550);
 		GL11.glVertex2f(952 + 40,720 - 550);
 	    GL11.glEnd();
-	    Font.drawString("Aircraft", 1280-275f, 423-220f, 1.5f, 1.5f);
+	    Font.drawString("Aircraft", 1280-275f, 417-220f, 1.5f, 1.5f);
 	}
 	
 	private static void drawAntiInfantryButton(boolean canBuy) {
@@ -1060,12 +1060,12 @@ public void run() {
 			GL11.glColor3f(0.4f, 0.4f, 0.4f);
 		}
 	    GL11.glBegin(GL11.GL_QUADS);
-	    GL11.glVertex2f(952 + 160,720 - 260);
-		GL11.glVertex2f(952 + 260,720 - 260);
-		GL11.glVertex2f(952 + 260,720 - 330);
-		GL11.glVertex2f(952 + 160,720 - 330);
+	    GL11.glVertex2f(952 + 170,720 - 260);
+		GL11.glVertex2f(952 + 295,720 - 260);
+		GL11.glVertex2f(952 + 295,720 - 330);
+		GL11.glVertex2f(952 + 170,720 - 330);
 	    GL11.glEnd();
-	    Font.drawString("Siege", 1280-150f, 423f, 1.5f, 1.5f);
+	    Font.drawString("Siege", 1280-125f, 417f, 1.5f, 1.5f);
 	}
 	
 	private static void drawAntiTankButton(boolean canBuy) {
@@ -1077,11 +1077,11 @@ public void run() {
 		}
 	    GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(952 + 170,720 - 370);
-		GL11.glVertex2f(952 + 270,720 - 370);
-		GL11.glVertex2f(952 + 270,720 - 440);
+		GL11.glVertex2f(952 + 295,720 - 370);
+		GL11.glVertex2f(952 + 295,720 - 440);
 		GL11.glVertex2f(952 + 170,720 - 440);
 	    GL11.glEnd();
-	    Font.drawString("AntiTank", 1280-150f, 423-110f, 1.f, 1.5f);
+	    Font.drawString("Anti-Tank", 1280-150f, 417-110f, 1.5f, 1.5f);
 	}
 	
 	private static void drawAntiAircraftButton(boolean canBuy) {
@@ -1093,11 +1093,11 @@ public void run() {
 		}
 	    GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glVertex2f(952 + 170,720 - 480);
-		GL11.glVertex2f(952 + 270,720 - 480);
-		GL11.glVertex2f(952 + 270,720 - 550);
+		GL11.glVertex2f(952 + 295,720 - 480);
+		GL11.glVertex2f(952 + 295,720 - 550);
 		GL11.glVertex2f(952 + 170,720 - 550);
 	    GL11.glEnd();
-	    Font.drawString("AntiAircraft", 1280-150f, 423-220f, 1.f, 1.5f);
+	    Font.drawString("Anti-Air", 1280-150f, 417-220f, 1.5f, 1.5f);
 	}
 	
 	public static void main(String[] args) {
