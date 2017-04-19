@@ -140,6 +140,10 @@ public class UnitCreator {
 				
 			}
 			GameInterface.grid[x][y].getUnit().setMovementPts(0);
+			if (GameInterface.grid[x][y].getUnit() instanceof AircraftDefault)
+				p.addAircraft(GameInterface.grid[x][y].getUnit());
+			else if (GameInterface.grid[x][y].getUnit() instanceof TankDefault)
+				p.addTank(GameInterface.grid[x][y].getUnit());
 		}
 			
 	}
