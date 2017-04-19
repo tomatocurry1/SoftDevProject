@@ -304,7 +304,6 @@ public void run() {
 		}
 		//puts units on board for each player
 		grid[1][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
-		grid[1][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		grid[13][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		grid[13][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
 		
@@ -354,10 +353,7 @@ public void run() {
 				    	
 			
 				    	if (justClickedTile.getUnit() != null) {
-				    		//System.out.println("Oil: " + justClickedTile.getUnit().getOwner().getOil());
-				    		//System.out.println("Steel: " + justClickedTile.getUnit().getOwner().getSteel());
-				    		System.out.println("Has Unit! Attack: " + justClickedTile.getUnit().getAttack());
-				    		System.out.println("Movement points: " + justClickedTile.getUnit().getMovementPts());
+				    	
 				    	}
 				    	else
 				    		System.out.println("No Unit");
@@ -365,15 +361,21 @@ public void run() {
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null &&  
 				    		UnitManager.isValidMove(lastTile, justClickedTile) ) {
 				    		
-				    		if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
-				    			UnitManager.attack(lastTile, justClickedTile);
-				    			}
-				    		else if (justClickedTile.getUnit() == null){
-				    			UnitManager.moveUnit(lastTile, justClickedTile);
+					    		if (justClickedTile.getUnit() == null){
+					    			UnitManager.moveUnit(lastTile, justClickedTile);
 				    		}
 				    		lastTile = null;
 				    		justClickedTile = null;
 				    	}
+				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null) {
+				    		
+				    		if (UnitManager.isAttackValid(lastTile, justClickedTile)) {
+				    			UnitManager.attack(lastTile, justClickedTile);
+				    			}
+				    		
+			    		lastTile = null;
+			    		justClickedTile = null;
+			    	}
 			    	}
 			    	//right clicking displays the terrain, resource, and building????
 			    	else if (button == GLFW_MOUSE_BUTTON_2) {
@@ -391,7 +393,6 @@ public void run() {
 		    	}
 		    	//if "end turn" button clicked
 		    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-20 && posY > 720-150){
-		    		System.out.println("End Turn button clicked");
 		    		TurnManager.endTurn();
 		    		justClickedTile = null;
 		    		lastTile = null;
@@ -671,6 +672,7 @@ public void run() {
 		    Font.drawString("END TURN", 1050f, 70f, 2.0f, 5f);
  
 		    renderPlayerInfo();
+		    renderCurrentPlayerOutline();
 		    if (TurnManager.endGame() == true) {
 		    	GL11.glColor3f(1.0f,1.0f,1.0f);
 			    GL11.glBegin(GL11.GL_QUADS);
@@ -970,6 +972,38 @@ public void run() {
 	    }
 	}
 	
+	private static void renderCurrentPlayerOutline() {
+		int n = 0;
+		if (TurnManager.getCurrentPlayer() == TurnManager.plst[1]) {
+			n = 1;
+		}
+		if (TurnManager.getCurrentPlayer() == TurnManager.plst[2]) {
+			n = 2;
+		}
+		if (TurnManager.getCurrentPlayer() == TurnManager.plst[3]) {
+			n = 3;
+		}
+		
+		GL11.glColor3f(1.0f, 1.0f, 0.0f);
+    	GL11.glBegin(GL11.GL_LINES);
+    	GL11.glLineWidth((float)10);
+    	
+    	GL11.glVertex2f(5+n*320, 720-5);
+		GL11.glVertex2f(310+n*320,720-5);
+		
+		GL11.glVertex2f(310+n*320,720-35);
+		GL11.glVertex2f(5+n*320,720-35);
+		
+		GL11.glVertex2f(5+n*320, 720-5);
+		GL11.glVertex2f(5+n*320, 720-35);
+		
+		GL11.glVertex2f(310+n*320,720-35);
+		GL11.glVertex2f(310+n*320,720-5);
+		
+    	GL11.glEnd();
+	}
+
+		
 	private static void drawInfantryButton(boolean canBuy) {
 		if (canBuy) {
 			GL11.glColor3f(0.8f,0.2f,0.6f);

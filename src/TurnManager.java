@@ -22,8 +22,17 @@ public class TurnManager {
 		if (arrayPointer == (numOfPlayers -1)) {
 			arrayPointer = 0;
 		}
-		else
+		else 
 			arrayPointer++;
+		
+		while (plst[arrayPointer].isEliminated()) {
+			if (arrayPointer == (numOfPlayers -1)) {
+				arrayPointer = 0;
+			}
+			else 
+				arrayPointer++;
+		}
+		
 		currentPlayer = plst[arrayPointer];
 	}
 	
@@ -44,13 +53,23 @@ public class TurnManager {
 				Tile checkCaptured = GameInterface.grid[i][j];
 				//Building captured?
 				if(checkCaptured.getBuilding()!=null){
-					if(checkCaptured.getUnit()!=null)
-						if(checkCaptured.getBuilding().getOwner() == null ||checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getBuilding().getOwner().getNum()){
+					
+						if(checkCaptured.getUnit()!=null)
+							if(checkCaptured.getBuilding().getOwner() == null) {
+								
+								Player attacker = checkCaptured.getUnit().getOwner();
+								checkCaptured.getBuilding().setOwner(attacker);
+							}
+								
+							else if (checkCaptured.getUnit().getOwner().getNum() != checkCaptured.getBuilding().getOwner().getNum()) {
+												
+								checkCaptured.getBuilding().getOwner().setCitiesControlled(checkCaptured.getBuilding().getOwner().getCitiesControlled() - 1);
+								Player attacker = checkCaptured.getUnit().getOwner();
+								checkCaptured.getBuilding().setOwner(attacker);
 							
-							Player attacker = checkCaptured.getUnit().getOwner();
-							checkCaptured.getBuilding().setOwner(attacker);
+							}
 						}
-				}
+			
 				
 				//Resource captured?
 				if(checkCaptured.getResource()!=null){
@@ -188,7 +207,6 @@ public class TurnManager {
 
 		cyclePlayers();
 		endGame();
-		System.out.println(endGame());
 	}
 }
 

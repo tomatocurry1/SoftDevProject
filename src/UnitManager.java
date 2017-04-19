@@ -32,6 +32,8 @@ public class UnitManager {
 		return false;
 	}
 	
+	
+	
 	public static boolean isAttackValid (Tile tile1, Tile tile2) {
 		if (tile2.getUnit() != null && (tile1.getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) && !tile2.getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) {
 	
@@ -58,25 +60,6 @@ public class UnitManager {
 		temp.setMovementPts(shortestPath(tile1, tile2));
 		tile1.setUnit(null);	
 		tile2.setUnit(temp);
-		Player p = tile2.getUnit().getOwner();
-		
-		//if tile has a resource, gives ownership to the current player and deducts from previous owner (if applicable)
-		/*if (tile2.getResource() != null)  {
-			Resource r = tile2.getResource();
-			if (r.toString().equals("Steel")) {
-				if (r.getOwner() != null)
-					r.getOwner().setSteel(r.getOwner().getSteel() - 1);
-				p.setSteel(p.getSteel() + 1);
-			}
-			else {
-				if (r.getOwner() != null)
-					r.getOwner().setOil(r.getOwner().getOil() - 1);
-				p.setOil(p.getOil() + 1);
-			}
-			tile2.getResource().setOwner(p);
-		}
-		if (tile2.getBuilding() != null)
-			tile2.getBuilding().setOwner(p);*/
 	}
 	
 	public static void attack(Tile tile1, Tile tile2) {
@@ -97,18 +80,30 @@ public class UnitManager {
 		}
 		//if unit is destroyed
 		if (unit2.getHealth() <= 0) {
+			unit2.getOwner().setUnitsControlled(unit2.getOwner().getUnitsControlled() - 1);
 			moveUnit(tile1, tile2);
 			tile2.getUnit().setMovementPts(0.0);
 		}
 		else
 			tile1.getUnit().setMovementPts(0.0);
-		System.out.println("Remaining Health: " + unit2.getHealth());
+		
+		if (Unit.isInfantry(unit1)) { 
+			if (tile2.getBuilding() != null) 
+				((InfantryDefault)unit1).setIsOnCity(true);
+			
+			else
+				((InfantryDefault) unit1).setIsOnCity(false);
+		}
+		
 	}
 
 		public static void setup(Unit u) {
 			for (int i = 0; i < 14; i++) {
 				for (int j = 0; j < 10; j++) {
 					terrainMultiplierArray[i][j] = u.getMultiplier(GameInterface.grid[i][j].getTerrain());
+					if (GameInterface.grid[i][j].getUnit() != null && !GameInterface.grid[i][j].getUnit().getOwner().equals(TurnManager.getCurrentPlayer())) {
+						terrainMultiplierArray[i][j] = 50000;
+					}
 				}
 			}
 		}
