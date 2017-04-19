@@ -47,6 +47,7 @@ public class GameInterface {
 public void run() {
 		
 		init();
+		Font.init();
 		prescreen();
 		gameInit();
 		mainLoop();
@@ -63,9 +64,8 @@ public void run() {
 	public void prescreen(){
 			int panda = TextureLoader.glLoadPNG("img/panda.png");
 			
-			Font.init();
 			
-			int fontset = TextureLoader.glLoadLinearPNG("img/fontset.png");
+//			int fontset = TextureLoader.glLoadLinearPNG("img/fontset.png");
 		
 		
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
@@ -148,28 +148,8 @@ public void run() {
 			GL11.glVertex2f(1280/2 - 240/2,720/2 + 80/2 - 200);
 		    GL11.glEnd();
 			
-			GL11.glEnable(GL_TEXTURE_RECTANGLE_ARB);
-		    
-		    GL11.glColor3f(1.f,1.f,1.f);
-			GL11.glBindTexture(GL_TEXTURE_RECTANGLE_ARB, fontset);
-	    	GL11.glBegin(GL11.GL_QUADS);
-		    GL11.glTexCoord2f(5,50);
-		    GL11.glVertex2f(0,0);
-		    
-		    GL11.glTexCoord2f(5,0);
-			GL11.glVertex2f(0,50/2);
 			
-			GL11.glTexCoord2f(45,0);
-			GL11.glVertex2f(40/2,50/2);
-			
-			GL11.glTexCoord2f(45,50);
-		    GL11.glVertex2f(40/2,0);
-		    GL11.glEnd();
-		    GL11.glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
-		    
-		    GL11.glDisable(GL_TEXTURE_RECTANGLE_ARB);
-			
-		    Font.drawString("hello everyone", 0, 0, 1, 0);
+		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234567890", 10, 10, 1.f, 1.5f);
 		    
 			glfwSwapBuffers(window); // swap the color buffers
 
@@ -356,6 +336,7 @@ public void run() {
 		    	if (action == GLFW_RELEASE) {
 		    	posX = getCursorPosX(window);
 		    	posY = getCursorPosY(window);
+		    	System.out.println((1280-posX) + ", " + (720-posY));
 		    	
 		    	if (posY > 40 && posX < 952) { //if mouse clicked on the board
 		    		buyingInfantry = false;
@@ -673,7 +654,7 @@ public void run() {
 		    
 		    if(justClickedTile!=null)
 		    	if(justClickedTile.getUnit()!=null)
-		    Text.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 30f, 1.5f);
+		    Font.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 1.f, 1.5f);
 		    
 		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {
 		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")) {
@@ -687,7 +668,7 @@ public void run() {
 		    	}
 		    }
 		    
-		    Text.drawString("END TURN", 52.5f, 4.5f, 80f, 5f);
+		    Font.drawString("END TURN", 1050f, 70f, 2.0f, 5f);
  
 		    renderPlayerInfo();
 		    if (TurnManager.endGame() == true) {
@@ -978,7 +959,7 @@ public void run() {
 	private static void renderPlayerInfo(){
 	    for(int i = 0; i < TurnManager.plst.length; i++){
 	    	Player player = TurnManager.plst[i];
-		    Text.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), 6f+i*42.5f, 93.5f, 30f, 1.5f);
+		    Font.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), (i+1)*40f+i*280f, 695f, 1.f, 1.5f);
 			GL11.glColor3f(player.getRed(),player.getGreen(),player.getBlue());
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(10+i*320, 720-10);
@@ -1002,7 +983,7 @@ public void run() {
 		GL11.glVertex2f(952 + 140,720 - 330);
 		GL11.glVertex2f(952 + 40,720 - 330);
 	    GL11.glEnd();
-	    Text.drawString("Infantry", 100.5f, 42.5f, 40f, 1.5f);
+	    Font.drawString("Infantry", 1280-275f, 423f, 1.5f, 1.0f);
 	}
 	
 	private static void drawTankButton(boolean canBuy) {
@@ -1018,7 +999,7 @@ public void run() {
 		GL11.glVertex2f(952 + 140,720 - 440);
 		GL11.glVertex2f(952 + 40,720 - 440);
 	    GL11.glEnd();
-	    Text.drawString("Tank", 100.5f, 31.5f, 40f, 1.5f);
+	    Font.drawString("Tank", 1280-275f, 423-110f, 1.5f, 1.5f);
 	}
 	
 	private static void drawAircraftButton(boolean canBuy) {
@@ -1034,7 +1015,7 @@ public void run() {
 		GL11.glVertex2f(952 + 140,720 - 550);
 		GL11.glVertex2f(952 + 40,720 - 550);
 	    GL11.glEnd();
-	    Text.drawString("Aircraft", 100.5f, 20.5f, 40f, 1.5f);
+	    Font.drawString("Aircraft", 1280-275f, 423-220f, 1.5f, 1.5f);
 	}
 	
 	private static void drawAntiInfantryButton(boolean canBuy) {
@@ -1050,7 +1031,7 @@ public void run() {
 		GL11.glVertex2f(952 + 260,720 - 330);
 		GL11.glVertex2f(952 + 160,720 - 330);
 	    GL11.glEnd();
-	    Text.drawString("Siege", 110.5f, 40.5f, 40f, 1.5f);
+	    Font.drawString("Siege", 1280-150f, 423f, 1.5f, 1.5f);
 	}
 	
 	private static void drawAntiTankButton(boolean canBuy) {
@@ -1066,7 +1047,7 @@ public void run() {
 		GL11.glVertex2f(952 + 270,720 - 440);
 		GL11.glVertex2f(952 + 170,720 - 440);
 	    GL11.glEnd();
-	    Text.drawString("AntiTank", 110.5f, 30.5f, 40f, 1.5f);
+	    Font.drawString("AntiTank", 1280-150f, 423-110f, 1.f, 1.5f);
 	}
 	
 	private static void drawAntiAircraftButton(boolean canBuy) {
@@ -1082,7 +1063,7 @@ public void run() {
 		GL11.glVertex2f(952 + 270,720 - 550);
 		GL11.glVertex2f(952 + 170,720 - 550);
 	    GL11.glEnd();
-	    Text.drawString("AntiAircraft", 110.5f, 20.5f, 40f, 1.5f);
+	    Font.drawString("AntiAircraft", 1280-150f, 423-220f, 1.f, 1.5f);
 	}
 	
 	public static void main(String[] args) {
