@@ -6,7 +6,7 @@ public class Font {
 	private static int fontset;
 	
 	public static void init(){
-		fontset = TextureLoader.glLoadLinearPNG("img/fontset_w.png");
+		fontset = TextureLoader.glLoadLinearPNG("img/fontset_w_thick.png");
 	}
 
 public static void drawString(String s, float x, float y, float scale, float width) {
