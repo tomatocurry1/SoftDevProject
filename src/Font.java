@@ -13,7 +13,6 @@ public static void drawString(String s, float x, float y, float scale, float wid
 	
 	GL11.glEnable(GL_TEXTURE_RECTANGLE_ARB);
 	
-	GL11.glColor3f(0.f,1.f,0.f);
 	GL11.glBindTexture(GL_TEXTURE_RECTANGLE_ARB, fontset);
 	
       float startX = x;
@@ -427,13 +426,13 @@ public static void drawString(String s, float x, float y, float scale, float wid
               x+=scale*30;
               break;
           case ':':
-        	  GL11.glTexCoord2f(475,1145);
+        	  GL11.glTexCoord2f(475,1145-5);
               GL11.glVertex2f(x, y);
-              GL11.glTexCoord2f(475,1095);
+              GL11.glTexCoord2f(475,1095-5);
               GL11.glVertex2f(x, y + scale*50);
-              GL11.glTexCoord2f(485,1095);
+              GL11.glTexCoord2f(485,1095-5);
               GL11.glVertex2f(x + scale*10, y + scale*50);
-              GL11.glTexCoord2f(485,1145);
+              GL11.glTexCoord2f(485,1145-5);
               GL11.glVertex2f(x + scale*10, y);
               x+=scale*20;
               break;
@@ -446,6 +445,17 @@ public static void drawString(String s, float x, float y, float scale, float wid
               GL11.glVertex2f(x + scale*20, y + scale*50);
               GL11.glTexCoord2f(380,1210);
               GL11.glVertex2f(x + scale*20, y);
+              x+=scale*20;
+              break;
+          case '.':
+        	  GL11.glTexCoord2f(450,1145-5);
+              GL11.glVertex2f(x, y);
+              GL11.glTexCoord2f(450,1095-5);
+              GL11.glVertex2f(x, y + scale*50);
+              GL11.glTexCoord2f(460,1095-5);
+              GL11.glVertex2f(x + scale*10, y + scale*50);
+              GL11.glTexCoord2f(460,1145-5);
+              GL11.glVertex2f(x + scale*10, y);
               x+=scale*20;
               break;
           }

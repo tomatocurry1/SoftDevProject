@@ -26,6 +26,7 @@ public class GameInterface {
 	private static int spritehill;
 	private static int spriteoil;
 	private static int spritesteel;
+	private static int spritebase;
 	
 	private Tile lastTile = null;
 	private Tile justClickedTile = null;
@@ -47,7 +48,6 @@ public class GameInterface {
 public void run() {
 		
 		init();
-		Font.init();
 		prescreen();
 		gameInit();
 		mainLoop();
@@ -62,7 +62,7 @@ public void run() {
 	}
 	
 	public void prescreen(){
-			int panda = TextureLoader.glLoadPNG("img/panda.png");
+		int panda = TextureLoader.glLoadPNG("img/panda.png");
 			
 			
 //			int fontset = TextureLoader.glLoadLinearPNG("img/fontset.png");
@@ -176,7 +176,7 @@ public void run() {
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
 		// Create the window
-		window = glfwCreateWindow(1280, 720, "Hello World!", NULL, NULL);
+		window = glfwCreateWindow(1280, 720, "Banda", NULL, NULL);
 		if ( window == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
 
@@ -229,6 +229,8 @@ public void run() {
 		//GL11.glTexEnvf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
+		Font.init();
 	}
 
 	// initializes the game board and players
@@ -424,6 +426,9 @@ public void run() {
 		if(spritesteel == 0)
 			spritesteel = TextureLoader.glLoadPNG("img/steel2.png");
 		
+		if(spritebase == 0)
+			spritebase = TextureLoader.glLoadPNG("img/fort.png");
+		
 	}
 
 	
@@ -456,7 +461,7 @@ public void run() {
 			
 		    // set the color of the quad (R,G,B)
 		    
-		    GL11.glColor3f(0.1f,0.5f,1.0f);
+		    GL11.glColor3f(0.f,0.7f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(952,0);
 			GL11.glVertex2f(1280,0);
@@ -464,7 +469,7 @@ public void run() {
 			GL11.glVertex2f(952,720);
 		    GL11.glEnd();
 		    
-		    GL11.glColor3f(0.0f,0.5f,0.7f);
+		    GL11.glColor3f(0.7f,0.3f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(0,720-40);
 			GL11.glVertex2f(1280,720-40);
@@ -552,7 +557,7 @@ public void run() {
 		    }
 		    
 		    //draws the end turn button
-			GL11.glColor3f(0.8f,0.2f,0.6f);
+			GL11.glColor3f(0.7f,0.3f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(68*14+30,20);
 			GL11.glVertex2f(1280-30,20);
@@ -640,8 +645,10 @@ public void run() {
 //			drawCircle(i, j, 25, b.getOwner());
 //		else
 //			drawCircle(i, j, 15, b.getOwner());
-		
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritecity);
+		if(b instanceof Base)
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritebase);
+		else
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritecity);
     	GL11.glBegin(GL11.GL_QUADS);
 	    GL11.glTexCoord2f(0,1);
 	    GL11.glVertex2f(68*j,68*i);
@@ -914,7 +921,7 @@ public void run() {
 		
 	private static void drawInfantryButton(boolean canBuy) {
 		if (canBuy) {
-			GL11.glColor3f(0.8f,0.2f,0.6f);
+			GL11.glColor3f(.8f,.8f,0.3f);
 		}
 		else { 
 			GL11.glColor3f(0.4f, 0.4f, 0.4f);
@@ -930,7 +937,7 @@ public void run() {
 	
 	private static void drawTankButton(boolean canBuy) {
 		if (canBuy) {
-			GL11.glColor3f(0.8f,0.2f,0.6f);
+			GL11.glColor3f(.8f,.8f,0.3f);
 		}
 		else { 
 			GL11.glColor3f(0.4f, 0.4f, 0.4f);
@@ -946,7 +953,7 @@ public void run() {
 	
 	private static void drawAircraftButton(boolean canBuy) {
 		if (canBuy) {
-			GL11.glColor3f(0.8f,0.2f,0.6f);
+			GL11.glColor3f(.8f,.8f,0.3f);
 		}
 		else { 
 			GL11.glColor3f(0.4f, 0.4f, 0.4f);
