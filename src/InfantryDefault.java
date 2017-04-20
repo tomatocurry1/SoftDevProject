@@ -9,7 +9,7 @@ public class InfantryDefault extends Unit {
 	private int oilCost = 0;
 	private int steelCost = 0;
 	private boolean isOnCity = false;
-	private static int creditCost = 200;
+	private static int creditCost = 1000;
 	private static int cityDamageReduction = 1;
 	
 	public InfantryDefault(Player p) {

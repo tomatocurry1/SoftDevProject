@@ -8,11 +8,11 @@ public class AircraftDefault extends Unit {
 	private double waterMultiplier = 1;
 	private int oilCost = 1;
 	private int steelCost = 0;
-	private static int creditCost = 700;
+	private static int creditCost = 3000;
 	public AircraftDefault(Player p) {
 		super(p);
 		
-		setHealth(10);
+		setHealth(8);
 		setAttack(4);
 		setMovementPts(5);
 		setOriginalMovementPts(5);
