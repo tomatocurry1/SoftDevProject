@@ -6,7 +6,7 @@ public class TurnManager {
 	private static Player currentPlayer;
 	public static Player plst[] = new Player[4];
 	private static int pntLmt = 8;
-	private static int numOfPlayers = 4;
+
 
 	
 	
@@ -19,14 +19,14 @@ public class TurnManager {
 	}
 	
 	public static void cyclePlayers() {
-		if (arrayPointer == (numOfPlayers -1)) {
+		if (arrayPointer == (GameInterface.numplayers -1)) {
 			arrayPointer = 0;
 		}
 		else 
 			arrayPointer++;
 		
 		while (plst[arrayPointer].isEliminated()) {
-			if (arrayPointer == (numOfPlayers -1)) {
+			if (arrayPointer == (GameInterface.numplayers -1)) {
 				arrayPointer = 0;
 			}
 			else 
@@ -190,7 +190,7 @@ public class TurnManager {
 	}
 	
 	public static boolean endGame() {
-		for (int i = 0; i < numOfPlayers; i++) {
+		for (int i = 0; i < GameInterface.numplayers; i++) {
 			if (plst[i].getEndGameCounter() >= 2) {
 				return true; 
 			}
@@ -208,5 +208,7 @@ public class TurnManager {
 		cyclePlayers();
 		endGame();
 	}
+
+
 }
 

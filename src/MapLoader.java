@@ -29,23 +29,141 @@ public class MapLoader {
 	}
 	
 	public static void load3P(int mapnum){
+		
+		//creates new players and assigns their colors
+		TurnManager.plst[0] = new Player(1, 0.5f,0.0f,0.8f);
+		TurnManager.plst[1] = new Player(2, 0.8f,0.4f,0.f);
+		TurnManager.plst[2] = new Player(3, 0.0f,0.5f,0.8f);
+		
+		//sets the current player to be the first player
+		TurnManager.setCurrentPlayer(TurnManager.plst[0]);
+			
 		switch(mapnum){
 			case 0:
+				
+				//makes matrix of tiles
+				GameInterface.grid = new Tile[14][10];
+				
+				
+				//places the terrain and resources on the board
+				for(int i=0; i<14;i++){
+					for(int j=0; j<10;j++){
+						GameInterface.grid[i][j] = new Tile(Terrain.WATER, null,i,j);
+						
+						if((j==9 || j== 8) && ((i >= 0 && i <= 5) || (i >=8 && i <= 13))){
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+						
+						if((j==7 || j== 6) && ((i >= 0 && i <= 4) || (i >=9 && i <= 13))){
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+						
+						if(j==5  && ((i >= 0 && i <= 3) || (i >=10 && i <= 13))){
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+						
+						if(j==0  && (i >= 2 && i <= 11)){
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+						if(j==1  && (i >= 3 && i <= 10)){
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+						if(j==2  && (i >= 4 && i <= 9)){
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+						if(j==3  && (i >= 5 && i <= 8)){
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+						
+						if(j==6  && i == 13){
+							GameInterface.grid[i][j].setResource(new Oil());
+						}
+						
+						if (j==0 && i==5) {
+							GameInterface.grid[i][j].setResource(new Oil());
+						}
+	
+						if (j==8 && i==2) {
+							GameInterface.grid[i][j].setResource(new Oil());
+						}
+				
+						if(j==1  && (i == 0 || i == 13)){
+							GameInterface.grid[i][j].setResource(new Oil());
+							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
+						}
+												
+						if((j==5 || j == 6 )&& (i == 7 || i == 6)){
+							GameInterface.grid[i][j].setResource(new Oil());
+						}
+						
+						if(j==6 && i == 1){
+							GameInterface.grid[i][j].setResource(new Steel());
+						}
+						
+						if(j==3 && i == 7){
+							GameInterface.grid[i][j].setResource(new Steel());
+						}
+						
+						if(j==9 && i == 9){
+							GameInterface.grid[i][j].setResource(new Steel());
+						}
+						
+						if((j==4 )&& (i == 7 || i == 6)){
+							GameInterface.grid[i][j].setTerrain(Terrain.MOUNTAINS);
+						}
+						
+						if(j==3 && (i == 4 || i == 5 || i == 9 || i == 8)){
+							GameInterface.grid[i][j].setTerrain(Terrain.MOUNTAINS);
+						}
+						
+						if(j==2 && (i == 0 || i == 1 || i == 12 || i == 13)){
+							GameInterface.grid[i][j].setTerrain(Terrain.MOUNTAINS);
+						}
+
+						if ((i==3 && (j >= 2 && j <= 5))) {
+							GameInterface.grid[i][j].setTerrain(Terrain.ROADS);
+						}
+						if ((i==10 && (j >= 2 && j <= 5))) {
+							GameInterface.grid[i][j].setTerrain(Terrain.ROADS);
+						}
+						
+						if ((j==8 && (i >= 6 && i <= 7))) {
+							GameInterface.grid[i][j].setTerrain(Terrain.HILLS);
+						}
+						
+						
+												
+					}
+				}	
+				
+				GameInterface.grid[3][9].setBuilding(new Base());
+				GameInterface.grid[3][9].getBuilding().setOwner(TurnManager.plst[0]);
+				GameInterface.grid[12][7].setBuilding(new Base());
+				GameInterface.grid[12][7].getBuilding().setOwner(TurnManager.plst[1]);
+				GameInterface.grid[4][1].setBuilding(new Base());
+				GameInterface.grid[4][1].getBuilding().setOwner(TurnManager.plst[2]);
+				
+				GameInterface.grid[3][9].setUnit(new InfantryDefault(TurnManager.plst[0]));
+				GameInterface.grid[12][7].setUnit(new InfantryDefault(TurnManager.plst[1]));
+				GameInterface.grid[4][1].setUnit(new InfantryDefault(TurnManager.plst[2]));
 		}
+		
 	}
 	
 	public static void load4P(int mapnum){
+		
+		//creates new players and assigns their colors
+		TurnManager.plst[0] = new Player(1, 0.5f,0.0f,0.8f);
+		TurnManager.plst[1] = new Player(2, 0.8f,0.4f,0.f);
+		TurnManager.plst[2] = new Player(3, 0.0f,0.5f,0.8f);
+		TurnManager.plst[3] = new Player(4, 0.8f,0.5f,0.8f);
+		
+		//sets the current player to be the first player
+		TurnManager.setCurrentPlayer(TurnManager.plst[0]);
+		
 		switch(mapnum){
 			case 0:
-				//creates new players and assigns their colors
-				TurnManager.plst[0] = new Player(1, 0.5f,0.0f,0.8f);
-				TurnManager.plst[1] = new Player(2, 0.8f,0.4f,0.f);
-				TurnManager.plst[2] = new Player(3, 0.0f,0.5f,0.8f);
-				TurnManager.plst[3] = new Player(4, 0.8f,0.5f,0.8f);
-				
-				//sets the current player to be the first player
-				TurnManager.setCurrentPlayer(TurnManager.plst[0]);
-				
+			
 				//makes matrix of tiles
 				GameInterface.grid = new Tile[14][10];
 				
@@ -133,5 +251,8 @@ public class MapLoader {
 				break;
 				
 		}
+					
+					
+			
 	}
 }

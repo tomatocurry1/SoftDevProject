@@ -149,7 +149,7 @@ public void run() {
 		    GL11.glEnd();
 			
 			
-		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234-567890:", 10, 10, 1.f, 1.5f);
+		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234567890", 10, 10, 1.f, 1.5f);
 		    
 			glfwSwapBuffers(window); // swap the color buffers
 
@@ -403,6 +403,7 @@ public void run() {
 		
 		if(spriteheli == 0)
 			spriteheli = TextureLoader.glLoadPNG("img/heli.png");
+		
 		if(spritecity == 0)
 			spritecity = TextureLoader.glLoadPNG("img/city.png");
 		
@@ -867,7 +868,7 @@ public void run() {
 	}
 	
 	private static void renderPlayerInfo(){
-	    for(int i = 0; i < TurnManager.plst.length; i++){
+	    for(int i = 0; i < numplayers; i++){
 	    	Player player = TurnManager.plst[i];
 		    Font.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), (i+1)*40f+i*280f, 695f, 1.f, 1.5f);
 			GL11.glColor3f(player.getRed(),player.getGreen(),player.getBlue());
