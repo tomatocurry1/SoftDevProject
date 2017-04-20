@@ -123,7 +123,7 @@ public void run() {
 		    GL11.glEnd();
 		    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 			
-			GL11.glColor3f(1.f,1.f,0f);
+			GL11.glColor3f(0.7f,0.3f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(1280/2 - 240/2 ,720/2 - 80/2);
 			GL11.glVertex2f(1280/2 + 240/2,720/2 - 80/2);
@@ -132,7 +132,7 @@ public void run() {
 		    GL11.glEnd();
 		   
 		    
-		    GL11.glColor3f(1.f,1.f,0f);
+		    GL11.glColor3f(0.7f,0.3f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(1280/2 - 240/2 ,720/2 - 80/2 - 100);
 			GL11.glVertex2f(1280/2 + 240/2,720/2 - 80/2 - 100);
@@ -140,7 +140,7 @@ public void run() {
 			GL11.glVertex2f(1280/2 - 240/2,720/2 + 80/2 - 100);
 		    GL11.glEnd();
 		    
-		    GL11.glColor3f(1.f,1.f,0f);
+		    GL11.glColor3f(0.7f,0.3f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(1280/2 - 240/2 ,720/2 - 80/2 - 200);
 			GL11.glVertex2f(1280/2 + 240/2,720/2 - 80/2 - 200);
@@ -148,8 +148,11 @@ public void run() {
 			GL11.glVertex2f(1280/2 - 240/2,720/2 + 80/2 - 200);
 		    GL11.glEnd();
 			
+		    Font.drawString("TWO PLAYER", 550, 348, 2f, 2.5f);
+		    Font.drawString("THREE PLAYER", 543, 248, 2f, 2.5f);
+		    Font.drawString("FOUR PLAYER", 550, 150, 2f, 2.5f);
 			
-		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234-567890:", 10, 10, 1.f, 1.5f);
+		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234567890", 10, 10, 1.f, 1.5f);
 		    
 			glfwSwapBuffers(window); // swap the color buffers
 
@@ -405,6 +408,7 @@ public void run() {
 		
 		if(spriteheli == 0)
 			spriteheli = TextureLoader.glLoadPNG("img/heli.png");
+		
 		if(spritecity == 0)
 			spritecity = TextureLoader.glLoadPNG("img/city.png");
 		
@@ -701,13 +705,8 @@ public void run() {
 	    	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
 	    }else
 	    	GL11.glColor3f(0.5f, 0.5f, 0.5f);
-//		if (b.getOwner() == null) {
-//			drawCircle(i, j, 15, null);
-//		}
-//		if (!b.isCity())
-//			drawCircle(i, j, 25, b.getOwner());
-//		else
-//			drawCircle(i, j, 15, b.getOwner());
+		
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritecity);
 		if(b instanceof Base)
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritebase);
 		else
@@ -717,15 +716,12 @@ public void run() {
 	    GL11.glVertex2f(68*j,68*i);
 	    
 	    GL11.glTexCoord2f(0,0);
-	    //GL11.glTexCoord2f(0,32);
 		GL11.glVertex2f(68*j,68*(i+1));
 		
 		GL11.glTexCoord2f(1,0);
-		//GL11.glTexCoord2f(32,32);
 		GL11.glVertex2f(68*(j+1),68*(i+1));
 		
 		GL11.glTexCoord2f(1,1);
-		//GL11.glTexCoord2f(32,0);
 	    GL11.glVertex2f(68*(j+1),68*i);
 	    GL11.glEnd();
 	    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
@@ -735,7 +731,6 @@ public void run() {
 	// draws a circle on the tile with radius r with player p's color
 	private static void drawCircle(int xCord, int yCord, int radius, Player p){
 	    glBegin(GL_TRIANGLE_FAN);
-	    // if the building doesn't have an owner, make it grey
 	    if (p == null)
 	    	GL11.glColor3f(0.5f, 0.5f, 0.5f);
 	    else
@@ -937,7 +932,7 @@ public void run() {
 	}
 	
 	private static void renderPlayerInfo(){
-	    for(int i = 0; i < TurnManager.plst.length; i++){
+	    for(int i = 0; i < numplayers; i++){
 	    	Player player = TurnManager.plst[i];
 		    Font.drawString("Victory:"+player.getVictoryPoints()+" Oil:"+player.getOil()+" Steel:"+player.getSteel()+" Credit:"+player.getCredits(), (i+1)*40f+i*280f, 695f, 1.f, 1.5f);
 			GL11.glColor3f(player.getRed(),player.getGreen(),player.getBlue());
@@ -955,10 +950,10 @@ public void run() {
 		if (TurnManager.getCurrentPlayer() == TurnManager.plst[1]) {
 			n = 1;
 		}
-		if (TurnManager.getCurrentPlayer() == TurnManager.plst[2]) {
+		if (TurnManager.plst[2] != null && TurnManager.getCurrentPlayer() == TurnManager.plst[2]) {
 			n = 2;
 		}
-		if (TurnManager.getCurrentPlayer() == TurnManager.plst[3]) {
+		if (TurnManager.plst[3] != null && TurnManager.getCurrentPlayer() == TurnManager.plst[3]) {
 			n = 3;
 		}
 		
