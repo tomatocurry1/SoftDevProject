@@ -19,7 +19,7 @@ public class InfantryDefault extends Unit {
 		setAttack(2);
 		setMovementPts(2);
 		setOriginalMovementPts(2);
-		setCityDamageReduction(3);
+		setCityDamageReduction(2);
 	}
 
 	private void setCityDamageReduction(int i) {
