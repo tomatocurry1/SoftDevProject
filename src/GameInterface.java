@@ -27,6 +27,8 @@ public class GameInterface {
 	private static int spriteoil;
 	private static int spritesteel;
 	private static int spritebase;
+	private static int spritewinning;
+	
 	
 	private Tile lastTile = null;
 	private Tile justClickedTile = null;
@@ -331,7 +333,8 @@ public void run() {
 		    	}
 		    	//if "end turn" button clicked
 		    	if(posX > 68*14+30 && posX < 1280-30 && posY < 720-20 && posY > 720-150){
-		    		TurnManager.endTurn();
+		    		if(!TurnManager.endGame())
+		    			TurnManager.endTurn();
 		    		justClickedTile = null;
 		    		lastTile = null;
 		    		buyingInfantry = false;
@@ -457,6 +460,8 @@ public void run() {
 		
 		if(spritebase == 0)
 			spritebase = TextureLoader.glLoadPNG("img/fort.png");
+		if(spritewinning == 0)
+			spritewinning = TextureLoader.glLoadPNG("img/winning.png");
 		
 	}
 
@@ -729,13 +734,21 @@ public void run() {
 		    renderPlayerInfo();
 		    renderCurrentPlayerOutline();
 		    if (TurnManager.endGame() == true) {
-		    	GL11.glColor3f(1.0f,1.0f,1.0f);
+		    	//GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritewinning);
+		    	GL11.glColor3f(.0f,.0f,.0f);
 			    GL11.glBegin(GL11.GL_QUADS);
+			    //GL11.glTexCoord2f(0,1);
 			    GL11.glVertex2f(800,600);
+			    //GL11.glTexCoord2f(0,0);
 				GL11.glVertex2f(800,200);
+				//GL11.glTexCoord2f(1,0);
 				GL11.glVertex2f(200,200);
+				//GL11.glTexCoord2f(1,1);
 				GL11.glVertex2f(200,600);
 			    GL11.glEnd();
+			    
+			    Font.drawString("Player " + (((TurnManager.getCurrentPlayer().getPlayerNum()-1 + TurnManager.plst.length-1)%TurnManager.plst.length)+1) + " wins" , 200, 400, 2.f, 0);
+			    //GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		    }
 		    
 			glfwSwapBuffers(window); // swap the color buffers
