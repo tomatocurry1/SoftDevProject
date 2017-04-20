@@ -886,10 +886,10 @@ public void run() {
 		if (TurnManager.getCurrentPlayer() == TurnManager.plst[1]) {
 			n = 1;
 		}
-		if (TurnManager.getCurrentPlayer() == TurnManager.plst[2]) {
+		if (TurnManager.plst[2] != null && TurnManager.getCurrentPlayer() == TurnManager.plst[2]) {
 			n = 2;
 		}
-		if (TurnManager.getCurrentPlayer() == TurnManager.plst[3]) {
+		if (TurnManager.plst[3] != null && TurnManager.getCurrentPlayer() == TurnManager.plst[3]) {
 			n = 3;
 		}
 		
