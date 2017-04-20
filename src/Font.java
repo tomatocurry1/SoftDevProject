@@ -25,7 +25,7 @@ public static void drawString(String s, float x, float y, float scale, float wid
               x += scale*20;
               break;
           case '\n':
-              y -= 50;
+              y -= scale*75;
               x = startX;
               break;
           case 'a':
@@ -140,15 +140,15 @@ public static void drawString(String s, float x, float y, float scale, float wid
               x += scale*30;
               break;
           case 'k':
-        	  GL11.glTexCoord2f(380,50);
+        	  GL11.glTexCoord2f(380-5,50);
               GL11.glVertex2f(x, y);
-              GL11.glTexCoord2f(380,0);
+              GL11.glTexCoord2f(380-5,0);
               GL11.glVertex2f(x, y + scale*50);
               GL11.glTexCoord2f(410,0);
-              GL11.glVertex2f(x + scale*30, y + scale*50);
+              GL11.glVertex2f(x + scale*35, y + scale*50);
               GL11.glTexCoord2f(410,50);
-              GL11.glVertex2f(x + scale*30, y);
-              x += scale*30;
+              GL11.glVertex2f(x + scale*35, y);
+              x += scale*35;
               break;
           case 'l':
         	  GL11.glTexCoord2f(410,50);

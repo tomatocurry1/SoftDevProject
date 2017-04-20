@@ -469,6 +469,37 @@ public void run() {
 			GL11.glVertex2f(952,720);
 		    GL11.glEnd();
 		    
+		    GL11.glColor3f(0.4f,0.4f,0.4f);
+//		    GL11.glColor3f(0.7f,0.3f,0.3f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(952,0);
+			GL11.glVertex2f(952+5,0);
+			GL11.glVertex2f(952+5,720);
+			GL11.glVertex2f(952,720);
+		    GL11.glEnd();
+		    
+		    
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(1280-5,0);
+			GL11.glVertex2f(1280,0);
+			GL11.glVertex2f(1280,720);
+			GL11.glVertex2f(1280-5,720);
+		    GL11.glEnd();
+		    
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(952,720-40);
+			GL11.glVertex2f(1280,720-40);
+			GL11.glVertex2f(1280,720-40-5);
+			GL11.glVertex2f(952,720-40-5);
+		    GL11.glEnd();
+		    
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(952,0);
+			GL11.glVertex2f(1280,0);
+			GL11.glVertex2f(1280,5);
+			GL11.glVertex2f(952,5);
+		    GL11.glEnd();
+		    
 		    GL11.glColor3f(0.7f,0.3f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(0,720-40);
@@ -565,11 +596,43 @@ public void run() {
 			GL11.glVertex2f(68*14+30,150);
 		    GL11.glEnd(); 
 		    
+		    GL11.glColor3f(0.7f,0.3f,0.3f);
+		    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glVertex2f(68*14+30,500);
+			GL11.glVertex2f(1280-30,500);
+			GL11.glVertex2f(1280-30,650);
+			GL11.glVertex2f(68*14+30,650);
+		    GL11.glEnd();
 		    
 		    if(justClickedTile!=null)
-		    	if(justClickedTile.getUnit()!=null)
-		    Font.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\n Movement: "+justClickedTile.getUnit().getMovementPts() +"\n Attack: "+justClickedTile.getUnit().getAttack(), 130f, 80f, 1.f, 1.5f);
-		    
+		    	if(justClickedTile.getUnit()!=null){
+		    		Font.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\nMovement: "+justClickedTile.getUnit().getMovementPts() +"\nAttack: "+justClickedTile.getUnit().getAttack(), 1010+20f, 600-5f, 1.5f, 1.5f);
+		        	Player p = justClickedTile.getUnit().getOwner();
+		        	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+		        	
+		        		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteinfantry);
+		            	GL11.glBegin(GL11.GL_QUADS);
+		        	    GL11.glTexCoord2f(0,1);
+		        	    GL11.glVertex2f(1000-10,600+20);
+		        	    
+		        	    GL11.glTexCoord2f(0,0);
+		        	    //GL11.glTexCoord2f(0,32);
+		        		GL11.glVertex2f(1000-10,620+20);
+		        		
+		        		GL11.glTexCoord2f(1,0);
+		        		//GL11.glTexCoord2f(32,32);
+		        		GL11.glVertex2f(1020-10, 620+20);
+		        		
+		        		GL11.glTexCoord2f(1,1);
+		        		//GL11.glTexCoord2f(32,0);
+		        	    GL11.glVertex2f(1020-10, 600+20);
+		        	    
+		        	    GL11.glEnd();
+		        	    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		        	    
+		        	    Font.drawString(justClickedTile.getUnit().toString(), 1010+40f, 620f, 1.5f, 1.5f);
+		    	}
+		    	
 		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {
 		    	if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")) {
 		    		drawInfantryButton(true);
