@@ -30,6 +30,7 @@ public class GameInterface {
 	
 	private Tile lastTile = null;
 	private Tile justClickedTile = null;
+    private boolean displayTileInfo = false;
 	private static int xCord;
 	private static int yCord;
 	private double posX;
@@ -64,7 +65,8 @@ public void run() {
 	public void prescreen(){
 		int panda = TextureLoader.glLoadPNG("img/panda.png");
 			
-			
+		int title = TextureLoader.glLoadPNG("img/panda_title.png");
+		
 //			int fontset = TextureLoader.glLoadLinearPNG("img/fontset.png");
 		
 		
@@ -122,6 +124,22 @@ public void run() {
 		    GL11.glVertex2f(1280,0);
 		    GL11.glEnd();
 		    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		    
+		    GL11.glBindTexture(GL11.GL_TEXTURE_2D, title);
+	    	GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glTexCoord2f(0,1);
+		    GL11.glVertex2f(0,0+200);
+		    
+		    GL11.glTexCoord2f(0,0);
+			GL11.glVertex2f(0,720+200);
+			
+			GL11.glTexCoord2f(1,0);
+			GL11.glVertex2f(1280,720+200);
+			
+			GL11.glTexCoord2f(1,1);
+		    GL11.glVertex2f(1280,0+200);
+		    GL11.glEnd();
+		    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 			
 			GL11.glColor3f(0.7f,0.3f,0.3f);
 		    GL11.glBegin(GL11.GL_QUADS);
@@ -152,7 +170,7 @@ public void run() {
 		    Font.drawString("THREE PLAYER", 543, 248, 2f, 2.5f);
 		    Font.drawString("FOUR PLAYER", 550, 150, 2f, 2.5f);
 			
-		    Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234567890", 10, 10, 1.f, 1.5f);
+		    //Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234567890", 10, 10, 1.f, 1.5f);
 		    
 			glfwSwapBuffers(window); // swap the color buffers
 
@@ -252,6 +270,8 @@ public void run() {
 		    	posY = getCursorPosY(window);
 		    	System.out.println((1280-posX) + ", " + (720-posY));
 		    	
+		    	displayTileInfo = false;
+		    	
 		    	if (posY > 40 && posX < 952) { //if mouse clicked on the board
 		    		buyingInfantry = false;
 					buyingTank = false;
@@ -294,6 +314,7 @@ public void run() {
 			    	}
 			    	//right clicking displays the terrain, resource, and building????
 			    	else if (button == GLFW_MOUSE_BUTTON_2) {
+			    		displayTileInfo = true;
 			    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
 				    	if (justClickedTile.getBuilding() == null)
 				    		System.out.println("No Building");
@@ -303,6 +324,8 @@ public void run() {
 				    		System.out.println("No Resource");
 				    	else
 				    		System.out.println("Has Resource: " + justClickedTile.getResource().toString());
+			    	
+				    	
 			    	}
 		    	
 		    	}
@@ -609,7 +632,52 @@ public void run() {
 			GL11.glVertex2f(1280-30,650);
 			GL11.glVertex2f(68*14+30,650);
 		    GL11.glEnd();
+		   
 		    
+		    if(displayTileInfo){
+        	    if(justClickedTile!=null){
+        	    	
+        	    	Font.drawString(justClickedTile.terrain.getName(), 1010+10f, 620f, 1.5f, 1.5f);
+        	    	String str = "";
+        	    	switch(justClickedTile.terrain){
+        	    		case WATER:
+        	    			Font.drawString("Land Units can't cross water", 1010+10f, 620-20f, .9f, 1.5f);
+        	    			break;
+        	    		case GRASSLANDS:
+        	    			Font.drawString("Plain looking grasslands", 1010+10f, 620-20f, .9f, 1.5f);
+        	    			break;
+        	    		case HILLS:
+        	    			Font.drawString("Tanks have hard time corssing\nTanks - 2 times movement cost", 1010+10f, 620-20f, .9f, 1.5f);
+        	    			break;
+        	    		case MOUNTAINS:
+        	    			Font.drawString("This looks impassable", 1010+10f, 620-20f, .9f, 1.5f);
+        	    			break;
+        	    		case ROADS:
+        	    			Font.drawString("Nice and smooth\nTanks - Half Movement cost", 1010+10f, 620-20f, .9f, 1.5f);
+        	    			break;
+        	    			
+        	    	}
+        	    	
+        	    	
+        	    	if(justClickedTile.getResource()!=null){
+        	    		Font.drawString(justClickedTile.getResource().toString(), 1010+10f, 620-60f, 1.5f, 1.5f);
+        	    		if(justClickedTile.getResource() instanceof Oil)
+        	    			Font.drawString("Used for making aircrafts", 1010+10f, 620-20-60f, .9f, 1.5f);
+        	    		else if(justClickedTile.getResource() instanceof Steel)
+    	    			Font.drawString("Used for making tanks", 1010+10f, 620-20-60f, .9f, 1.5f);
+        	    	}
+        	    	else if(justClickedTile.getBuilding()!=null){
+        	    		Font.drawString(justClickedTile.getBuilding().toString(), 1010+10f, 620-60f, 1.5f, 1.5f);
+        	    		if(justClickedTile.getBuilding() instanceof Base)
+        	    			Font.drawString("2 Victory Point", 1010+10f, 620-20-60f, .9f, 1.5f);
+        	    		else
+        	    			Font.drawString("1 Victory Point", 1010+10f, 620-20-60f, .9f, 1.5f);
+        	    	}
+        	    
+        	    	
+        	    }
+		    }
+		    if(!displayTileInfo)
 		    if(justClickedTile!=null)
 		    	if(justClickedTile.getUnit()!=null){
 		    		Font.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\nMovement: "+justClickedTile.getUnit().getMovementPts() +"\nAttack: "+justClickedTile.getUnit().getAttack(), 1010+20f, 600-10f, 1.5f, 1.5f);
@@ -808,6 +876,8 @@ public void run() {
 	private static void drawUnit(int i, int j, Unit u) {
     	Player p = u.getOwner();
     	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
+    	if(u.getMovementPts()==0)
+    		GL11.glColor3f(170f/255f-.3f*(1.f-p.getRed()), 175f/255f-.3f*(1.f-p.getGreen()), 185f/255f-.3f*(1.f-p.getBlue()));
     	if(u instanceof AircraftDefault){
     		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteheli);
         	GL11.glBegin(GL11.GL_QUADS);
