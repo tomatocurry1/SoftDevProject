@@ -66,6 +66,11 @@ public class InfantryDefault extends Unit {
 	public void setIsOnCity(boolean b) {
 		isOnCity = b;
 	}
+	
+	@Override
+	public String toString(){
+		return "Infantry";
+	}
 
 }
 

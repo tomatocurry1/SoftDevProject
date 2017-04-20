@@ -16,6 +16,9 @@ public class InfantryAntiAir extends InfantryDefault {
 			return false;
 	}
 	
-	
+	@Override
+	public String toString(){
+		return super.toString() + " (Anti-Air)";
+	}
 }
 

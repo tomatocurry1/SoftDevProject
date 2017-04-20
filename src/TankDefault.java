@@ -44,4 +44,8 @@ public class TankDefault extends Unit {
 		return creditCost;
 	}
 	
+	@Override
+	public String toString(){
+		return "Tank";
+	}
 }

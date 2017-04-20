@@ -15,5 +15,8 @@ public class AircraftAntiTank extends AircraftDefault {
 		else
 			return false;
 	}
-	
+	@Override
+	public String toString(){
+		return super.toString() + " (Anti-Tank)";
+	}
 }

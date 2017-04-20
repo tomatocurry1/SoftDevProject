@@ -15,5 +15,8 @@ public class InfantrySiege extends InfantryDefault {
 		else
 			return false;
 	}
-	
+	@Override
+	public String toString(){
+		return super.toString() + " (Siege)";
+	}
 }

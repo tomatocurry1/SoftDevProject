@@ -15,5 +15,8 @@ public class AircraftAntiAir extends AircraftDefault {
 		else
 			return false;
 	}
-		
+	@Override
+	public String toString(){
+		return super.toString() + " (Anti-Air)";
+	}
 }

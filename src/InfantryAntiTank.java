@@ -18,6 +18,9 @@ public class InfantryAntiTank extends InfantryDefault {
 		else
 			return false;
 	}
-	
+	@Override
+	public String toString(){
+		return super.toString() + " (Anti-Tank)";
+	}
 	
 }

@@ -610,11 +610,16 @@ public void run() {
 		    
 		    if(justClickedTile!=null)
 		    	if(justClickedTile.getUnit()!=null){
-		    		Font.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\nMovement: "+justClickedTile.getUnit().getMovementPts() +"\nAttack: "+justClickedTile.getUnit().getAttack(), 1010+20f, 600-5f, 1.5f, 1.5f);
+		    		Font.drawString("Health: "+justClickedTile.getUnit().getHealth()+"\nMovement: "+justClickedTile.getUnit().getMovementPts() +"\nAttack: "+justClickedTile.getUnit().getAttack(), 1010+20f, 600-10f, 1.5f, 1.5f);
 		        	Player p = justClickedTile.getUnit().getOwner();
 		        	GL11.glColor3f(p.getRed(), p.getGreen(), p.getBlue());
-		        	
-		        		GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteinfantry);
+		        		if(justClickedTile.getUnit() instanceof InfantryDefault)
+		        			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteinfantry);
+		        		else if(justClickedTile.getUnit() instanceof AircraftDefault)
+		        			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spriteheli);
+		        		else if(justClickedTile.getUnit() instanceof TankDefault)
+		        			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritenum);
+		        		
 		            	GL11.glBegin(GL11.GL_QUADS);
 		        	    GL11.glTexCoord2f(0,1);
 		        	    GL11.glVertex2f(1000-10,600+20);
@@ -634,7 +639,7 @@ public void run() {
 		        	    GL11.glEnd();
 		        	    GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		        	    
-		        	    Font.drawString(justClickedTile.getUnit().toString(), 1010+40f, 620f, 1.5f, 1.5f);
+		        	    Font.drawString(justClickedTile.getUnit().toString(), 1010+10f, 620f, 1.5f, 1.5f);
 		    	}
 		    	
 		    if (justClickedTile != null && justClickedTile.getBuilding() != null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().equals(TurnManager.getCurrentPlayer())) {

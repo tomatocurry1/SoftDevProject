@@ -41,5 +41,10 @@ public class AircraftDefault extends Unit {
 	public static int getCreditCost() {
 		return creditCost;
 	}
+	
+	@Override
+	public String toString(){
+		return "Aircraft";
+	}
 }
 

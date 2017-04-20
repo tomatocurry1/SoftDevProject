@@ -16,4 +16,8 @@ public class AircraftSiege extends AircraftDefault {
 			return false;
 	}
 
+	@Override
+	public String toString(){
+		return super.toString() + " (Siege)";
+	}
 }
