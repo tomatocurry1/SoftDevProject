@@ -203,6 +203,7 @@ public class MapLoader {
 				GameInterface.grid[9][1].setBuilding(new City());
 				GameInterface.grid[11][5].setBuilding(new City());
 				
+						
 				GameInterface.grid[3][9].setUnit(new InfantryDefault(TurnManager.plst[0]));
 				GameInterface.grid[12][7].setUnit(new InfantryDefault(TurnManager.plst[1]));
 				GameInterface.grid[4][1].setUnit(new InfantryDefault(TurnManager.plst[2]));
@@ -289,9 +290,11 @@ public class MapLoader {
 					}
 				}
 				//puts units on board for each player
-				GameInterface.grid[1][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
+				/*GameInterface.grid[1][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
 				GameInterface.grid[13][8].setUnit(new InfantryDefault(TurnManager.plst[1]));
 				GameInterface.grid[13][0].setUnit(new InfantryDefault(TurnManager.plst[1]));
+				
+				*/
 				
 				
 				GameInterface.grid[1][1].setUnit(new InfantryDefault(TurnManager.plst[0]));
