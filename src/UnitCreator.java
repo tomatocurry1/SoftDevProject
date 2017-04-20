@@ -7,58 +7,58 @@ public class UnitCreator {
 		switch(type){
 			case "Tank":
 				if(p.getSteel()-p.getSteelUsed()>0)
-					if(p.getCredits()>TankDefault.getCreditCost())
+					if(p.getCredits()>=TankDefault.getCreditCost())
 						return true;
 			break;
 			case "TankAT":
 				if(p.getSteel()-p.getSteelUsed()>0)
-					if(p.getCredits()>TankDefault.getCreditCost())
+					if(p.getCredits()>=TankDefault.getCreditCost())
 						return true;
 			break;
 			case "TankAA":
 				if(p.getSteel()-p.getSteelUsed()>0)
-					if(p.getCredits()>TankDefault.getCreditCost())
+					if(p.getCredits()>=TankDefault.getCreditCost())
 						return true;
 			break;
 			case "TankSiege":
 				if(p.getSteel()-p.getSteelUsed()>0)
-					if(p.getCredits()>TankDefault.getCreditCost())
+					if(p.getCredits()>=TankDefault.getCreditCost())
 						return true;
 			break;
 			case "Aircraft":
 				if(p.getOil()-p.getOilUsed()>0)
-					if(p.getCredits()>AircraftDefault.getCreditCost())
+					if(p.getCredits()>=AircraftDefault.getCreditCost())
 						return true;
 			break;
 			case "AircraftAT":
 				if(p.getOil()-p.getOilUsed()>0)
-					if(p.getCredits()>AircraftDefault.getCreditCost())
+					if(p.getCredits()>=AircraftDefault.getCreditCost())
 						return true;
 			break;
 			case "AircraftAA":
 				if(p.getOil()-p.getOilUsed()>0)
-					if(p.getCredits()>AircraftDefault.getCreditCost())
+					if(p.getCredits()>=AircraftDefault.getCreditCost())
 						return true;
 			break;
 			case "AircraftSiege":
 				if(p.getOil()-p.getOilUsed()>0)
-					if(p.getCredits()>AircraftDefault.getCreditCost())
+					if(p.getCredits()>=AircraftDefault.getCreditCost())
 						return true;
 			break;
 			case "Infantry":
-				if(p.getCredits()>InfantryDefault.getCreditCost())
+				if(p.getCredits()>=InfantryDefault.getCreditCost())
 					return true;
 			break;
 			case "InfantryAT":
-				if(p.getCredits()>InfantryDefault.getCreditCost())
+				if(p.getCredits()>=InfantryDefault.getCreditCost())
 					return true;
 			break;
 			case "InfantryAA":
-				if(p.getCredits()>InfantryDefault.getCreditCost())
+				if(p.getCredits()>=InfantryDefault.getCreditCost())
 					return true;
 			break;
 			case "InfantrySiege":
-				if(p.getCredits()>InfantryDefault.getCreditCost())
+				if(p.getCredits()>=InfantryDefault.getCreditCost())
 					return true;
 			break;
 		

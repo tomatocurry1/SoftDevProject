@@ -127,7 +127,7 @@ public class MapLoader {
 							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
 						}
 						
-						if(j==6  && i == 13){
+						if(j==8 && i == 11){
 							GameInterface.grid[i][j].setResource(new Oil());
 						}
 						
@@ -144,7 +144,11 @@ public class MapLoader {
 							GameInterface.grid[i][j].setTerrain(Terrain.GRASSLANDS);
 						}
 												
-						if((j==5 || j == 6 )&& (i == 7 || i == 6)){
+						if( j == 6 && i == 6){
+							GameInterface.grid[i][j].setResource(new Oil());
+						}
+						
+						if( j == 5 && i == 7){
 							GameInterface.grid[i][j].setResource(new Oil());
 						}
 						
@@ -194,6 +198,10 @@ public class MapLoader {
 				GameInterface.grid[12][7].getBuilding().setOwner(TurnManager.plst[1]);
 				GameInterface.grid[4][1].setBuilding(new Base());
 				GameInterface.grid[4][1].getBuilding().setOwner(TurnManager.plst[2]);
+				
+				GameInterface.grid[2][5].setBuilding(new City());
+				GameInterface.grid[9][1].setBuilding(new City());
+				GameInterface.grid[11][5].setBuilding(new City());
 				
 				GameInterface.grid[3][9].setUnit(new InfantryDefault(TurnManager.plst[0]));
 				GameInterface.grid[12][7].setUnit(new InfantryDefault(TurnManager.plst[1]));

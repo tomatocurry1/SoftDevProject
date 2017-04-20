@@ -8,7 +8,7 @@ public class TankDefault extends Unit {
 	private double waterMultiplier = 500000;
 	private int oilCost = 0;
 	private int steelCost = 1;
-	private static int creditCost = 500;
+	private static int creditCost = 3000;
 	
 	
 	public TankDefault(Player p) {
