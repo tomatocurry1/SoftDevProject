@@ -4,7 +4,7 @@ public class TurnManager {
 
 	public static int arrayPointer = 0;
 	private static Player currentPlayer;
-	public static Player plst[] = new Player[4];
+	public static Player plst[];
 	private static int pntLmt = 8;
 
 	
@@ -17,14 +17,14 @@ public class TurnManager {
 	}
 	
 	public static void cyclePlayers() {
-		if (arrayPointer == (GameInterface.numplayers -1)) {
+		if (arrayPointer == (plst.length-1)) {
 			arrayPointer = 0;
 		}
 		else 
 			arrayPointer++;
 		
 		while (plst[arrayPointer].isEliminated()) {
-			if (arrayPointer == (GameInterface.numplayers -1)) {
+			if (arrayPointer == (plst.length-1)) {
 				arrayPointer = 0;
 			}
 			else 
@@ -88,7 +88,7 @@ public class TurnManager {
 	public static void calculateResources(){
 		changeCapturedOwnership();
 		
-		for(int k = 0; k < plst.length; k ++){
+		for(int k = 0; k < GameInterface.numplayers; k ++){
 			plst[k].setOil(0);
 			plst[k].setSteel(0);
 			plst[k].setVictoryPoints(0);
