@@ -4,7 +4,7 @@ public class AircraftSiege extends AircraftDefault {
 	public AircraftSiege(Player p) {
 		super(p);
 		
-		this.setCityAMultiplier(1.5);
+		this.setCityAMultiplier(2);
 		setSpecialAttack(getCityAMultiplier() * getAttack());
 	}
 	
