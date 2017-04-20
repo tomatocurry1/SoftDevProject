@@ -239,7 +239,9 @@ public void run() {
 	// initializes the game board and players
 	public void gameInit(){
 		
+		TurnManager.plst = new Player[numplayers];
 		MapLoader.load(numplayers);
+		
 		
 		glfwSetMouseButtonCallback(window, mouseCallback = new GLFWMouseButtonCallback() {
 		    @Override
@@ -883,16 +885,7 @@ public void run() {
 	}
 	
 	private static void renderCurrentPlayerOutline() {
-		int n = 0;
-		if (TurnManager.getCurrentPlayer() == TurnManager.plst[1]) {
-			n = 1;
-		}
-		if (TurnManager.plst[2] != null && TurnManager.getCurrentPlayer() == TurnManager.plst[2]) {
-			n = 2;
-		}
-		if (TurnManager.plst[3] != null && TurnManager.getCurrentPlayer() == TurnManager.plst[3]) {
-			n = 3;
-		}
+		int n = TurnManager.getCurrentPlayer().getPlayerNum()-1;
 		
 		GL11.glColor3f(1.0f, 1.0f, 0.0f);
     	GL11.glBegin(GL11.GL_LINES);

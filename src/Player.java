@@ -19,11 +19,11 @@ public class Player {
 	private Stack<Unit> aircraftStack = new Stack<Unit>();
 	
 	public Player(int num) {
-		playerNum = num;
+		setPlayerNum(num);
 	}
 	
 	public Player(int num, float r, float g, float b) {
-		playerNum = num;
+		setPlayerNum(num);
 		red = r;
 		green = g;
 		blue = b;
@@ -54,7 +54,7 @@ public class Player {
 	}
 	
 	public int getNum() {
-		return playerNum;
+		return getPlayerNum();
 	}
 	
 	public void setColors(float r, float g, float b) {
@@ -158,5 +158,13 @@ public class Player {
 	
 	public Unit getLastAircraft() {
 		return aircraftStack.pop();
+	}
+
+	public int getPlayerNum() {
+		return playerNum;
+	}
+
+	public void setPlayerNum(int playerNum) {
+		this.playerNum = playerNum;
 	}
 }
