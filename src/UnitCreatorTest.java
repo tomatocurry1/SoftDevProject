@@ -6,11 +6,14 @@ public class UnitCreatorTest {
 
 	@Test
 	public void createAircraftEnough(){
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		//tile with oil
 		GameInterface.grid[5][0].getResource().setOwner(TurnManager.getCurrentPlayer());
+		
 		for(int i=0; i<4; i++)
 			TurnManager.endTurn();
+		TurnManager.getCurrentPlayer().addCredits(3000);
 		int credit = TurnManager.getCurrentPlayer().getCredits();
 		System.out.println(GameInterface.grid[5][0].getResource());
 		System.out.println(TurnManager.getCurrentPlayer().getOil());
@@ -35,7 +38,8 @@ public class UnitCreatorTest {
 	
 	@Test
 	public void createAircraftNotEnough(){
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		//tile with oil
 		UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 4, 2, "Aircraft");
 		try{
@@ -53,7 +57,8 @@ public class UnitCreatorTest {
 	
 	@Test
 	public void createInfantryEnough(){
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		
 		for(int i=0; i<4; i++)
 			TurnManager.endTurn();
@@ -78,7 +83,8 @@ public class UnitCreatorTest {
 	
 	@Test
 	public void createInfantryNotEnough(){
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		TurnManager.getCurrentPlayer().subtractCredits(TurnManager.getCurrentPlayer().getCredits());
 		UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 2, 2, "Infantry");
 		try{
@@ -96,10 +102,12 @@ public class UnitCreatorTest {
 	
 	@Test
 	public void createTankEnough(){
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		//2 tiles with steel
 		GameInterface.grid[1][2].getResource().setOwner(TurnManager.getCurrentPlayer());
 		GameInterface.grid[1][7].getResource().setOwner(TurnManager.getCurrentPlayer());
+		TurnManager.getCurrentPlayer().addCredits(3000);
 		for(int i=0; i<4; i++)
 			TurnManager.endTurn();
 		int credit = TurnManager.getCurrentPlayer().getCredits();
@@ -123,7 +131,8 @@ public class UnitCreatorTest {
 	
 	@Test
 	public void createTankNotEnough(){
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		//tile with steel
 		UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 2, 2, "Tank");
 		try{
@@ -142,7 +151,8 @@ public class UnitCreatorTest {
 	
 	@Test
 	public void createWrongTurn(){
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		//tile with steel
 		GameInterface.grid[1][2].getResource().setOwner(TurnManager.plst[0]);
 		for(int i=0; i<5; i++)
