@@ -81,6 +81,7 @@ public class UnitManager {
 		//if unit is destroyed
 		if (unit2.getHealth() <= 0) {
 			unit2.getOwner().setUnitsControlled(unit2.getOwner().getUnitsControlled() - 1);
+			destroyUnit(unit2);
 			moveUnit(tile1, tile2);
 			tile2.getUnit().setMovementPts(0.0);
 		}
@@ -158,6 +159,41 @@ public class UnitManager {
 				}
 			}
 			return move[tile2.getX()][tile2.getY()];
+		}
+		
+		public static void destroyUnit(Unit u) {
+			if (u instanceof AircraftDefault) {
+				Player p = u.getOwner();
+				Stack<Unit> s = new Stack<Unit>();
+				Unit active = null;
+				boolean found = false;
+				while (!found) {
+					active = p.getLastAircraft();
+					if (active.equals(u)) {
+						found = true;
+						while (s.size() > 0) {
+							p.addAircraft(s.pop());
+						}
+					}
+					s.push(active);
+				}
+			}
+			else if (u instanceof TankDefault) {
+				Player p = u.getOwner();
+				Stack<Unit> s = new Stack<Unit>();
+				Unit active = null;
+				boolean found = false;
+				while (!found) {
+					active = p.getLastTank();
+					if (active.equals(u)) {
+						found = true;
+						while (s.size() > 0) {
+							p.addTank(s.pop());
+						}
+					}
+					s.push(active);
+				}
+			}
 		}
 		
 	}
