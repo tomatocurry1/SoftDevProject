@@ -18,13 +18,19 @@ public class MapLoader {
 			case 4:
 				load4P(mapnum);
 				break;
-			default: 
+				
+			default:
+				System.err.println("Player number out of bounds (2-4)");
 		}
 	}
 	
 	public static void load2P(int mapnum){
 		switch(mapnum){
 			case 0:
+				break;
+				
+			default:
+				System.err.println("Map number out of bounds " + maps[0]);	
 		}
 	}
 	
@@ -40,6 +46,7 @@ public class MapLoader {
 			
 		switch(mapnum){
 			case 0:
+
 				
 				//makes matrix of tiles
 				GameInterface.grid = new Tile[14][10];
@@ -146,6 +153,11 @@ public class MapLoader {
 				GameInterface.grid[3][9].setUnit(new InfantryDefault(TurnManager.plst[0]));
 				GameInterface.grid[12][7].setUnit(new InfantryDefault(TurnManager.plst[1]));
 				GameInterface.grid[4][1].setUnit(new InfantryDefault(TurnManager.plst[2]));
+				break;
+				
+			default:
+				System.err.println("Map number out of bounds " + maps[1]);
+
 		}
 		
 	}
@@ -250,6 +262,8 @@ public class MapLoader {
 				GameInterface.grid[8][7].setBuilding(new City());
 				break;
 				
+			default:
+				System.err.println("Map number out of bounds " + maps[2]);
 		}
 					
 					

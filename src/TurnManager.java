@@ -7,8 +7,6 @@ public class TurnManager {
 	public static Player plst[] = new Player[4];
 	private static int pntLmt = 8;
 
-
-	
 	
 	public static Player getCurrentPlayer() {
 		return currentPlayer;
@@ -137,21 +135,21 @@ public class TurnManager {
 	private static void checkResourceUnitTransfer() {
 		for (int i = 0; i < plst.length; i++ ) {
 			while (plst[i].getOil() < plst[i].getOilUsed()) {
-				deleteAircraft(plst[i]);
+				deleteAircraft(plst[i], plst[i].getLastAircraft());
 			}
 			while (plst[i].getSteel() < plst[i].getSteelUsed()) {
-				deleteTank(plst[i]);
+				deleteTank(plst[i], plst[i].getLastTank());
 			}
 		}
 	}
 	
-	private static void deleteTank(Player p) {
+	private static void deleteTank(Player p, Unit u) {
 		boolean found = false;
 		int i = 0;
 		while (!found && i < GameInterface.grid.length) {
 			int j = 0;
 			while (!found && j < GameInterface.grid[i].length) {
-				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof TankDefault)) {
+				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit().equals(u))) {
 					GameInterface.grid[i][j].setUnit(null);
 					p.setSteelUsed(p.getSteelUsed() - 1);
 					found = true;
@@ -162,13 +160,13 @@ public class TurnManager {
 		}
 		}
 	
-	private static void deleteAircraft(Player p) {
+	private static void deleteAircraft(Player p, Unit u) {
 		boolean found = false;
 		int i = 0;
 		while (!found && i < GameInterface.grid.length) {
 			int j = 0;
 			while (!found && j < GameInterface.grid[i].length) {
-				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit() instanceof AircraftDefault)) {
+				if (GameInterface.grid[i][j].getUnit() != null && GameInterface.grid[i][j].getUnit().getOwner().equals(p) && (GameInterface.grid[i][j].getUnit().equals(u))) {
 					GameInterface.grid[i][j].setUnit(null);
 					p.setOilUsed(p.getOilUsed() - 1);
 					found = true;

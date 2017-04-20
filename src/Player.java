@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class Player {
 
@@ -14,6 +15,8 @@ public class Player {
 	private int endGameCounter = 0;
 	private int citiesControlled = 1;
 	private int unitsControlled = 1;
+	private Stack<Unit> tankStack = new Stack<Unit>();
+	private Stack<Unit> aircraftStack = new Stack<Unit>();
 	
 	public Player(int num) {
 		playerNum = num;
@@ -131,5 +134,29 @@ public class Player {
 
 	public void setOilUsed(int oilUsed) {
 		this.oilUsed = oilUsed;
+	}
+	
+	public void addTank(Unit t) {
+		tankStack.push(t);
+	}
+	
+	public int numOfTanks() {
+		return tankStack.size();
+	}
+	
+	public Unit getLastTank() {
+		return tankStack.pop();
+	}
+	
+	public void addAircraft(Unit t) {
+		aircraftStack.push(t);
+	}
+	
+	public int numOfAircrafts() {
+		return aircraftStack.size();
+	}
+	
+	public Unit getLastAircraft() {
+		return aircraftStack.pop();
 	}
 }
