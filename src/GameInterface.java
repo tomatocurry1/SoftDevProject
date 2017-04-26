@@ -172,8 +172,6 @@ public void run() {
 		    Font.drawString("THREE PLAYER", 543, 248, 2f, 2.5f);
 		    Font.drawString("FOUR PLAYER", 550, 150, 2f, 2.5f);
 			
-		    //Font.drawString("qwertyuiopasdfghjklzxcvbnm 1234567890", 10, 10, 1.f, 1.5f);
-		    
 			glfwSwapBuffers(window); // swap the color buffers
 
 			// Poll for window events. The key callback above will only be
@@ -270,7 +268,7 @@ public void run() {
 		    	if (action == GLFW_RELEASE) {
 		    	posX = getCursorPosX(window);
 		    	posY = getCursorPosY(window);
-		    	System.out.println((1280-posX) + ", " + (720-posY));
+
 		    	
 		    	displayTileInfo = false;
 		    	
@@ -284,16 +282,6 @@ public void run() {
 			    	justClickedTile = GameInterface.grid[xCord][yCord];
 		    		
 			    	if (button == GLFW_MOUSE_BUTTON_1) {
-				    	
-			    		//prints the coordinates of the tile that was clicked
-				    	System.out.println("xCord: " + xCord + ", yCord: " + yCord);
-				    	
-			
-				    	if (justClickedTile.getUnit() != null) {
-				    	
-				    	}
-				    	else
-				    		System.out.println("No Unit");
 				    	//determines if the current player can move their unit on lastTile to the justClickedTile
 				    	if ((lastTile != justClickedTile) && lastTile != null && lastTile.getUnit() != null &&  
 				    		UnitManager.isValidMove(lastTile, justClickedTile) ) {
@@ -317,17 +305,6 @@ public void run() {
 			    	//right clicking displays the terrain, resource, and building????
 			    	else if (button == GLFW_MOUSE_BUTTON_2) {
 			    		displayTileInfo = true;
-			    		System.out.println("Terrain is: " + justClickedTile.getTerrain().toString());
-				    	if (justClickedTile.getBuilding() == null)
-				    		System.out.println("No Building");
-				    	else
-				    		System.out.println("Has Building: " + justClickedTile.getBuilding().toString());
-				    	if (justClickedTile.getResource() == null)
-				    		System.out.println("No Resource");
-				    	else
-				    		System.out.println("Has Resource: " + justClickedTile.getResource().toString());
-			    	
-				    	
 			    	}
 		    	
 		    	}
@@ -344,13 +321,11 @@ public void run() {
 		   
 		    	//selecting the generic type of unit
 		    	if (posX > 952 + 40 && posX < 952 + 165 && posY > 260 && posY < 330) {
-		    		System.out.println("Trying to buy Infantry");
 		    		
 		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingAircraft = false;
     					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Infantry")){
-		    				System.out.println("can buy Infantry");
 		    				buyingInfantry = true;
 		    				
 		    				//UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Infantry");
@@ -358,30 +333,24 @@ public void run() {
 		    		}
 		    	}
 		    	else if (posX > 952 + 40 && posX < 952 + 165 && posY > 370 && posY < 440) {
-		    		System.out.println("Trying to buy Tank");
 		    		
 		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getUnit() == null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingInfantry = false;
     					buyingAircraft = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Tank")){
-		    				System.out.println("can buy Tank");
 		    				buyingTank = true;
 		    				
-		    				//UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Tank");
 		    			}
 		    		}
 		    	}
 		    	else if (posX > 952 + 40 && posX < 952 + 165 && posY > 480 && posY < 550) {
-		    		System.out.println("Trying to buy Aircraft");
 		    		
 		    		if(justClickedTile != null && justClickedTile.getBuilding()!=null && justClickedTile.getBuilding().getOwner() != null && justClickedTile.getBuilding().getOwner().getNum() == TurnManager.getCurrentPlayer().getNum()) {
 		    			buyingInfantry = false;
     					buyingTank = false;
 		    			if (UnitCreator.canCreateUnit(TurnManager.getCurrentPlayer(), "Aircraft")){
-		    				System.out.println("can buy Aircraft");
 		    				buyingAircraft = true;
 		    				
-		    				//UnitCreator.createUnit(TurnManager.getCurrentPlayer(), justClickedTile.getX(), justClickedTile.getY(), "Aircraft");
 		    			}
 		    		}
 		    	}
@@ -461,14 +430,9 @@ public void run() {
 		if(spritebase == 0)
 			spritebase = TextureLoader.glLoadPNG("img/fort.png");
 		if(spritewinning == 0)
-			spritewinning = TextureLoader.glLoadPNG("img/winning.png");
-		
+			spritewinning = TextureLoader.glLoadPNG("img/winning.png");		
 	}
 
-	
-		
-		
-	
 	private void mainLoop() {
 		// This line is critical for LWJGL's interoperation with GLFW's
 		// OpenGL context, or any context that is managed externally.
@@ -511,7 +475,6 @@ public void run() {
 			GL11.glVertex2f(952+5,720);
 			GL11.glVertex2f(952,720);
 		    GL11.glEnd();
-		    
 		    
 		    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glVertex2f(1280-5,0);
@@ -857,33 +820,22 @@ public void run() {
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritehill);
 		}
 		
-		
-		//GL11.glColor3f(.0f,.0f,1.0f);
-		
-		//System.out.println(spritenum);
-		
-		//GL11.glBindTexture(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB, spritenum);
-		
 		GL11.glBegin(GL11.GL_QUADS);
 	    
 	    GL11.glTexCoord2f(0,1);
 	    GL11.glVertex2f(68*j,68*i);
 	    
 	    GL11.glTexCoord2f(0,0);
-	    //GL11.glTexCoord2f(0,32);
 		GL11.glVertex2f(68*j,68*(i+1));
 		
 		GL11.glTexCoord2f(1,0);
-		//GL11.glTexCoord2f(32,32);
 		GL11.glVertex2f(68*(j+1),68*(i+1));
 		
 		GL11.glTexCoord2f(1,1);
-		//GL11.glTexCoord2f(32,0);
 	    GL11.glVertex2f(68*(j+1),68*i);
 	    
 		GL11.glEnd();
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-		//GL11.glBindTexture(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB, 0);
 	}
 	
 	private static void drawUnit(int i, int j, Unit u) {
@@ -962,13 +914,6 @@ public void run() {
 			GL11.glColor3f(1.0f,1.0f,1.0f);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, spritesteel);
 		}
-		
-		
-		//GL11.glColor3f(.0f,.0f,1.0f);
-		
-		//System.out.println(spritenum);
-		
-		//GL11.glBindTexture(ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB, spritenum);
 		
 		GL11.glBegin(GL11.GL_QUADS);
 	    

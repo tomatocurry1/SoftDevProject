@@ -11,7 +11,11 @@ public class MovementTest {
 	
 	@Test
 	public void testMovementOptimization() {
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
+		GameInterface.grid[1][1].setUnit(new TankDefault(TurnManager.getCurrentPlayer()));
+		GameInterface.grid[1][8].setUnit(new TankDefault(TurnManager.getCurrentPlayer()));
+		GameInterface.grid[12][1].setUnit(new TankDefault(TurnManager.getCurrentPlayer()));
 		UnitManager.setup(GameInterface.grid[1][1].getUnit());
 		assertEquals(1.5, UnitManager.shortestPath(GameInterface.grid[1][1], GameInterface.grid[3][2]), 0.01);
 		assertEquals(0.0, UnitManager.shortestPath(GameInterface.grid[1][1], GameInterface.grid[1][3]), 0.01);
@@ -25,7 +29,8 @@ public class MovementTest {
 	
 	@Test
 	public void testUnitMovement() {
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		assertTrue(GameInterface.grid[2][0].getUnit() == null);
 		UnitManager.moveUnit(GameInterface.grid[1][1], GameInterface.grid[2][0]);
 		assertTrue(GameInterface.grid[2][0].getUnit() != null);
@@ -33,9 +38,10 @@ public class MovementTest {
 	
 	@Test
 	public void testCurrentPlayerInteraction() {
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		//current player attempts to move own unit
-		assertTrue(UnitManager.isValidMove(GameInterface.grid[1][1], GameInterface.grid[3][2]));
+		assertTrue(UnitManager.isValidMove(GameInterface.grid[1][1], GameInterface.grid[2][2]));
 		//current player attempts to move other player's unit
 		assertFalse(UnitManager.isValidMove(GameInterface.grid[1][8], GameInterface.grid[1][9]));
 		assertFalse(UnitManager.isValidMove(GameInterface.grid[12][8], GameInterface.grid[12][9]));
@@ -44,7 +50,8 @@ public class MovementTest {
 	
 	@Test
 	public void testAttack() {
-		new GameInterface().gameInit();
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
 		try {
 			assertTrue(TurnManager.getCurrentPlayer().getNum() == 1);
 			assertTrue(GameInterface.grid[1][1].getUnit() != null);
@@ -68,9 +75,9 @@ public class MovementTest {
 			assertTrue(GameInterface.grid[4][4].getUnit().getOwner().getNum() == 1);
 			assertTrue(GameInterface.grid[4][5].getUnit() != null);
 			assertTrue(GameInterface.grid[4][5].getUnit().getOwner().getNum() == 2);
-			assertEquals(4, GameInterface.grid[4][4].getUnit().getAttack());
-			assertEquals(6, GameInterface.grid[4][5].getUnit().getHealth());
-			assertEquals(10, GameInterface.grid[4][4].getUnit().getHealth());
+			assertEquals(2, GameInterface.grid[4][4].getUnit().getAttack());
+			assertEquals(4, GameInterface.grid[4][5].getUnit().getHealth());
+			assertEquals(6, GameInterface.grid[4][4].getUnit().getHealth());
 			assertEquals(0.0, GameInterface.grid[4][4].getUnit().getMovementPts(), 0.01);
 			TurnManager.endTurn();
 			TurnManager.endTurn();
@@ -82,9 +89,9 @@ public class MovementTest {
 			assertTrue(GameInterface.grid[4][4].getUnit().getOwner().getNum() == 1);
 			assertTrue(GameInterface.grid[4][5].getUnit() != null);
 			assertTrue(GameInterface.grid[4][5].getUnit().getOwner().getNum() == 2);
-			assertEquals(4, GameInterface.grid[4][4].getUnit().getAttack());
+			assertEquals(2, GameInterface.grid[4][4].getUnit().getAttack());
 			assertEquals(2, GameInterface.grid[4][5].getUnit().getHealth());
-			assertEquals(10, GameInterface.grid[4][4].getUnit().getHealth());
+			assertEquals(6, GameInterface.grid[4][4].getUnit().getHealth());
 			assertEquals(0.0, GameInterface.grid[4][4].getUnit().getMovementPts(), 0.01);
 			TurnManager.endTurn();
 			TurnManager.endTurn();
@@ -95,8 +102,8 @@ public class MovementTest {
 			assertTrue(GameInterface.grid[4][4].getUnit() == null);
 			assertTrue(GameInterface.grid[4][5].getUnit() != null);
 			assertTrue(GameInterface.grid[4][5].getUnit().getOwner().getNum() == 1);
-			assertEquals(4, GameInterface.grid[4][5].getUnit().getAttack());
-			assertEquals(10, GameInterface.grid[4][5].getUnit().getHealth());
+			assertEquals(2, GameInterface.grid[4][5].getUnit().getAttack());
+			assertEquals(6, GameInterface.grid[4][5].getUnit().getHealth());
 			assertEquals(0.0, GameInterface.grid[4][5].getUnit().getMovementPts(), 0.01);
 			
 		
@@ -108,8 +115,61 @@ public class MovementTest {
 			fail("Attacking unit failed");
 		}
 	}
-
+	
 	/*@Test
+	public void destroyUnits() {
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
+		Tile[][] a = GameInterface.grid;
+		Unit attacker;
+		try {
+			TurnManager.getCurrentPlayer().setSteel(1);
+			TurnManager.plst[1].setSteel(1);
+			TurnManager.plst[2].setOil(1);
+			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 1, 1, "Tank");
+			UnitCreator.createUnit(TurnManager.plst[1], 1, 2, "Tank");
+			UnitCreator.createUnit(TurnManager.plst[2], 1, 3, "Aircraft");
+			attacker = a[1][1].getUnit();
+			//assertTrue(UnitManager.isAttackValid(a[1][1], a[1][2]));
+			UnitManager.attack(a[1][1], a[1][2]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			assertTrue(UnitManager.isAttackValid(a[1][1], a[1][2]));
+			UnitManager.attack(a[1][1], a[1][2]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			assertTrue(UnitManager.isAttackValid(a[1][1], a[1][2]));
+			UnitManager.attack(a[1][1], a[1][2]);
+			assertTrue(a[1][1].getUnit().equals(null));
+			assertTrue(attacker.equals(a[1][2]));
+			assertTrue(UnitManager.isAttackValid(a[1][2], a[1][3]));
+			UnitManager.attack(a[1][2], a[1][3]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			assertTrue(UnitManager.isAttackValid(a[1][2], a[1][3]));
+			UnitManager.attack(a[1][2], a[1][3]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			assertTrue(a[1][2].getUnit().equals(null));
+			assertTrue(attacker.equals(a[1][3]));
+		}
+		catch (Exception e) {
+			fail("Destroying unit failed");
+		}
+	}
+
+	
+	
+	
+	@Test
 	public void testMouseClicks() {
 		GameInterface a = new GameInterface();
 		a.run();
