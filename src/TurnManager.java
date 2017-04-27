@@ -203,9 +203,9 @@ public class TurnManager {
 		pointLimit();
 
 		checkResourceUnitTransfer();
-
-		cyclePlayers();
-		endGame();
+		if(!endGame())
+			cyclePlayers();
+		
 	}
 
 

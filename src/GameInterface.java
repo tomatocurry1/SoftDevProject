@@ -710,7 +710,7 @@ public void run() {
 				GL11.glVertex2f(200,600);
 			    GL11.glEnd();
 			    
-			    Font.drawString("Player " + (((TurnManager.getCurrentPlayer().getPlayerNum()-1 + TurnManager.plst.length-1)%TurnManager.plst.length)+1) + " wins" , 200, 400, 2.f, 0);
+			    Font.drawString("Player " + TurnManager.getCurrentPlayer().getPlayerNum() + " wins" , 200, 400, 2.f, 0);
 			    //GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		    }
 		    
