@@ -696,9 +696,18 @@ public class MovementTest {
 	
 	
 	@Test
+	public void testMapLoader() {
+		
+		MapLoader.load2P(0);
+		MapLoader.load3P(0);
+		MapLoader.load4P(0);
+		
+		
+	}
+
 	public void testLoadingGame() {
 		GameInterface a = new GameInterface();
 		a.run();
 	}
-	
+
 }

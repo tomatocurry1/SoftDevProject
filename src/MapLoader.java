@@ -1,7 +1,7 @@
 
 public class MapLoader {
 	
-	static final int[] maps = {0,0,1};
+	static final int[] maps = {1,1,1};
 	
 	public static void load(int playernum){
 		load(playernum, (int)(Math.random()*maps[playernum-2]));
