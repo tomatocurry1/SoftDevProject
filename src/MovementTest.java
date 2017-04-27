@@ -49,6 +49,127 @@ public class MovementTest {
 	}
 	
 	@Test
+	public void checkCreditsForCities() {
+		try {
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			assertTrue(a[5][2].getBuilding().getOwner() == null);
+			UnitManager.moveUnit(a[1][1], a[5][2]);
+			assertEquals(0, TurnManager.plst[0].getCredits());
+			assertEquals(0, TurnManager.plst[1].getCredits());
+			TurnManager.endTurn();
+			assertTrue(a[5][2].getBuilding().getOwner().equals(TurnManager.plst[0]));
+			assertEquals(500, TurnManager.plst[0].getCredits());
+			assertEquals(250, TurnManager.plst[1].getCredits());
+			TurnManager.endTurn();
+			assertEquals(500, TurnManager.plst[1].getCredits());
+			assertEquals(1000, TurnManager.plst[0].getCredits());
+		}
+		catch (Exception e) {
+			fail("Credits are not allocated correctly");
+		}
+	}
+	@Test
+	public void resourceOwnership() {
+		try	{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			a[1][3].setUnit(new InfantryDefault(TurnManager.plst[1]));
+			assertTrue(a[1][2].getResource() != null);
+			assertTrue(a[1][2].getResource().getOwner() == null);
+			assertTrue(UnitManager.isValidMove(a[1][1], a[1][2]));
+			UnitManager.moveUnit(a[1][1], a[1][2]);
+			assertTrue(a[1][2].getResource() != null);
+			assertTrue(a[1][2].getResource().getOwner() == null);
+			TurnManager.endTurn();
+			assertTrue(a[1][2].getResource().getOwner().equals(TurnManager.plst[0]));
+			TurnManager.endTurn();
+			assertTrue(a[1][2].getResource().getOwner().equals(TurnManager.plst[0]));
+			TurnManager.endTurn();
+			assertTrue(a[1][2].getResource().getOwner().equals(TurnManager.plst[0]));
+			TurnManager.endTurn();
+			assertTrue(a[1][2].getResource().getOwner().equals(TurnManager.plst[0]));
+			assertTrue(UnitManager.isValidMove(a[1][2], a[2][2]));
+			UnitManager.moveUnit(a[1][2], a[2][2]);
+			TurnManager.endTurn();
+			assertTrue(a[1][2].getResource().getOwner().equals(TurnManager.plst[0]));
+			assertTrue(UnitManager.isValidMove(a[1][3], a[1][2]));
+			UnitManager.moveUnit(a[1][3], a[1][2]);
+			assertTrue(a[1][2].getResource().getOwner().equals(TurnManager.plst[0]));
+			TurnManager.endTurn();
+			assertTrue(a[1][2].getResource().getOwner().equals(TurnManager.plst[1]));
+		}
+		catch (Exception e) {
+			fail("Incorrect transfer of resource ownership");
+		}
+	}
+	
+	@Test
+	public void testTankDeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][3]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "Tank");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][3].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][3]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete tank");
+		}
+	}
+	
+	@Test
+	public void testAircraftDeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][0]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "Aircraft");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][0].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][0]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete tank");
+		}
+	}
+	/*
+	@Test
+	public void testLoadingGame() {
+		GameInterface a = new GameInterface();
+		a.run();
+	}
+	*/
+	
+	@Test
 	public void testAttack() {
 		TurnManager.plst = new Player[4];
 		MapLoader.load(4);
@@ -59,8 +180,11 @@ public class MovementTest {
 			UnitManager.moveUnit(GameInterface.grid[1][1], GameInterface.grid[4][4]);
 			assertTrue(GameInterface.grid[1][1].getUnit() == null);
 			assertTrue(GameInterface.grid[4][4].getUnit() != null);
+			assertEquals(1, TurnManager.plst[1].getUnitsControlled());
+			assertEquals(1, TurnManager.plst[1].getCitiesControlled());
+			assertTrue(TurnManager.getCurrentPlayer().getNum() == 1);
 			TurnManager.endTurn();
-			assertTrue(TurnManager.getCurrentPlayer().getNum() == 2);
+			assertEquals(2, TurnManager.getCurrentPlayer().getNum());
 			assertTrue(GameInterface.grid[1][8].getUnit() != null);
 			assertTrue(GameInterface.grid[4][5].getUnit() == null);
 			UnitManager.moveUnit(GameInterface.grid[1][8], GameInterface.grid[4][5]);
@@ -115,6 +239,8 @@ public class MovementTest {
 			fail("Attacking unit failed");
 		}
 	}
+	
+	
 	
 	/*@Test
 	public void destroyUnits() {

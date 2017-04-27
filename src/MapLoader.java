@@ -226,6 +226,7 @@ public class MapLoader {
 		
 		//sets the current player to be the first player
 		TurnManager.setCurrentPlayer(TurnManager.plst[0]);
+		TurnManager.arrayPointer = 0;
 		
 		switch(mapnum){
 			case 0:
