@@ -135,6 +135,89 @@ public class MovementTest {
 	}
 	
 	@Test
+	public void testTankSiegeDeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][3]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "TankSiege");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][3].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][3]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete tank");
+		}
+	}
+	@Test
+	public void testTankATDeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][3]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "TankAT");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][3].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][3]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete tank");
+		}
+	}
+	
+	@Test
+	public void testTankAADeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][3]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "TankAA");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][3].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][3]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][3].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete tank");
+		}
+	}
+	
+	@Test
 	public void testAircraftDeletion() {
 		try{
 			TurnManager.plst = new Player[4];
@@ -158,16 +241,94 @@ public class MovementTest {
 			
 		}
 		catch (Exception e) {
-			fail("did not correctly delete tank");
+			fail("did not correctly delete aircraft");
 		}
 	}
-	/*
+	
 	@Test
-	public void testLoadingGame() {
-		GameInterface a = new GameInterface();
-		a.run();
+	public void testAircraftSiegeDeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][0]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "AircraftSiege");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][0].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][0]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete aircraft");
+		}
 	}
-	*/
+	
+	@Test
+	public void testAircraftATDeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][0]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "AircraftAT");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][0].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][0]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete aircraft");
+		}
+	}
+	
+	@Test
+	public void testAircraftAADeletion() {
+		try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			TurnManager.plst[0].addCredits(10000);
+			UnitManager.moveUnit(a[1][1], a[5][0]);
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[0], 4, 4, "AircraftAA");
+			assertEquals(1, TurnManager.getCurrentPlayer().getPlayerNum());
+			assertEquals(1, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[5][0].getUnit() != null);
+			assertTrue(a[4][4].getUnit() != null);
+			UnitManager.moveUnit(a[1][8], a[5][0]);
+			TurnManager.endTurn();
+			assertEquals(2, a[5][0].getResource().getOwner().getPlayerNum());
+			assertTrue(a[4][4].getUnit() == null);
+			
+		}
+		catch (Exception e) {
+			fail("did not correctly delete aircraft");
+		}
+	}
+	
 	
 	@Test
 	public void testAttack() {
@@ -240,6 +401,55 @@ public class MovementTest {
 		}
 	}
 	
+	/*
+	@Test
+	public void createUnits() {
+		//try{
+			TurnManager.plst = new Player[4];
+			MapLoader.load(4);
+			Tile[][] a = GameInterface.grid;
+			for (int i = 0; i < 4; i++) {
+				TurnManager.plst[i].addCredits(20000);
+			}
+			a[1][2].getResource().setOwner(TurnManager.plst[0]);
+			a[1][7].getResource().setOwner(TurnManager.plst[1]);
+			a[5][3].getResource().setOwner(TurnManager.plst[0]);
+			a[8][0].getResource().setOwner(TurnManager.plst[2]);
+			a[8][9].getResource().setOwner(TurnManager.plst[3]);
+			a[5][0].getResource().setOwner(TurnManager.plst[2]);
+			
+			a[1][2].setUnit(new InfantryDefault((TurnManager.plst[0])));
+			a[1][7].setUnit(new InfantryDefault((TurnManager.plst[1])));
+			a[5][3].setUnit(new InfantryDefault((TurnManager.plst[0])));
+			a[8][0].setUnit(new InfantryDefault((TurnManager.plst[2])));
+			a[8][9].setUnit(new InfantryDefault((TurnManager.plst[3])));
+			a[5][0].setUnit(new InfantryDefault((TurnManager.plst[2])));
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			TurnManager.endTurn();
+			
+			UnitCreator.createUnit(TurnManager.plst[0], 3, 2, "TankAA");
+			UnitCreator.createUnit(TurnManager.plst[0], 2, 2, "TankAT");
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[1], 1, 2, "TankSiege");
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[2], 2, 0, "AircraftAA");
+			UnitCreator.createUnit(TurnManager.plst[2], 3, 3, "AircraftAT");
+			TurnManager.endTurn();
+			UnitCreator.createUnit(TurnManager.plst[3], 1, 0, "AircraftSiege");
+			UnitManager.attack(a[2][2], a[1][2]);
+			UnitManager.attack(a[1][2], a[1][1]);
+			UnitManager.attack(a[1][0], a[1][1]);
+			UnitManager.attack(a[2][0], a[1][0]);
+			UnitManager.attack(a[3][3], a[3][2]);
+			UnitManager.attack(a[3][2], a[3][3]);*/
+	//	}
+		//catch (Exception e) {
+			//fail("Failure in creating all units");
+		//}
+	
+	
 	
 	
 	/*@Test
@@ -311,4 +521,12 @@ public class MovementTest {
 			fail("Failed for some reason");
 		}
 	}*/
+	
+	
+	@Test
+	public void testLoadingGame() {
+		GameInterface a = new GameInterface();
+		a.run();
+	}
+	
 }

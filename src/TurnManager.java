@@ -160,6 +160,7 @@ public class TurnManager {
 		}
 		}
 	
+	
 	private static void deleteAircraft(Player p, Unit u) {
 		boolean found = false;
 		int i = 0;
