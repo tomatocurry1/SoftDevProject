@@ -705,6 +705,7 @@ public class MovementTest {
 		
 	}
 
+	@Test
 	public void testLoadingGame() {
 		GameInterface a = new GameInterface();
 		a.run();
