@@ -311,4 +311,15 @@ public class MovementTest {
 			fail("Failed for some reason");
 		}
 	}*/
+	
+	
+	@Test
+	public void testMapLoader() {
+		
+		MapLoader.load2P(0);
+		MapLoader.load3P(0);
+		MapLoader.load4P(0);
+		
+		
+	}
 }
