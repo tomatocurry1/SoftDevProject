@@ -13,7 +13,7 @@ public class UnitCreatorTest {
 		
 		for(int i=0; i<4; i++)
 			TurnManager.endTurn();
-		TurnManager.getCurrentPlayer().addCredits(3000);
+		TurnManager.getCurrentPlayer().addCredits(9000);
 		int credit = TurnManager.getCurrentPlayer().getCredits();
 		System.out.println(GameInterface.grid[5][0].getResource());
 		System.out.println(TurnManager.getCurrentPlayer().getOil());
