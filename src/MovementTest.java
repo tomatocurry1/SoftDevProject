@@ -245,6 +245,8 @@ public class MovementTest {
 		}
 	}
 	
+	
+	
 	@Test
 	public void testAircraftSiegeDeletion() {
 		try{
@@ -572,127 +574,6 @@ public class MovementTest {
 		
 	}
 
-	
-	/*
-	@Test
-	public void createUnits() {
-		//try{
-			TurnManager.plst = new Player[4];
-			MapLoader.load(4);
-			Tile[][] a = GameInterface.grid;
-			for (int i = 0; i < 4; i++) {
-				TurnManager.plst[i].addCredits(20000);
-			}
-			a[1][2].getResource().setOwner(TurnManager.plst[0]);
-			a[1][7].getResource().setOwner(TurnManager.plst[1]);
-			a[5][3].getResource().setOwner(TurnManager.plst[0]);
-			a[8][0].getResource().setOwner(TurnManager.plst[2]);
-			a[8][9].getResource().setOwner(TurnManager.plst[3]);
-			a[5][0].getResource().setOwner(TurnManager.plst[2]);
-			
-			a[1][2].setUnit(new InfantryDefault((TurnManager.plst[0])));
-			a[1][7].setUnit(new InfantryDefault((TurnManager.plst[1])));
-			a[5][3].setUnit(new InfantryDefault((TurnManager.plst[0])));
-			a[8][0].setUnit(new InfantryDefault((TurnManager.plst[2])));
-			a[8][9].setUnit(new InfantryDefault((TurnManager.plst[3])));
-			a[5][0].setUnit(new InfantryDefault((TurnManager.plst[2])));
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			
-			UnitCreator.createUnit(TurnManager.plst[0], 3, 2, "TankAA");
-			UnitCreator.createUnit(TurnManager.plst[0], 2, 2, "TankAT");
-			TurnManager.endTurn();
-			UnitCreator.createUnit(TurnManager.plst[1], 1, 2, "TankSiege");
-			TurnManager.endTurn();
-			UnitCreator.createUnit(TurnManager.plst[2], 2, 0, "AircraftAA");
-			UnitCreator.createUnit(TurnManager.plst[2], 3, 3, "AircraftAT");
-			TurnManager.endTurn();
-			UnitCreator.createUnit(TurnManager.plst[3], 1, 0, "AircraftSiege");
-			UnitManager.attack(a[2][2], a[1][2]);
-			UnitManager.attack(a[1][2], a[1][1]);
-			UnitManager.attack(a[1][0], a[1][1]);
-			UnitManager.attack(a[2][0], a[1][0]);
-			UnitManager.attack(a[3][3], a[3][2]);
-			UnitManager.attack(a[3][2], a[3][3]);*/
-	//	}
-		//catch (Exception e) {
-			//fail("Failure in creating all units");
-		//}
-	
-	
-	
-	
-	/*@Test
-	public void destroyUnits() {
-		TurnManager.plst = new Player[4];
-		MapLoader.load(4);
-		Tile[][] a = GameInterface.grid;
-		Unit attacker;
-		try {
-			TurnManager.getCurrentPlayer().setSteel(1);
-			TurnManager.plst[1].setSteel(1);
-			TurnManager.plst[2].setOil(1);
-			UnitCreator.createUnit(TurnManager.getCurrentPlayer(), 1, 1, "Tank");
-			UnitCreator.createUnit(TurnManager.plst[1], 1, 2, "Tank");
-			UnitCreator.createUnit(TurnManager.plst[2], 1, 3, "Aircraft");
-			attacker = a[1][1].getUnit();
-			//assertTrue(UnitManager.isAttackValid(a[1][1], a[1][2]));
-			UnitManager.attack(a[1][1], a[1][2]);
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			assertTrue(UnitManager.isAttackValid(a[1][1], a[1][2]));
-			UnitManager.attack(a[1][1], a[1][2]);
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			assertTrue(UnitManager.isAttackValid(a[1][1], a[1][2]));
-			UnitManager.attack(a[1][1], a[1][2]);
-			assertTrue(a[1][1].getUnit().equals(null));
-			assertTrue(attacker.equals(a[1][2]));
-			assertTrue(UnitManager.isAttackValid(a[1][2], a[1][3]));
-			UnitManager.attack(a[1][2], a[1][3]);
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			assertTrue(UnitManager.isAttackValid(a[1][2], a[1][3]));
-			UnitManager.attack(a[1][2], a[1][3]);
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			TurnManager.endTurn();
-			assertTrue(a[1][2].getUnit().equals(null));
-			assertTrue(attacker.equals(a[1][3]));
-		}
-		catch (Exception e) {
-			fail("Destroying unit failed");
-		}
-	}
-
-	
-	
-	
-	@Test
-	public void testMouseClicks() {
-		GameInterface a = new GameInterface();
-		a.run();
-		try {
-		Robot robot = new Robot();
-		robot.mouseMove(720-100, 100);
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        robot.mouseMove(720-100, 150);
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        assertTrue(GameInterface.grid[2][1].getUnit() != null);
-		}
-		catch (Exception e) {
-			fail("Failed for some reason");
-		}
-	}*/
 	
 	
 	@Test
