@@ -4,15 +4,6 @@ public class UnitManager {
 	
 	public static double[][] terrainMultiplierArray = new double[14][10];
 	
-	public static boolean isPossibleMove(Tile tile1, Tile tile2) {
-		Unit temp = tile1.getUnit();
-		if ((Math.abs(tile2.getX() - tile1.getX()) + Math.abs(tile2.getY() - tile1.getY())) <= temp.getMovementPts() * 2) {
-			return true;
-		}
-		else
-			return false;
-		
-	}
 	
 	public static boolean isPossibleMove(Tile tile1, Tile tile2, double points) {
 		if ((Math.abs(tile2.getX() - tile1.getX()) + Math.abs(tile2.getY() - tile1.getY())) <= 2 * points) {

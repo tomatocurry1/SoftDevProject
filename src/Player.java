@@ -18,9 +18,6 @@ public class Player {
 	private Stack<Unit> tankStack = new Stack<Unit>();
 	private Stack<Unit> aircraftStack = new Stack<Unit>();
 	
-	public Player(int num) {
-		setPlayerNum(num);
-	}
 	
 	public Player(int num, float r, float g, float b) {
 		setPlayerNum(num);

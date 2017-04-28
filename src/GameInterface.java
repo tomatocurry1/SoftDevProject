@@ -779,23 +779,7 @@ public void run() {
 	    
 	}
 	
-	// draws a circle on the tile with radius r with player p's color
-	private static void drawCircle(int xCord, int yCord, int radius, Player p){
-	    glBegin(GL_TRIANGLE_FAN);
-	    if (p == null)
-	    	GL11.glColor3f(0.5f, 0.5f, 0.5f);
-	    else
-	    	GL11.glColor3f(p.getRed(),p.getGreen(),p.getBlue());
-		glVertex2f(xCord*68+34, yCord*68+34); // center of circle
-		for(int i = 0; i <= 20;i++) { 
-		GL11.glVertex2f((float)
-		            ((xCord*68+34) + (radius * Math.cos(i *  (2*Math.PI / 20)))), 
-			    (float)((yCord*68+34) + (radius * Math.sin(i * 2*Math.PI / 20)))
-			);
-		
-		}
-		GL11.glEnd();
-	}
+
 	
 	//draws the terrain on the board
 	private static void drawTerrain(int i, int j, Terrain t){

@@ -5,7 +5,7 @@ import java.awt.event.InputEvent;
 
 import org.junit.Test;
 
-public class MovementTest {
+public class TestSuite {
 	
 	GameInterface a = new GameInterface();
 	
@@ -244,8 +244,6 @@ public class MovementTest {
 			fail("did not correctly delete aircraft");
 		}
 	}
-	
-	
 	
 	@Test
 	public void testAircraftSiegeDeletion() {
@@ -575,6 +573,35 @@ public class MovementTest {
 	}
 
 	
+	@Test
+	public void elimiatePlayers() {
+
+		TurnManager.plst = new Player[4];
+		MapLoader.load(4);
+		Tile[][] a = GameInterface.grid;
+		TurnManager.plst[0].addCredits(10000);
+		UnitManager.moveUnit(a[1][1], a[5][3]);
+		for(int i=0; i<4; i++)
+			TurnManager.endTurn();
+		UnitCreator.createUnit(TurnManager.plst[0], 13, 8, "Tank");
+		UnitCreator.createUnit(TurnManager.plst[0], 13, 9, "Infantry");
+		UnitManager.attack(a[13][8], a[12][8]);
+		for(int i=0; i<4; i++)
+			TurnManager.endTurn();
+		UnitManager.attack(a[13][8], a[12][8]);
+			
+		if(!TurnManager.plst[2].isEliminated()){
+			assert(false);
+		}
+		
+		System.out.println(TurnManager.getCurrentPlayer().getNum());
+
+		for(int i=0; i<3; i++)
+			TurnManager.endTurn();
+
+		if(TurnManager.getCurrentPlayer().getNum() != 1)
+			assert(false);
+	}
 	
 	@Test
 	public void testMapLoader() {

@@ -20,12 +20,7 @@ public class Unit {
 	public double getMultiplier(Terrain t) {
 		return 100000.0;
 	}
-	
-	public Unit(Player p, int h, int a) {
-		owner = p;
-		health = h;
-		attack = a;
-	}
+
 	
 	public Player getOwner() {
 		return owner;
